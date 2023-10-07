@@ -18,9 +18,9 @@ class Restaurant(db.Model):
     starRating = db.Column(db.Float())
     numReviews = db.Column(db.Integer())
 
-    owner = db.relationship("User", back_populates="restaurants")
+    owner = db.relationship("User", back_populates="restaurant")
 
-    menuitems = db.relationship("MenuItems", back_populates="restaurant")
+    menuItems = db.relationship("MenuItems", back_populates="restaurant")
 
     def to_dict(self):
         return {
