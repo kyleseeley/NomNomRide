@@ -8,8 +8,8 @@ class MenuItems(db.Model):
     restaurantId = db.Column(db.Integer,db.foreignKey("restaurant.id"))
     name = db.Column(db.String(255), nullable=False)
     type = db.Column(db.String(60), nullable=False)
-    image = db.Column()
-    restaurant = db.relationship("Restaurant",back_populate="id")
+    image = db.Column(db.String())
+    restaurant = db.relationship("Restaurant",back_populate="menuItems")
 
 def to_dict(self):
   return {
