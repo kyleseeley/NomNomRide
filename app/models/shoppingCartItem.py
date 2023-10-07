@@ -6,7 +6,7 @@ class ShoppingCartItem(db.Model):
 
     id = db.Column(db.Integer(), primary_key=True)
     cartId = db.Column(db.Integer(), nullable=False)
-    menuItemId = db.Column(db.Integer(), nullable=False)
+    menuItemId = db.Column(db.Integer(), db.foreignKey("menuitems.id"),nullable=False)
     itemQuantity = db.Column(db.Integer, nullable=False)
 
     menuitem = db.relationship("MenuItems", back_populates="shoppingcartitems")
