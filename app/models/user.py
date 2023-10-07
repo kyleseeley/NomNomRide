@@ -22,6 +22,8 @@ class User(db.Model, UserMixin):
     lng = db.Column(db.Float())
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    restaurants = db.relationship("Restaurant", back_populates="owner")
+
     @property
     def password(self):
         return self.hashed_password
