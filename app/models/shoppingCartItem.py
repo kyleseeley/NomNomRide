@@ -8,7 +8,7 @@ class ShoppingCartItem(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer(), primary_key=True)
-    cartId = db.Column(db.Integer(), nullable=False)
+    cartId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("shoppingCarts.id")), nullable=False)
     menuItemId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod(
         "menuItems.id")), nullable=False)
     itemQuantity = db.Column(db.Integer, nullable=False)
