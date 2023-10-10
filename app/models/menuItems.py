@@ -14,7 +14,8 @@ class MenuItems(db.Model):
     name = db.Column(db.String(255), nullable=False)
     type = db.Column(db.String(60), nullable=False)
     image = db.Column(db.String())
-    restaurant = db.relationship("Restaurant", back_populate="menuItems")
+    
+    restaurant = db.relationship("Restaurant", back_populates="menuItems")
 
 
 def to_dict(self):
