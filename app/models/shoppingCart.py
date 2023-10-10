@@ -14,8 +14,11 @@ class ShoppingCart(db.Model):
         add_prefix_for_prod("restaurants.id")))
     total = db.Column(db.Float(), nullable=False)
 
-    user = db.relationship("User", back_populates="shoppingCarts")
-    restaurant = db.relationship("Restaurant", back_populates="shoppingCarts")
+    user = db.relationship("User", back_populates="shoppingCart")
+
+    restaurant = db.relationship("Restaurant", back_populates="shoppingCart")
+
+    shoppingCartItems = db.relationship("ShoppingCartItem", back_populates="shoppingCart")
 
 
 def to_dict(self):
