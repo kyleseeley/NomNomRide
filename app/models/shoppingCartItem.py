@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
+
 class ShoppingCartItem(db.Model):
     __tablename__ = 'shoppingCartItems'
 
@@ -22,3 +23,4 @@ class ShoppingCartItem(db.Model):
             "menuItemId": self.menuItemId,
             "itemQuantity": self.itemQuantity,
         }
+

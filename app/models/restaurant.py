@@ -26,6 +26,7 @@ class Restaurant(db.Model):
 
     menuItems = db.relationship("MenuItems", back_populates="restaurant")
 
+
     def to_dict(self):
         return {
             "id": self.id,
@@ -42,3 +43,4 @@ class Restaurant(db.Model):
             "starRating": self.starRating,
             "numReviews": self.numReviews,
         }
+
