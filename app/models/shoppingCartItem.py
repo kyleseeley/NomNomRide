@@ -10,7 +10,7 @@ class ShoppingCartItem(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     cartId = db.Column(db.Integer(), nullable=False)
     menuItemId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod(
-        "menuitems.id")), nullable=False)
+        "menuItems.id")), nullable=False)
     itemQuantity = db.Column(db.Integer, nullable=False)
 
     menuItem = db.relationship("MenuItems", back_populates="shoppingCartItems")
