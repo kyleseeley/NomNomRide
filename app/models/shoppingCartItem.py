@@ -13,7 +13,7 @@ class ShoppingCartItem(db.Model):
         "menuItems.id")), nullable=False)
     itemQuantity = db.Column(db.Integer, nullable=False)
 
-    menuItem = db.relationship("MenuItems", back_populates="shoppingCartItems")
+    menuItem = db.relationship("MenuItem", back_populates="shoppingCartItems")
 
     shoppingCart = db.relationship(
         "ShoppingCart", back_populates="shoppingCartItems")
