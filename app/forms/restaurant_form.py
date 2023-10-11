@@ -9,35 +9,35 @@ def validateAddress(form, field):
 def validateCity(form, field):
   city = field.data
   if not city:
-    raise ValidationError('Please enter an city.')
+    raise ValidationError('Please enter a city.')
   if len(city) > 50:
     raise ValidationError('City name is too long.')
 def validateState(form, field):
   state = field.data
   if not state:
-    raise ValidationError('Please enter an state.')
+    raise ValidationError('Please select a state.')
 def validateLat(form, field):
   lat = field.data
   if not lat:
-    raise ValidationError('Please enter an lat.')
+    raise ValidationError('Please enter a latitude.')
   if lat > 90 or lat < -90:
     raise ValidationError('Latitude is invalid.')
 def validateLng(form, field):
   lng = field.data
   if not lng:
-    raise ValidationError('Please enter an lng.')
+    raise ValidationError('Please enter a longitude.')
   if lng > 180 or lng < -180:
     raise ValidationError('Longitude is invalid.')
 def validateName(form, field):
   name = field.data
   if not name:
-    raise ValidationError('Please enter an name.')
+    raise ValidationError('Please enter a name.')
   if len(name) > 50:
     raise ValidationError('Name is too long.')
 def validateType(form, field):
   type = field.data
   if not type:
-    raise ValidationError('Please enter an type.')
+    raise ValidationError('Please enter a type.')
   if len(type) > 50:
     raise ValidationError('Length of type is too long.')
 def validateImage(form, field):
