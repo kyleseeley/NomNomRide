@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, TextAreaField, IntegerField
-from wtforms.validators import DataRequired, ValidationError, Length, NumberRange
-from app.models import Review
+from wtforms import IntegerField
+from wtforms.validators import DataRequired, ValidationError
 
 
 def validateQuantity(form, field):
