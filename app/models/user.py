@@ -24,6 +24,10 @@ class User(db.Model, UserMixin):
 
     restaurants = db.relationship("Restaurant", back_populates="owner")
 
+    reviews = db.relationship("Review", back_populates="user")
+
+    shoppingCart = db.relationship("ShoppingCart", back_populates="user")
+
     @property
     def password(self):
         return self.hashed_password
