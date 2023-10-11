@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 class MenuItem(db.Model):
-    __tablename__ = 'menuItems'
+    __tablename__ = 'menuitems'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -16,7 +16,8 @@ class MenuItem(db.Model):
 
     restaurant = db.relationship("Restaurant", back_populates="menuItems")
 
-    shoppingCartItems = db.relationship("ShoppingCartItem", back_populates="menuItem")
+    shoppingCartItems = db.relationship(
+        "ShoppingCartItem", back_populates="menuItem")
 
 
 def to_dict(self):

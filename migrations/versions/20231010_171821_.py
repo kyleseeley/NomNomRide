@@ -105,11 +105,11 @@ def upgrade():
                     )
     # ### end Alembic commands ###
     if environment == "production":
-        op.execute(f"ALTER TABLE menuItems SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE menuitems SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE restaurants SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE shoppingCarts SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE shoppingCartItems SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE shoppingcarts SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE shoppingcartitems SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
 
