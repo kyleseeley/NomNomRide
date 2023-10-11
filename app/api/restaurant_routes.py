@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Restaurant
 from app.forms import RestaurantForm
@@ -14,14 +14,6 @@ def restaurants():
     """
     restaurants = Restaurant.query.all()
     form = RestaurantForm()
-    return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
-
-
-@restaurant_routes.route('/<int:id>')
-@login_required
-def restaurant(id):
-    """
-    Query for a restaurant by id and returns that restaurant in a dictionary
-    """
-    restaurant = Restaurant.query.get(id)
-    return restaurant.to_dict()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+      return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}

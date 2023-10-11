@@ -43,7 +43,7 @@ def validateType(form, field):
 def validateImage(form, field):
   image = field.data
   if not image:
-    raise ValidationError('Please enter an image.')
+    raise ValidationError('Please enter an image url.')
 
 class RestaurantForm(FlaskForm):
   address = StringField('address', validators=[DataRequired(), Length(max=50), validateAddress])
