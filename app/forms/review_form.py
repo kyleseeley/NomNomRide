@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, TextAreaField, IntegerField
+from wtforms import TextAreaField, IntegerField
 from wtforms.validators import DataRequired, ValidationError, Length, NumberRange
-from app.models import Review
 
 
 def review_data(form, field):
@@ -22,4 +21,3 @@ class ReviewForm(FlaskForm):
                            DataRequired(), Length(min=10), review_data])
     stars = IntegerField("Stars", validators=[
                          DataRequired(), NumberRange(min=1, max=5), star_data])
-    submit = SubmitField("Submit")
