@@ -17,7 +17,6 @@ class User(db.Model, UserMixin):
     address = db.Column(db.String(255), nullable=False)
     city = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(255), nullable=False)
-    country = db.Column(db.String(255), nullable=False)
     lat = db.Column(db.Float())
     lng = db.Column(db.Float())
     hashed_password = db.Column(db.String(255), nullable=False)
