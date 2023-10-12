@@ -13,7 +13,6 @@ class Restaurant(db.Model):
     address = db.Column(db.String(255), nullable=False)
     city = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(255), nullable=False)
-    country = db.Column(db.String(255), nullable=False)
     lat = db.Column(db.Float())
     lng = db.Column(db.Float())
     name = db.Column(db.String(60), nullable=False)
@@ -47,4 +46,3 @@ class Restaurant(db.Model):
             "starRating": self.starRating,
             "numReviews": self.numReviews,
         }
-

@@ -12,7 +12,6 @@ def seed_users():
         address='123 Main St',
         city='Denver',
         state='CO',
-        country='USA',
         lat=10,
         lng=10,
         password='password')
@@ -24,7 +23,6 @@ def seed_users():
         address='456 Lincoln St',
         city='Phoenix',
         state='AZ',
-        country='USA',
         lat=20,
         lng=20,
         password='password')
@@ -36,7 +34,6 @@ def seed_users():
         address='789 Rodeo Dr',
         city='Los Angeles',
         state='CA',
-        country='USA',
         lat=30,
         lng=30,
         password='password')
