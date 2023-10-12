@@ -58,6 +58,12 @@ def lat_data(form, field):
         raise ValidationError("Please enter in a latitude")
 
 
+def lng_data(form, field):
+    lng = field.data
+    if not lng:
+        raise ValidationError("Please enter in a longitude")
+
+
 def password_data(form, field):
     password = field.data
     if not password:
@@ -73,15 +79,15 @@ class SignUpForm(FlaskForm):
                         DataRequired(), user_exists])
     username = StringField(
         'username', validators=[DataRequired(), username_exists])
-    address = StringField("Address", validators=[DataRequired()])
-    city = StringField("City", validators=[DataRequired()])
-    state = SelectField("State", validators=[DataRequired()], choices=['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
-                                                                       'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
-                                                                       'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
-                                                                       'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
-                                                                       'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'])
+    address = StringField("Address", validators=[DataRequired(), address_data])
+    city = StringField("City", validators=[DataRequired(), city_data])
+    state = SelectField("State", validators=[DataRequired(), state_data], choices=['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+                                                                                   'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+                                                                                   'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+                                                                                   'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+                                                                                   'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'])
     lat = FloatField("Latitude", validators=[
-                     DataRequired(), NumberRange(min=-90, max=90)])
+                     DataRequired(), NumberRange(min=-90, max=90), lat_data])
     lng = FloatField("Longitude", validators=[
-                     DataRequired(), NumberRange(min=-180, max=180)])
+                     DataRequired(), NumberRange(min=-180, max=180), lng_data])
     password = StringField('password', validators=[DataRequired()])
