@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, FloatField
-from wtforms.validators import DataRequired, Email, ValidationError, Length, NumberRange
+from wtforms import StringField, SelectField, FloatField, EmailField
+from wtforms.validators import DataRequired, ValidationError, Length, NumberRange
 from app.models import User
 
 
@@ -75,8 +75,8 @@ class SignUpForm(FlaskForm):
                             DataRequired(), Length(min=2), firstname_data])
     lastname = StringField("Last Name", validators=[
                            DataRequired(), Length(min=2), lastname_data])
-    email = StringField('email', validators=[
-                        DataRequired(), user_exists, Email])
+    email = EmailField('email', validators=[
+        DataRequired(), user_exists])
     username = StringField(
         'username', validators=[DataRequired(), username_exists])
     address = StringField("Address", validators=[DataRequired(), address_data])
