@@ -29,7 +29,6 @@ class Restaurant(db.Model):
 
     shoppingCart = db.relationship("ShoppingCart", back_populates="restaurant")
 
-
     def to_dict(self):
         return {
             "id": self.id,
@@ -37,7 +36,6 @@ class Restaurant(db.Model):
             "address": self.address,
             "city": self.city,
             "state": self.state,
-            "country": self.country,
             "lat": self.lat,
             "lng": self.lng,
             "name": self.name,

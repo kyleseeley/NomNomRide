@@ -18,13 +18,13 @@ class ShoppingCart(db.Model):
 
     restaurant = db.relationship("Restaurant", back_populates="shoppingCart")
 
-    shoppingCartItems = db.relationship("ShoppingCartItem", back_populates="shoppingCart")
+    shoppingCartItems = db.relationship(
+        "ShoppingCartItem", back_populates="shoppingCart")
 
-
-def to_dict(self):
-    return {
-        "id": self.id,
-        "userId": self.userId,
-        "restaurantId": self.restaurantId,
-        "total": self.total
-    }
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "userId": self.userId,
+            "restaurantId": self.restaurantId,
+            "total": self.total
+        }
