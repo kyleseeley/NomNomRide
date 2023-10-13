@@ -20,11 +20,11 @@ class MenuItem(db.Model):
         "ShoppingCartItem", back_populates="menuItem")
 
 
-def to_dict(self):
-    return {
-        "id": self.id,
-        "restaurantId": self.restaurantId,
-        "name": self.name,
-        "type": self.type,
-        "image": self.image
-    }
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "restaurantId": self.restaurantId,
+            "name": self.name,
+            "type": self.type,
+            "image": self.image
+        }
