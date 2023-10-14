@@ -85,19 +85,6 @@ def update_restaurant(restaurantId):
         return restaurant.to_dict()
 
 
-@restaurant_routes.route('/<int:restaurantId>', methods=['DELETE'])
-@login_required
-def restaurants():
-    """
-    Query for all restaurants and returns them in a list of restaurant dictionaries
-    """
-    restaurants = Restaurant.query.all()
-    form = RestaurantForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
-
-
 @restaurant_routes.route("/<int:restaurantId>", methods=['DELETE'])
 def delete_restaurant(restaurantId):
     restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
@@ -139,7 +126,7 @@ def post_review(restaurantId):
         return jsonify(new_review.to_dict())
 
 
-#get all items by one restaurant
+# get all items by one restaurant
 @restaurant_routes.route('/<int:restaurantId>/items', methods=['GET'])
 def menuItems(restaurantId):
     """
@@ -149,23 +136,23 @@ def menuItems(restaurantId):
     return {'menuItems': [item.to_dict() for item in items]}
 
 
-#create a new item by specified restaurant
-@restaurant_routes.route('/<int:restaurantId>/items',methods=['POST'])
+# create a new item by specified restaurant
+@restaurant_routes.route('/<int:restaurantId>/items', methods=['POST'])
 @login_required
 def createItem(restaurantId):
 
     restaurant = Restaurant.query.get(restaurantId)
-    if  not restaurant or restaurant.ownerId != current_user.id:
+    if not restaurant or restaurant.ownerId != current_user.id:
         return jsonify({"error": "Not permitted or restaurant does not exict!"}), 401
     form = MenuItemsForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        name= form.data["name"]
-        type= form.data["type"]
+        name = form.data["name"]
+        type = form.data["type"]
         new_item = MenuItem(restaurantId=restaurantId,
                             name=name,
                             type=type
-                        )
+                            )
         db.session.add(new_item)
         db.session.commit()
         return jsonify(new_item.to_dict())
