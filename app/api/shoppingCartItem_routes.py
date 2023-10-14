@@ -6,10 +6,13 @@ from app.forms import ShoppingCartItemForm
 cartItem_routes = Blueprint('cartItem', __name__)
 
 @cartItem_routes.route('/:shoppingCartItemId', methods=["PUT"])
+@login_required
 def update_cartItem(shoppingCartItemId):
 	"""
 	Add item to cart, and if cart doesn't exist create a new cart
 	"""
+	if not current_user:
+		return { 'error': 'Unauthorized' }, 401
 	shoppingCartItem = ShoppingCartItem.query.filter(ShoppingCartItem.id == shoppingCartItemId).first()
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
@@ -20,10 +23,13 @@ def update_cartItem(shoppingCartItemId):
 		return shoppingCartItem.to_dict()
 
 @cartItem_routes.route('/:shoppingCartItemId', methods=["DELETE"])
+@login_required
 def delete_cartItem(shoppingCartItemId):
 	"""
 	Delete cart item, if no more cart items delete cart
 	# """
+	if not current_user:
+		return { 'error': 'Unauthorized' }, 401
 	shoppingCartItem = ShoppingCartItem.query.filter(ShoppingCartItem.id == shoppingCartItemId).first()
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
