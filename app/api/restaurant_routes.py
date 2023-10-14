@@ -18,30 +18,34 @@ def all_restaurants():
 @restaurant_routes.route('/', methods=['POST'])
 @login_required
 def post_restaurant():
-    """
-    Query for all restaurants and returns them in a list of restaurant dictionaries
-    """
-    if not current_user:
-        return {'error': 'Unauthorized'}, 403
-    form = RestaurantForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        data = form.data
-        new_restaurant = Restaurant(
-            ownerId=current_user.id,
-            address=data["address"],
-            city=data["city"],
-            state=data["state"],
-            lat=data["lat"],
-            lng=data["lng"],
-            name=data["name"],
-            type=data["type"],
-            image=data["image"]
-        )
+	"""
+	Query for all restaurants and returns them in a list of restaurant dictionaries
+	"""
+	if not current_user:
+		return {'error': 'Unauthorized'}, 403
+	form = RestaurantForm()
+	form['csrf_token'].data = request.cookies['csrf_token']
+	if form.validate_on_submit():
+		data = form.data
+		new_restaurant = Restaurant(
+		ownerId=current_user.id,
+		address=data["address"],
+		city=data["city"],
+		state=data["state"],
+		lat=data["lat"],
+		lng=data["lng"],
+		name=data["name"],
+		type=data["type"],
+		image=data["image"],
+		starRating=0,
+		numReviews=0
+		)
 
-        db.session.add(new_restaurant)
-        db.session.commit()
-        return new_restaurant.to_dict()
+		db.session.add(new_restaurant)
+		db.session.commit()
+		return new_restaurant.to_dict()
+	return
+
 
 
 @restaurant_routes.route('/<int:restaurantId>')
