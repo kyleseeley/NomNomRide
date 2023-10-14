@@ -108,7 +108,7 @@ def restaurant_reviews(restaurantId):
     restaurant = Restaurant.query.get(restaurantId)
 
     if restaurant is None:
-        return jsonify({"message": "Restaurant not found"}, 404)
+        return jsonify({"message": "Restaurant not found"}), 404
 
     reviews = Review.query.filter_by(restaurantId=restaurantId).all()
 
