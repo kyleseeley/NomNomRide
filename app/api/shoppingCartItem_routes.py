@@ -21,12 +21,14 @@ def update_cartItem(shoppingCartItemId):
 		shoppingCartItem.itemQuantity=form.data["quantity"]
 		db.session.commit()
 		return shoppingCartItem.to_dict()
+	else:
+		return form.errors
 
 @cartItem_routes.route('/:shoppingCartItemId', methods=["DELETE"])
 @login_required
 def delete_cartItem(shoppingCartItemId):
 	"""
-	Delete cart item, if no more cart items delete cart
+	Delete cart item
 	# """
 	if not current_user:
 		return { 'error': 'Unauthorized' }, 401
@@ -34,9 +36,7 @@ def delete_cartItem(shoppingCartItemId):
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
 
-	form = ShoppingCartItemForm()
-	if form.validate_on_submit():
-		db.session.delete(shoppingCartItem)
-		db.session.commit()
+	db.session.delete(shoppingCartItem)
+	db.session.commit()
 
-		return { "message": "Successfully deleted" }
+	return { "message": "Successfully deleted" }

@@ -36,12 +36,16 @@ def post_restaurant():
             lng=data["lng"],
             name=data["name"],
             type=data["type"],
-            image=data["image"]
+            image=data["image"],
+            starRating=0,
+            numReviews=0
         )
 
         db.session.add(new_restaurant)
         db.session.commit()
         return new_restaurant.to_dict()
+    else:
+        return form.errors
 
 
 @restaurant_routes.route('/<int:restaurantId>')
@@ -83,6 +87,8 @@ def update_restaurant(restaurantId):
         db.session.commit()
 
         return restaurant.to_dict()
+    else:
+        return form.errors
 
 
 @restaurant_routes.route("/<int:restaurantId>", methods=['DELETE'])
@@ -99,7 +105,15 @@ def delete_restaurant(restaurantId):
 
 @restaurant_routes.route("/<int:restaurantId>/reviews")
 def restaurant_reviews(restaurantId):
+    restaurant = Restaurant.query.get(restaurantId)
+
+    if restaurant is None:
+        return jsonify({"message": "Restaurant not found"}, 404)
+
     reviews = Review.query.filter_by(restaurantId=restaurantId).all()
+
+    if not reviews:
+        return jsonify({"message": "This restaurant has no reviews."})
 
     return {'reviews': [review.to_dict() for review in reviews]}
 
@@ -107,6 +121,7 @@ def restaurant_reviews(restaurantId):
 @restaurant_routes.route("/<int:restaurantId>/reviews", methods=["POST"])
 @login_required
 def post_review(restaurantId):
+    restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
     form = ReviewForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -123,7 +138,18 @@ def post_review(restaurantId):
         db.session.add(new_review)
         db.session.commit()
 
+        # Updating restaurant rating and number of reviews
+        restaurantReviews = Review.query.filter(
+            Review.restaurantId == restaurantId).all()
+        restaurant.numReviews += 1
+        totalRating = sum(review.stars for review in restaurantReviews)
+        restaurant.starRating = round(totalRating / restaurant.numReviews, 1)
+
+        db.session.commit()
+
         return jsonify(new_review.to_dict())
+    else:
+        return form.errors
 
 
 # get all items by one restaurant
@@ -141,18 +167,20 @@ def menuItems(restaurantId):
 @login_required
 def createItem(restaurantId):
 
-    restaurant = Restaurant.query.get(restaurantId)
-    if not restaurant or restaurant.ownerId != current_user.id:
-        return jsonify({"error": "Not permitted or restaurant does not exict!"}), 401
-    form = MenuItemsForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        name = form.data["name"]
-        type = form.data["type"]
-        new_item = MenuItem(restaurantId=restaurantId,
-                            name=name,
-                            type=type
-                            )
-        db.session.add(new_item)
-        db.session.commit()
-        return jsonify(new_item.to_dict())
+	restaurant = Restaurant.query.get(restaurantId)
+	if not restaurant or restaurant.ownerId != current_user.id:
+		return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
+	form = MenuItemsForm()
+	form['csrf_token'].data = request.cookies['csrf_token']
+	if form.validate_on_submit():
+		name = form.data["name"]
+		type = form.data["type"]
+		new_item = MenuItem(restaurantId=restaurantId,
+							name=name,
+							type=type
+							)
+		db.session.add(new_item)
+		db.session.commit()
+		return jsonify(new_item.to_dict())
+	else:
+		return form.errors
