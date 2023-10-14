@@ -45,7 +45,7 @@ def get_shoppingCart(shoppingCartId):
         return {"error": "Shopping cart not found."}, 404
 
 
-@shoppingCart_routes.route('/shopping-cart/<int:shoppingCartId/shopping-cart-items>', methods=["POST"])
+@shoppingCart_routes.route('/shopping-cart/<int:shoppingCartId>/shopping-cart-items', methods=["POST"])
 def post_shoppingCart(menuItemId):
     """
     Add item to cart, and if cart doesn't exist create a new cart
@@ -77,7 +77,7 @@ def post_shoppingCart(menuItemId):
     return new_shoppingCartItem.to_dict()
 
 
-@shoppingCart_routes.route("/shopping-cart/<int:shopping-cartId>", methods=["DELETE"])
+@shoppingCart_routes.route("/shopping-cart/<int:shoppingcartId>", methods=["DELETE"])
 @login_required
 def delete_shoppingCart(shoppingCartId):
     shoppingCart = ShoppingCart.query.get(shoppingCartId)
