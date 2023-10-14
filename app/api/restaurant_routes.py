@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, redirect
+from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
 from app.models import Restaurant, db
 from app.forms import RestaurantForm
@@ -6,8 +6,8 @@ from app.forms import RestaurantForm
 restaurant_routes = Blueprint('restaurants', __name__)
 
 
-@restaurant_routes.route('/', methods=['GET'])
-def restaurants():
+@restaurant_routes.route('/')
+def all_restaurants():
 	"""
 	Query for all restaurants and returns them in a list of restaurant dictionaries
 	"""
@@ -16,15 +16,18 @@ def restaurants():
 
 @restaurant_routes.route('/', methods=['POST'])
 @login_required
-def restaurants():
+def post_restaurant():
 	"""
 	Query for all restaurants and returns them in a list of restaurant dictionaries
 	"""
+	if not current_user:
+		return { 'error': 'Unauthorized' }, 403
 	form = RestaurantForm()
 	form['csrf_token'].data = request.cookies['csrf_token']
 	if form.validate_on_submit():
 		data = form.data
 		new_restaurant = Restaurant(
+			ownerId=current_user.id,
 			address=data["address"],
 			city=data["city"],
 			state=data["state"],
@@ -35,35 +38,34 @@ def restaurants():
 			image=data["image"]
 		)
 
+
 		db.session.add(new_restaurant)
 		db.session.commit()
-		return redirect(f"/restaurants/{new_restaurant.id}")
+		return new_restaurant.to_dict()
 
-@restaurant_routes.route('/<int:restaurantId>', methods=['GET'])
-def restaurants(restaurantId):
+@restaurant_routes.route('/<int:restaurantId>')
+def single_restaurant(restaurantId):
 	"""
 	Query for all restaurants and returns them in a list of restaurant dictionaries
 	"""
 	# restaurant = Restaurant.query().get(restaurantId)
 	restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
-
-	if restaurant is None:
+	if not restaurant:
 		return { 'error': 'Restaurant not found' }, 404
+
 	return restaurant.to_dict()
 
-@restaurant_routes.route('/<int:restaurantId>', methods=['PUT, DELETE'])
+@restaurant_routes.route('/<int:restaurantId>', methods=['PUT'])
 @login_required
-def restaurants(restaurantId):
+def update_restaurant(restaurantId):
 	"""
 	Query for all restaurants and returns them in a list of restaurant dictionaries
 	"""
 	restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
+	if not restaurant:
+		return { 'error': 'Restaurant not found' }, 404
 	if restaurant.ownerId != current_user.id:
-		return { 'error': 'Unauthorized' }
-	if request.method == 'DELETE':
-		db.session.delete(restaurant)
-		db.session.commit()
-		return { 'message': 'Successfully deleted' }
+		return { 'error': 'Unauthorized' }, 403
 	form = RestaurantForm()
 	form['csrf_token'].data = request.cookies['csrf_token']
 	if form.validate_on_submit():
@@ -78,4 +80,16 @@ def restaurants(restaurantId):
 		restaurant.image = data["image"]
 		db.session.commit()
 
-		return redirect(f"/restaurants/{restaurant.id}")
+		return restaurant.to_dict()
+
+@restaurant_routes.route('/<int:restaurantId>', methods=['DELETE'])
+@login_required
+def delete_restaurant(restaurantId):
+	restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
+	if not restaurant:
+		return { 'error': 'Restaurant not found' }, 404
+	if restaurant.ownerId != current_user.id:
+		return { 'error': 'Unauthorized' }, 403
+	db.session.delete(restaurant)
+	db.session.commit()
+	return { 'message': 'Successfully deleted' }
