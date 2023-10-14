@@ -6,7 +6,7 @@ from flask_login import current_user, login_required
 shoppingCart_routes = Blueprint('shoppingCart', __name__, url_prefix="")
 
 
-@shoppingCart_routes.route("/shopping-cart/<int:shoppingCartId>")
+@shoppingCart_routes.route("/<int:shoppingCartId>")
 @login_required
 def get_shoppingCart(shoppingCartId):
     shoppingCart = ShoppingCart.query.get(shoppingCartId)
@@ -45,7 +45,7 @@ def get_shoppingCart(shoppingCartId):
         return {"error": "Shopping cart not found."}, 404
 
 
-@shoppingCart_routes.route('/shopping-cart/<int:shoppingCartId>/shopping-cart-items', methods=["POST"])
+@shoppingCart_routes.route('/<int:shoppingCartId>/shopping-cart-items', methods=["POST"])
 def post_shoppingCart(menuItemId):
     """
     Add item to cart, and if cart doesn't exist create a new cart
@@ -77,7 +77,7 @@ def post_shoppingCart(menuItemId):
     return new_shoppingCartItem.to_dict()
 
 
-@shoppingCart_routes.route("/shopping-cart/<int:shoppingcartId>", methods=["DELETE"])
+@shoppingCart_routes.route("/<int:shoppingcartId>", methods=["DELETE"])
 @login_required
 def delete_shoppingCart(shoppingCartId):
     shoppingCart = ShoppingCart.query.get(shoppingCartId)
