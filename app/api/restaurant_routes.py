@@ -161,7 +161,7 @@ def createItem(restaurantId):
 
 	restaurant = Restaurant.query.get(restaurantId)
 	if not restaurant or restaurant.ownerId != current_user.id:
-		return jsonify({"error": "Not permitted or restaurant does not exict!"}), 401
+		return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
 	form = MenuItemsForm()
 	form['csrf_token'].data = request.cookies['csrf_token']
 	if form.validate_on_submit():
