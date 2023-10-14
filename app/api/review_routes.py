@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import Review, db
+from app.models import Review, Restaurant, db
 from app.forms.review_form import ReviewForm
 from flask_login import current_user, login_required
 
@@ -24,6 +24,17 @@ def edit_review(reviewId):
 
         db.session.commit()
 
+        restaurant = Restaurant.query.get(review.restaurantId)
+        reviews = Review.query.filter_by(
+            restaurantId=review.restaurantId).all()
+        total_stars = sum(review.stars for review in reviews)
+        avg_rating = total_stars / len(reviews) if len(reviews) > 0 else 0.0
+
+        # Update the restaurant record with the new starRating
+        restaurant.starRating = avg_rating
+
+        db.session.commit()
+
         return jsonify({"message": "Review updated successfully"})
 
 
@@ -35,7 +46,20 @@ def delete_review(reviewId):
     if review is None or review.userId != current_user.id:
         return jsonify({"error": "Review not found or user does not have permission to edit this review"}), 404
 
+    restaurant = Restaurant.query.get(review.restaurantId)
+
     db.session.delete(review)
+    db.session.commit()
+
+    reviews = Review.query.filter_by(restaurantId=restaurant.id).all()
+    num_reviews = len(reviews)
+    total_stars = sum(review.stars for review in reviews)
+    avg_rating = total_stars / num_reviews if num_reviews > 0 else 0.0
+
+    # Update the restaurant record with the new numReviews and starRating
+    restaurant.numReviews = num_reviews
+    restaurant.starRating = avg_rating
+
     db.session.commit()
 
     return jsonify({"message": "Review deleted successfully"})
