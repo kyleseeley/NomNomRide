@@ -74,7 +74,7 @@ def delete_review(reviewId):
 @login_required
 def get_user_reviews(userId):
     if userId != current_user.id:
-        return jsonify({"error": "You don't have permission to access this user's reviews"}), 403
+        return jsonify({"error": "You don't have permission to access this user's reviews"}), 401
 
     reviews = Review.query.filter_by(userId=userId).all()
 
