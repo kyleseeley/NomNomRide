@@ -35,7 +35,7 @@ def post_review(restaurantId):
         return jsonify(new_review.to_dict())
 
 
-@review_routes.route("/reviews/:reviewId", methods=["PUT"])
+@review_routes.route("/reviews/<int:reviewId>", methods=["PUT"])
 @login_required
 def edit_review(reviewId):
     review = Review.query.get(reviewId)
@@ -81,3 +81,13 @@ def get_user_reviews(userId):
     reviewList = [review.to_dict() for review in reviews]
 
     return jsonify({"reviews": reviewList})
+
+
+@review_routes.route("/reviews/<int:reviewId>")
+def get_one_review(reviewId):
+    review = Review.query.get(reviewId)
+
+    if review is not None:
+        return jsonify(review.to_dict())
+    else:
+        return jsonify({"message": "Review not found"}, 404)
