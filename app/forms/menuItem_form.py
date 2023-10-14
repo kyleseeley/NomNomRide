@@ -17,7 +17,8 @@ def validateImage(form, field):
   image = field.data
   if not image:
     raise ValidationError('Please enter an imageUrl.')
+
 class MenuItemsForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired(),validateName])
-    type = StringField("Type", validators=[DataRequired(),validateType])
-    image = URLField('image', validators=[DataRequired(),validateImage])
+    name = StringField("name", validators=[DataRequired(),validateName])
+    type = StringField("type", validators=[DataRequired(),validateType])
+    image = URLField("image", validators=[])
