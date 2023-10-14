@@ -124,6 +124,8 @@ def post_review(restaurantId):
 	restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
 	if not restaurant:
 		return jsonify({"error": "Restaurant does not exist!"}), 404
+	if restaurant.ownerId == current_user.id:
+		return { "message": "Can't post a review for your own restaurant." }, 403
 	form = ReviewForm()
 
 	form['csrf_token'].data = request.cookies['csrf_token']
