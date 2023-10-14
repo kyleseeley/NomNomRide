@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.review_routes import review_routes
 from .api.menuItem_routes import items_routes
 from .api.restaurant_routes import restaurant_routes
+from .api.review_routes import review_routes
 from .seeds import seed_commands
 from .config import Config
 
