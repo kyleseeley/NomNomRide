@@ -98,10 +98,6 @@ def restaurants():
         return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
 
-@restaurant_routes.route('/<int:id>/items', methods=['GET'])
-def items():
-    restaurant_routes.register_blueprint(items_routes)
-
 
 def delete_restaurant(restaurantId):
     restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
