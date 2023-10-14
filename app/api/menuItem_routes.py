@@ -24,7 +24,7 @@ def updateItem(itemId):
     item = MenuItem.query.get(itemId)
     restaurant = Restaurant.query.get_or_404(item.restaurantId)
     if  not restaurant or restaurant.ownerId != current_user.id:
-        return jsonify({"error": "Not permitted or restaurant does not exict!"}), 401
+        return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
 
     form = MenuItemsForm()
 
@@ -37,6 +37,8 @@ def updateItem(itemId):
         db.session.commit()
 
         return jsonify(item.to_dict())
+    else :
+        return form.errors
 
 
 #delete one item
@@ -48,7 +50,7 @@ def deleteItem(itemId):
         return jsonify({"error": "Item not found!"}), 404
     restaurant = Restaurant.query.get(item.restaurantId)
     if not restaurant or restaurant.ownerId != current_user.id:
-        return jsonify({"error": "Not permitted or restaurant does not exict!"}), 401
+        return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
 
     db.session.delete(item)
     db.session.commit()
