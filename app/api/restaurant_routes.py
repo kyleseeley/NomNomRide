@@ -99,7 +99,15 @@ def delete_restaurant(restaurantId):
 
 @restaurant_routes.route("/<int:restaurantId>/reviews")
 def restaurant_reviews(restaurantId):
+    restaurant = Restaurant.query.get(restaurantId)
+
+    if restaurant is None:
+        return jsonify({"message": "Restaurant not found"}, 404)
+
     reviews = Review.query.filter_by(restaurantId=restaurantId).all()
+
+    if not reviews:
+        return jsonify({"message": "This restaurant has no reviews."})
 
     return {'reviews': [review.to_dict() for review in reviews]}
 
@@ -121,6 +129,20 @@ def post_review(restaurantId):
         )
 
         db.session.add(new_review)
+        db.session.commit()
+
+        restaurant = Restaurant.query.get(restaurantId)
+
+        reviews = Review.query.filter_by(restaurantId=restaurantId).all()
+
+        num_reviews = len(reviews)
+        total_stars = sum(review.stars for review in reviews)
+        avg_rating = total_stars / num_reviews if num_reviews > 0 else 0
+
+        # Update the restaurant record with the new values
+        restaurant.numReviews = num_reviews
+        restaurant.starRating = avg_rating
+
         db.session.commit()
 
         return jsonify(new_review.to_dict())
