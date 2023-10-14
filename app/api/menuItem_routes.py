@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify,request
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db,MenuItem, Restaurant
 from app.forms import MenuItemsForm
@@ -7,7 +7,7 @@ items_routes = Blueprint('menuItems', __name__)
 
 
 #get one item
-@items_routes.route('/items/<int:itemId>',methods=['GET'])
+@items_routes.route('/<int:itemId>',methods=['GET'])
 def menuItem(itemId):
 
     item = MenuItem.query.get(itemId)
@@ -17,7 +17,7 @@ def menuItem(itemId):
 
 
 #edit an item by specified restaurant
-@items_routes.route('/items/<int:itemId>',methods=['PUT'])
+@items_routes.route('/<int:itemId>',methods=['PUT'])
 @login_required
 def updateItem(itemId):
 
@@ -40,7 +40,7 @@ def updateItem(itemId):
 
 
 #delete one item
-@items_routes.route('/items/<int:itemId>',methods=['DELETE'])
+@items_routes.route('/<int:itemId>',methods=['DELETE'])
 @login_required
 def deleteItem(itemId):
     item = MenuItem.query.get(itemId)

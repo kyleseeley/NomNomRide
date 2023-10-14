@@ -1,6 +1,6 @@
-from flask import Blueprint, request
+from flask import Blueprint
 from flask_login import login_required, current_user
-from app.models import ShoppingCartItem, ShoppingCart, db
+from app.models import ShoppingCartItem, db
 from app.forms import ShoppingCartItemForm
 
 cartItem_routes = Blueprint('cartItem', __name__)

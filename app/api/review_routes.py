@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, session, request
+from flask import Blueprint, jsonify, request
 from app.models import Review, db
 from app.forms.review_form import ReviewForm
 from flask_login import current_user, login_required
@@ -6,7 +6,7 @@ from flask_login import current_user, login_required
 review_routes = Blueprint('reviews', __name__, url_prefix="")
 
 
-@review_routes.route("/reviews/<int:reviewId>", methods=["PUT"])
+@review_routes.route("/<int:reviewId>", methods=["PUT"])
 @login_required
 def edit_review(reviewId):
     review = Review.query.get(reviewId)
@@ -27,7 +27,7 @@ def edit_review(reviewId):
         return jsonify({"message": "Review updated successfully"})
 
 
-@review_routes.route("/reviews/<int:reviewId>", methods=["DELETE"])
+@review_routes.route("/<int:reviewId>", methods=["DELETE"])
 @login_required
 def delete_review(reviewId):
     review = Review.query.get(reviewId)
@@ -41,7 +41,7 @@ def delete_review(reviewId):
     return jsonify({"message": "Review deleted successfully"})
 
 
-@review_routes.route("/reviews/<int:reviewId>")
+@review_routes.route("/<int:reviewId>")
 def get_one_review(reviewId):
     review = Review.query.get(reviewId)
 

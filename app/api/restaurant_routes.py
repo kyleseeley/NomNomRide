@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, jsonify
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import Restaurant, Review, MenuItem, db
 from app.forms import RestaurantForm, ReviewForm, MenuItemsForm
@@ -98,7 +98,7 @@ def restaurants():
         return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
 
-@restaurant_routes.route("/<int:restaurantId>")
+@restaurant_routes.route("/<int:restaurantId>", methods=['DELETE'])
 def delete_restaurant(restaurantId):
     restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
     if not restaurant:
@@ -140,7 +140,7 @@ def post_review(restaurantId):
 
 
 #get all items by one restaurant
-@restaurant_routes.route('/<int:restaurantId>/items',methods=['GET'])
+@restaurant_routes.route('/<int:restaurantId>/items', methods=['GET'])
 def menuItems(restaurantId):
     """
     Query for all items from given restaurant and returns them in a list of user dictionaries
