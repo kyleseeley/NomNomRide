@@ -12,16 +12,15 @@ def menuItems(restaurantId):
     Query for all items from given restaurant and returns them in a list of user dictionaries
     """
     restaurant = Restaurant.query.get_or_404(restaurantId)
-    print(restaurant.to_dict())
-    items = MenuItem.query.all()
+    items = MenuItem.query.all().filter(items["ownerId"]== restaurant.id)
     return {'menuItems': [item.to_dict() for item in items]}
 
-@items_routes.route('/items/<int:itemId>',methods=['GET'])
-def menuItem(id):
+@items_routes.route('/restaurants/<int:restaurantId>/items/<int:itemId>',methods=['GET'])
+def menuItem(itemId):
     """
     Query for one item and returns it in json
     """
-    item = MenuItem.query.get_or_404(id)
+    item = MenuItem.query.get_or_404(itemId)
     return jsonify(item)
 
 
