@@ -158,6 +158,10 @@ def menuItems(restaurantId):
     """
     Query for all items from given restaurant and returns them in a list of user dictionaries
     """
+    restaurant = Restaurant.query.get(restaurantId)
+    if not restaurant:
+		    return jsonify({"error": "Restaurant does not exist!"}), 401
+
     items = MenuItem.query.filter_by(restaurantId=restaurantId).all()
     return {'menuItems': [item.to_dict() for item in items]}
 
