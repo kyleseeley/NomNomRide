@@ -36,6 +36,16 @@ def edit_review(reviewId):
         db.session.commit()
 
         return jsonify({"message": "Review updated successfully"})
+    else:
+        missing_fields = []
+        if not form.review.data:
+            missing_fields.append("Review")
+        if not form.stars.data:
+            missing_fields.append("Stars")
+
+        error_message = "Please fill in the following field(s): " + ", ".join(
+            missing_fields)
+        return jsonify({"error": error_message}), 400
 
 
 @review_routes.route("/<int:reviewId>", methods=["DELETE"])
