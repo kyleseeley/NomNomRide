@@ -6,30 +6,34 @@ from app.forms import MenuItemsForm
 items_routes = Blueprint('menuItems', __name__)
 
 
+#get all items by one restaurant
 @items_routes.route('/restaurants/<int:restaurantId>/items',methods=['GET'])
 def menuItems(restaurantId):
     """
     Query for all items from given restaurant and returns them in a list of user dictionaries
     """
-    restaurant = Restaurant.query.get_or_404(restaurantId)
-    items = MenuItem.query.all().filter(items["ownerId"]== restaurant.id)
+    items = MenuItem.query.filter_by(restaurantId=restaurantId).all()
     return {'menuItems': [item.to_dict() for item in items]}
 
-@items_routes.route('/restaurants/<int:restaurantId>/items/<int:itemId>',methods=['GET'])
+
+#get one item
+@items_routes.route('/items/<int:itemId>',methods=['GET'])
 def menuItem(itemId):
-    """
-    Query for one item and returns it in json
-    """
-    item = MenuItem.query.get_or_404(itemId)
-    return jsonify(item)
+
+    item = MenuItem.query.get(itemId)
+    if not item:
+        return jsonify({"error": "Item not found!"}), 404
+    return jsonify(item.to_dict())
 
 
+#create a new item by specified restaurant
 @items_routes.route('/restaurants/<int:restaurantId>/items',methods=['POST'])
 @login_required
 def createItem(restaurantId):
-    """
-    Create a new item and returns that item in a json
-    """
+
+    restaurant = Restaurant.query.get(restaurantId)
+    if  not restaurant or restaurant.ownerId != current_user.id:
+        return jsonify({"error": "Not permitted or restaurant does not exict!"}), 401
     form = MenuItemsForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -43,35 +47,54 @@ def createItem(restaurantId):
         db.session.commit()
         return jsonify(new_item.to_dict())
 
+
+#edit an item by specified restaurant
 @items_routes.route('/items/<int:itemId>',methods=['PUT'])
 @login_required
 def updateItem(itemId):
-    """
-    Query for a user by id and returns that user in a dictionary
-    """
-    item = MenuItem.query.get_or_404(itemId)
-    restaurantId = item["restaurantId"]
-    print("restaurantId", restaurantId)
-    body = request.get_json()
 
-    name= body["name"]
-    type= body["type"]
-    update_item = MenuItem(restaurantId=id,
-                        name=name,
-                        type=type
-                      )
-    db.session.add(update_item)
+    item = MenuItem.query.get(itemId)
+    restaurant = Restaurant.query.get_or_404(item.restaurantId)
+    if  not restaurant or restaurant.ownerId != current_user.id:
+        return jsonify({"error": "Not permitted or restaurant does not exict!"}), 401
+
+    form = MenuItemsForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        item.name = data["name"]
+        item.type = data["type"]
+
+        db.session.commit()
+
+        return jsonify(item.to_dict())
+
+    # body = request.get_json()
+
+    # name= body["name"]
+    # type= body["type"]
+    # update_item = MenuItem(restaurantId=id,
+    #                     name=name,
+    #                     type=type
+    #                   )
+    # db.session.add(update_item)
+    # db.session.commit()
+    # return jsonify(update_item.to_dict())
+
+
+#delete one item
+@items_routes.route('/items/<int:itemId>',methods=['DELETE'])
+@login_required
+def deleteItem(itemId):
+    item = MenuItem.query.get(itemId)
+    if not item:
+        return jsonify({"error": "Item not found!"}), 404
+    restaurant = Restaurant.query.get(item.restaurantId)
+    if not restaurant or restaurant.ownerId != current_user.id:
+        return jsonify({"error": "Not permitted or restaurant does not exict!"}), 401
+
+    db.session.delete(item)
     db.session.commit()
-    return jsonify(update_item.to_dict())
 
-# @items_routes.route('/items/<int:id>',methods=['DELETE'])
-# @login_required
-# def deleteItem(id):
-#     """
-#     Query for a user by id and returns that user in a dictionary
-#     """
-#     body = request.get_json()
-#     id = body.id
-#     item = db.get_or_404(MenuItem,id)
-#     db.session.delete(item)
-#     return jsonify(item.to_dict())
+    return jsonify({"message": "The item was deleted successfully"})
