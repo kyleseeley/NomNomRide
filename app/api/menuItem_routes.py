@@ -22,7 +22,7 @@ def menuItem(itemId):
 def updateItem(itemId):
 
     item = MenuItem.query.get(itemId)
-    restaurant = Restaurant.query.get_or_404(item.restaurantId)
+    restaurant = Restaurant.query.get(item.restaurantId)
     if  not restaurant or restaurant.ownerId != current_user.id:
         return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
 
