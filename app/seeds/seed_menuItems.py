@@ -8,36 +8,48 @@ def seed_menuItems():
         restaurantId=1,
         name="Steak Burrito",
         type="Entrees",
+        price=10,
+        description="Food",
         image="steakburrito.jpg"
     )
     menuItem2 = MenuItem(
         restaurantId=1,
         name="Queso",
         type="Side Dish",
+        price=11,
+        description="Food",
         image="queso.jpg"
     )
     menuItem3 = MenuItem(
         restaurantId=2,
         name="Ribeye Steak",
         type="Entrees",
+        price=20,
+        description="Food",
         image="ribeye.jpg"
     )
     menuItem4 = MenuItem(
         restaurantId=2,
         name="Bloomin Onion",
         type="Appetizer",
+        price=15,
+        description="Food",
         image="bloomin.jpg"
     )
     menuItem5 = MenuItem(
         restaurantId=3,
         name="Burger",
         type="Entrees",
+        price=9,
+        description="Food",
         image="burger.jpg"
     )
     menuItem6 = MenuItem(
         restaurantId=3,
         name="Chocolate Cake",
         type="Dessert",
+        price=11,
+        description="Food",
         image="cake.jpg"
     )
 

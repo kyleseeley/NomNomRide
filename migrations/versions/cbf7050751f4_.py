@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 695721b0aecc
+Revision ID: cbf7050751f4
 Revises:
-Create Date: 2023-10-11 17:33:56.338994
+Create Date: 2023-10-16 16:49:03.489925
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ from app.models import environment, SCHEMA
 
 
 # revision identifiers, used by Alembic.
-revision = '695721b0aecc'
+revision = 'cbf7050751f4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -56,6 +56,8 @@ def upgrade():
     sa.Column('restaurantId', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('type', sa.String(length=60), nullable=False),
+    sa.Column('price', sa.DECIMAL(precision=6, scale=2), nullable=False),
+    sa.Column('description', sa.String(length=255), nullable=False),
     sa.Column('image', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['restaurantId'], ['restaurants.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -74,7 +76,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=True),
     sa.Column('restaurantId', sa.Integer(), nullable=True),
-    sa.Column('total', sa.Float(), nullable=False),
+    sa.Column('total', sa.DECIMAL(precision=6, scale=2), nullable=False),
     sa.ForeignKeyConstraint(['restaurantId'], ['restaurants.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

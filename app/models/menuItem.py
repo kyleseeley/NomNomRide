@@ -12,19 +12,22 @@ class MenuItem(db.Model):
         add_prefix_for_prod("restaurants.id")))
     name = db.Column(db.String(255), nullable=False)
     type = db.Column(db.String(60), nullable=False)
+    price = db.Column(db.DECIMAL(6,2), nullable=False)
+    description = db.Column(db.String(255), nullable=False)
     image = db.Column(db.String())
 
     restaurant = db.relationship("Restaurant", back_populates="menuItems")
 
     shoppingCartItems = db.relationship(
-        "ShoppingCartItem", back_populates="menuItem")
+        "ShoppingCartItem", back_populates="menuItem", cascade="all, delete-orphan")
 
-
-def to_dict(self):
-    return {
-        "id": self.id,
-        "restaurantId": self.restaurantId,
-        "name": self.name,
-        "type": self.type,
-        "image": self.image
-    }
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "restaurantId": self.restaurantId,
+            "name": self.name,
+            "type": self.type,
+            "price": self.price,
+            "description":self.description,
+            "image": self.image
+        }
