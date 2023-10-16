@@ -160,7 +160,7 @@ def menuItems(restaurantId):
     """
     restaurant = Restaurant.query.get(restaurantId)
     if not restaurant:
-		    return jsonify({"error": "Restaurant does not exist!"}), 401
+         return jsonify({"error": "Restaurant does not exist!"}), 401
 
     items = MenuItem.query.filter_by(restaurantId=restaurantId).all()
     return {'menuItems': [item.to_dict() for item in items]}
