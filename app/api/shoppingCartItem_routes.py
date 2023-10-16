@@ -2,6 +2,8 @@ from flask import Blueprint
 from flask_login import login_required, current_user
 from app.models import ShoppingCartItem, db
 from app.forms import ShoppingCartItemForm
+from .auth_routes import validation_errors_to_error_messages
+
 
 cartItem_routes = Blueprint('cartItem', __name__)
 
@@ -22,7 +24,7 @@ def update_cartItem(shoppingCartItemId):
 		db.session.commit()
 		return shoppingCartItem.to_dict()
 	else:
-		return form.errors
+		return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @cartItem_routes.route('/:shoppingCartItemId', methods=["DELETE"])
 @login_required

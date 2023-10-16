@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify
 from app.models import ShoppingCart, ShoppingCartItem, MenuItem, db
 from flask_login import current_user, login_required
+from .auth_routes import validation_errors_to_error_messages
+
 
 
 shoppingCart_routes = Blueprint('shoppingCart', __name__, url_prefix="")
@@ -43,38 +45,6 @@ def get_shoppingCart(shoppingCartId):
             return {"error": "Unauthorized. This shopping cart does not belong to the current user."}, 401
     else:
         return {"error": "Shopping cart not found."}, 404
-
-
-@shoppingCart_routes.route('/<int:shoppingCartId>/shopping-cart-items', methods=["POST"])
-def post_shoppingCart(menuItemId):
-    """
-    Add item to cart, and if cart doesn't exist create a new cart
-    """
-    if not current_user:
-        return {'error': 'Unauthorized'}, 401
-    menuItem = MenuItem.query.filter(MenuItem.id == menuItemId).first()
-    if not menuItem:
-        return {'error': 'Item not found'}, 404
-    cart = ShoppingCart.query.filter(
-        ShoppingCart.userId == current_user.id).first()
-    if not cart:
-        cart = ShoppingCart(
-            userId=current_user.id,
-            restaurantId=menuItem.restaurantId,
-            total=0
-        )
-        db.session.add(cart)
-        db.session.commit()
-
-    new_shoppingCartItem = ShoppingCartItem(
-        cartId=cart.id,
-        menuItemId=menuItem.id,
-        quantity=1
-    )
-
-    db.session.add(new_shoppingCartItem)
-    db.session.commit()
-    return new_shoppingCartItem.to_dict()
 
 
 @shoppingCart_routes.route("/<int:shoppingcartId>", methods=["DELETE"])

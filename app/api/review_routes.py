@@ -2,6 +2,8 @@ from flask import Blueprint, jsonify, request
 from app.models import Review, Restaurant, db
 from app.forms.review_form import ReviewForm
 from flask_login import current_user, login_required
+from .auth_routes import validation_errors_to_error_messages
+
 
 review_routes = Blueprint('reviews', __name__, url_prefix="")
 
@@ -35,17 +37,9 @@ def edit_review(reviewId):
 
         db.session.commit()
 
-        return jsonify({"message": "Review updated successfully"})
+        return jsonify(review.to_dict())
     else:
-        missing_fields = []
-        if not form.review.data:
-            missing_fields.append("Review")
-        if not form.stars.data:
-            missing_fields.append("Stars")
-
-        error_message = "Please fill in the following field(s): " + ", ".join(
-            missing_fields)
-        return jsonify({"error": error_message}), 400
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @review_routes.route("/<int:reviewId>", methods=["DELETE"])
@@ -82,4 +76,4 @@ def get_one_review(reviewId):
     if review is not None:
         return jsonify(review.to_dict())
     else:
-        return jsonify({"message": "Review not found"}, 404)
+        return jsonify({"message": "Review not found"}), 404
