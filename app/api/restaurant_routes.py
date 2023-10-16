@@ -160,7 +160,7 @@ def menuItems(restaurantId):
     """
     restaurant = Restaurant.query.get(restaurantId)
     if not restaurant:
-		    return jsonify({"error": "Restaurant does not exist!"}), 401
+        return jsonify({"error": "Restaurant does not exist!"}), 401
 
     items = MenuItem.query.filter_by(restaurantId=restaurantId).all()
     return {'menuItems': [item.to_dict() for item in items]}
@@ -171,20 +171,20 @@ def menuItems(restaurantId):
 @login_required
 def createItem(restaurantId):
 
-	restaurant = Restaurant.query.get(restaurantId)
-	if not restaurant or restaurant.ownerId != current_user.id:
-		return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
-	form = MenuItemsForm()
-	form['csrf_token'].data = request.cookies['csrf_token']
-	if form.validate_on_submit():
-		name = form.data["name"]
-		type = form.data["type"]
-		new_item = MenuItem(restaurantId=restaurantId,
-							name=name,
-							type=type
-							)
-		db.session.add(new_item)
-		db.session.commit()
-		return jsonify(new_item.to_dict())
-	else:
-		return form.errors
+    restaurant = Restaurant.query.get(restaurantId)
+    if not restaurant or restaurant.ownerId != current_user.id:
+        return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
+    form = MenuItemsForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        name = form.data["name"]
+        type = form.data["type"]
+        new_item = MenuItem(restaurantId=restaurantId,
+                            name=name,
+                            type=type
+                            )
+        db.session.add(new_item)
+        db.session.commit()
+        return jsonify(new_item.to_dict())
+    else:
+        return form.errors
