@@ -12,6 +12,8 @@ class MenuItem(db.Model):
         add_prefix_for_prod("restaurants.id")))
     name = db.Column(db.String(255), nullable=False)
     type = db.Column(db.String(60), nullable=False)
+    price = db.Column(db.float(2), nullable=False)
+    description = db.Column(db.String(255), nullable=False)
     image = db.Column(db.String())
 
     restaurant = db.relationship("Restaurant", back_populates="menuItems")
@@ -25,5 +27,7 @@ class MenuItem(db.Model):
             "restaurantId": self.restaurantId,
             "name": self.name,
             "type": self.type,
+            "price": self.price,
+            "description":self.description,
             "image": self.image
         }

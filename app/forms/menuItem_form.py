@@ -13,6 +13,10 @@ def validateType(form, field):
     raise ValidationError('Please enter a type.')
   if len(type) > 50:
     raise ValidationError('Length of type is too long.')
+def validatePrice(form, field):
+  price = field.data
+  if not price:
+    raise ValidationError('Please enter a price.')
 def validateImage(form, field):
   image = field.data
   if not image:
@@ -21,4 +25,6 @@ def validateImage(form, field):
 class MenuItemsForm(FlaskForm):
     name = StringField("name", validators=[DataRequired(),validateName])
     type = StringField("type", validators=[DataRequired(),validateType])
-    image = URLField("image", validators=[])
+    price = StringField("price", validators=[DataRequired(),validatePrice])
+    description = StringField("description")
+    image = URLField("image")

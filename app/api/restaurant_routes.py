@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import Restaurant, Review, MenuItem, db
+from app.models import Restaurant, Review, MenuItem, ShoppingCart, db
 from app.forms import RestaurantForm, ReviewForm, MenuItemsForm
+from .auth_routes import validation_errors_to_error_messages
+
 
 restaurant_routes = Blueprint('restaurants', __name__)
 
@@ -45,7 +47,7 @@ def post_restaurant():
         db.session.commit()
         return new_restaurant.to_dict()
     else:
-        return form.errors
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @restaurant_routes.route('/<int:restaurantId>')
@@ -88,10 +90,11 @@ def update_restaurant(restaurantId):
 
         return restaurant.to_dict()
     else:
-        return form.errors
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @restaurant_routes.route("/<int:restaurantId>", methods=['DELETE'])
+@login_required
 def delete_restaurant(restaurantId):
     restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
     if not restaurant:
@@ -108,7 +111,7 @@ def restaurant_reviews(restaurantId):
     restaurant = Restaurant.query.get(restaurantId)
 
     if restaurant is None:
-        return jsonify({"message": "Restaurant not found"}, 404)
+        return jsonify({"message": "Restaurant not found"}), 404
 
     reviews = Review.query.filter_by(restaurantId=restaurantId).all()
 
@@ -122,34 +125,43 @@ def restaurant_reviews(restaurantId):
 @login_required
 def post_review(restaurantId):
     restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
+    if not restaurant:
+        return jsonify({"error": "Restaurant does not exist!"}), 404
+    if restaurant.ownerId == current_user.id:
+        return { "error": "Can't post a review for your own restaurant." }, 403
+    existing_review = Review.query.filter(Review.restaurantId == restaurantId, Review.userId == current_user.id).first()
+    if existing_review:
+        return { "error": "You already have a review for this restaurant."}, 403
     form = ReviewForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
 
         new_review = Review(
-            userId=current_user.id,
-            restaurantId=restaurantId,
-            review=data["review"],
-            stars=data["stars"]
+        userId=current_user.id,
+        restaurantId=restaurantId,
+        review=data["review"],
+        stars=data["stars"]
         )
 
         db.session.add(new_review)
         db.session.commit()
+        db.session.add(new_review)
+        db.session.commit()
 
-        # Updating restaurant rating and number of reviews
+		# Updating restaurant rating and number of reviews
         restaurantReviews = Review.query.filter(
-            Review.restaurantId == restaurantId).all()
+        Review.restaurantId == restaurantId).all()
         restaurant.numReviews += 1
         totalRating = sum(review.stars for review in restaurantReviews)
         restaurant.starRating = round(totalRating / restaurant.numReviews, 1)
 
         db.session.commit()
+        db.session.commit()
 
         return jsonify(new_review.to_dict())
     else:
-        return form.errors
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 # get all items by one restaurant
@@ -160,7 +172,7 @@ def menuItems(restaurantId):
     """
     restaurant = Restaurant.query.get(restaurantId)
     if not restaurant:
-         return jsonify({"error": "Restaurant does not exist!"}), 401
+        return jsonify({"error": "Restaurant does not exist!"}), 404
 
     items = MenuItem.query.filter_by(restaurantId=restaurantId).all()
     return {'menuItems': [item.to_dict() for item in items]}
@@ -171,20 +183,41 @@ def menuItems(restaurantId):
 @login_required
 def createItem(restaurantId):
 
-	restaurant = Restaurant.query.get(restaurantId)
-	if not restaurant or restaurant.ownerId != current_user.id:
-		return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
-	form = MenuItemsForm()
-	form['csrf_token'].data = request.cookies['csrf_token']
-	if form.validate_on_submit():
-		name = form.data["name"]
-		type = form.data["type"]
-		new_item = MenuItem(restaurantId=restaurantId,
-							name=name,
-							type=type
-							)
-		db.session.add(new_item)
-		db.session.commit()
-		return jsonify(new_item.to_dict())
-	else:
-		return form.errors
+  restaurant = Restaurant.query.get(restaurantId)
+  if not restaurant or restaurant.ownerId != current_user.id:
+    return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
+  form = MenuItemsForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    name = form.data["name"]
+    type = form.data["type"]
+    price = form.data["price"]
+    description =form.data["description"]
+    image=form.data["image"]
+    new_item = MenuItem(restaurantId=restaurantId,
+    name=name,
+    type=type,
+    price=price,
+    description=description,
+    image=image
+    )
+    db.session.add(new_item)
+    db.session.commit()
+    return jsonify(new_item.to_dict())
+  else:
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@restaurant_routes.route('/<int:restaurantId>/shopping-cart', methods=['POST'])
+@login_required
+def post_shoppingCart(restaurantId):
+    carts = ShoppingCart.query.filter(ShoppingCart.userId == current_user.id).first()
+    if carts:
+        return { 'message': 'User already has a cart' }
+    new_cart = ShoppingCart(
+        userId=current_user.id,
+		restaurantId=restaurantId,
+        total=0
+	)
+    db.session.add(new_cart)
+    db.session.commit()
+    return new_cart.to_dict()
