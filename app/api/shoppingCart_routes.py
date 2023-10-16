@@ -25,7 +25,7 @@ def get_shoppingCart(shoppingCartId):
             for item in cart_items:
                 menu_item = MenuItem.query.get(item.id)
                 item_total = item.itemQuantity * menu_item.price
-                cart_total += item_total
+                cart_total += float(item_total)
 
                 item_data = {
                     "id": item.id,
@@ -40,14 +40,14 @@ def get_shoppingCart(shoppingCartId):
 
             db.session.commit()
 
-            return jsonify({"shoppingCart": shoppingCart.to_dict(), "items": cart_item_data, "total": cart_total})
+            return jsonify({ "shoppingCart": shoppingCart.to_dict(), "items": cart_item_data })
         else:
             return {"error": "Unauthorized. This shopping cart does not belong to the current user."}, 401
     else:
         return {"error": "Shopping cart not found."}, 404
 
 
-@shoppingCart_routes.route("/<int:shoppingcartId>", methods=["DELETE"])
+@shoppingCart_routes.route("/<int:shoppingCartId>", methods=["DELETE"])
 @login_required
 def delete_shoppingCart(shoppingCartId):
     shoppingCart = ShoppingCart.query.get(shoppingCartId)

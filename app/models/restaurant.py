@@ -23,11 +23,11 @@ class Restaurant(db.Model):
 
     owner = db.relationship("User", back_populates="restaurants")
 
-    menuItems = db.relationship("MenuItem", back_populates="restaurant")
+    menuItems = db.relationship("MenuItem", back_populates="restaurant", cascade="all, delete-orphan")
 
-    reviews = db.relationship("Review", back_populates="restaurant")
+    reviews = db.relationship("Review", back_populates="restaurant", cascade="all, delete-orphan")
 
-    shoppingCart = db.relationship("ShoppingCart", back_populates="restaurant")
+    shoppingCart = db.relationship("ShoppingCart", back_populates="restaurant", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {

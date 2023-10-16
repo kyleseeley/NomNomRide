@@ -7,7 +7,7 @@ from .auth_routes import validation_errors_to_error_messages
 
 cartItem_routes = Blueprint('cartItem', __name__)
 
-@cartItem_routes.route('/:shoppingCartItemId', methods=["PUT"])
+@cartItem_routes.route('/<int:shoppingCartItemId>', methods=["PUT"])
 @login_required
 def update_cartItem(shoppingCartItemId):
 	"""
@@ -26,7 +26,7 @@ def update_cartItem(shoppingCartItemId):
 	else:
 		return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-@cartItem_routes.route('/:shoppingCartItemId', methods=["DELETE"])
+@cartItem_routes.route('/<int:shoppingCartItemId>', methods=["DELETE"])
 @login_required
 def delete_cartItem(shoppingCartItemId):
 	"""
