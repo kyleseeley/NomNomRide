@@ -7,7 +7,7 @@ export const loadRestaurants = (restaurants) => ({
     restaurants
 });
 
-export const fetchRestuarants = () => async (dispatch) => {
+export const fetchRestaurants = () => async (dispatch) => {
     try {
         const response = await fetch("/api/restaurants/")
 
@@ -16,7 +16,7 @@ export const fetchRestuarants = () => async (dispatch) => {
           }
         
         const responseData = await response.json();
-        
+        console.log("response data", responseData)
         dispatch(loadRestaurants(responseData))
     }
     catch (error) {
