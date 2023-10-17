@@ -3,10 +3,16 @@ import thunk from 'redux-thunk';
 import restaurantReducer from './restaurant';
 import menuItemsReducer from "./menuItems"
 import sessionReducer from './session';
+// import shoppingCartReducer from './shoppingCart';
+// import shoppingCartItemReducer from './shoppingCartItems';
+// import reviewReducer from './reviews';
 const rootReducer = combineReducers({
   session: sessionReducer,
   restaurant: restaurantReducer,
-  menuItems: menuItemsReducer
+  menuItems: menuItemsReducer,
+  // shoppingCart: shoppingCartReducer,
+  // shoppingCartItems: shoppingCartItemsReducer
+  // reviews: reviewReducer
 });
 
 

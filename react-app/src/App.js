@@ -26,14 +26,23 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact path="/restaurants">
+          <Route exact path="/">
             <LandingPage />
           </Route>
-          <Route exact path="/restaurants/:restaurantId">
+          <Route exact path="/:restaurantId">
             <RestaurantDetails />
           </Route>
-          <Route exact path="/restaurants/:restaurantId/menuItems/new">
+          <Route exact path="/:restaurantId/menuItems/new">
             <NewMenuItem />
+          </Route>
+          <Route exact path="/checkout">
+            {/* <Checkout /> */}
+          </Route>
+          <Route exact path="/new">
+            {/* <NewRestaurant /> */}
+          </Route>
+          <Route exact path="/search">
+            {/* <SearchResults /> */}
           </Route>
         </Switch>
       )}
