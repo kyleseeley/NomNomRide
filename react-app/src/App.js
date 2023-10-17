@@ -8,6 +8,9 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import RestaurantDetails from './components/RestaurantDetails'
 import NewMenuItem from "./components/MenuItems/NewMenuItem";
+// import Checkout from ./components/Checkout
+// import newRestaurant from ./components/newRestaurant
+// import Search from ./components/Search
 
 function App() {
   const dispatch = useDispatch();
