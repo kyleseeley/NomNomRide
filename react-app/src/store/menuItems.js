@@ -53,7 +53,7 @@ export const createMenuItem =
 
 const initialState = { items: {}, fetchPending: true };
 
-export default function reducer(state = initialState, action) {
+export default function menuItemsReducer(state = initialState, action) {
   const newItems = { items: { ...state.items } };
   switch (action.type) {
     case CREATE_MENU_ITEM:

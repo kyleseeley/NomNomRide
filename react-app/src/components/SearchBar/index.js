@@ -27,6 +27,11 @@ function SearchBar() {
       <form
           onSubmit={handleSubmit}
           className='search-bar'>
+          <button
+              type="submit"
+              className="search-button">
+              <i className="fa-solid fa-magnifying-glass" />
+          </button>
           <DebounceInput
               type="text"
               minLength={2}
@@ -41,11 +46,6 @@ function SearchBar() {
               onClick={clearSearch}
               className={`clear-search ${term.length === 0 ? 'hide' : ''}`}>
               <i className="fa-solid fa-x" />
-            </button>
-            <button
-                type="submit"
-                className="search-button">
-                <i className="fa-solid fa-magnifying-glass" />
             </button>
           </div>
       </form>
