@@ -1,19 +1,31 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createMenuItem } from "../../../store/menuItems";
-
+import { useHistory, useParams } from "react-router-dom";
 const NewMenuItem = () => {
+  const { restaurantId } = useParams();
+
   const [name, setName] = useState("");
   const [type, setType] = useState("entree");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const dispatch = useDispatch();
-  const submitHandler = async() =>{
-    await dispatch(createMenuItem(name, type, price, description, image))
+  const history = useHistory();
+  const submitHandler = async () => {
+    const errors = await dispatch(
+      createMenuItem(restaurantId, name, type, price, description, image)
+    );
+    if (!errors) {
+      history.push(`/restaurants/${restaurantId}/menuItems`);
+    } else {
+      // Handle errors - API call encountered validation errors or other issues
+      console.error("Error creating menu item:", errors);
+      // You can display error messages to the user or handle them as needed.
+    }
   };
   return (
-    <div>
+    <div className="menu-item-container">
       <div>
         <label>Name</label>
         <input

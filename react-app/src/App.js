@@ -26,10 +26,10 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact path="/menuItems">
+          <Route exact path="/restaurants/:restaurantId/menuItems">
             <MenuItemPage />
           </Route>
-          <Route path="/menuItems/new">
+          <Route path="/restaurants/:restaurantId/menuItems/new">
             <NewMenuItem />
           </Route>
         </Switch>
