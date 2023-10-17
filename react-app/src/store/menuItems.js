@@ -1,17 +1,23 @@
 const CREATE_MENU_ITEM = "menuItems/CREATE_MENU_ITEM";
-const FETCH_MENU_ITEM_REQUEST = "menuItems/FETCH_MENU_ITEM_REQUEST";
-const FETCH_MENU_ITEM_SUCCESS = "menuItems/FETCH_MENU_ITEM_SUCCESS";
+const FETCH_MENU_ITEMS = "menuItems/FETCH_MENU_ITEMS";
 
-export const fetchMenuItems = (restaurantId) => async (dispatch) => {
-  dispatch({
-    type: FETCH_MENU_ITEM_REQUEST,
-  });
+// action creators
+
+export function fetchMenuItems(menuItems) {
+  return {
+    type: FETCH_MENU_ITEMS,
+    payload: menuItems
+  }
+}
+
+// Thunks
+
+export const fetchMenuItemsThunk = (restaurantId) => async (dispatch) => {
 
   const response = await fetch(`/api/restaurants/${restaurantId}/items`);
   if (response.ok) {
     const data = await response.json();
-    dispatch({ type: FETCH_MENU_ITEM_SUCCESS, menuItems: data.menuItems });
-    return null;
+    dispatch(fetchMenuItems(data.menuItems));
   } else if (response.status < 500) {
     const data = await response.json();
     if (data.errors) {
@@ -60,15 +66,8 @@ export default function menuItemsReducer(state = initialState, action) {
       const newlyCreatedItem = action.menuItem;
       newItems.items[newlyCreatedItem.id] = newlyCreatedItem;
       return newItems;
-    case FETCH_MENU_ITEM_REQUEST:
-      newItems.fetchPending = true;
-      return newItems;
-    case FETCH_MENU_ITEM_SUCCESS:
-      newItems.fetchPending = false;
-      action.menuItems.forEach((item) => {
-        newItems.items[item.id] = item;
-      });
-      return newItems;
+    case FETCH_MENU_ITEMS:
+      return { ...action.payload }
     default:
       return state;
   }
