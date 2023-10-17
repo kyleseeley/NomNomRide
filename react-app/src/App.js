@@ -7,6 +7,8 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import RestaurantDetails from './components/RestaurantDetails'
+import NewMenuItem from "./components/MenuItems/NewMenuItem";
+import MenuItemPage from "./components/MenuItems/MenuItemPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +26,12 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/restaurants/:restaurantId/menuItems">
+            <MenuItemPage />
+          </Route>
+          <Route path="/restaurants/:restaurantId/menuItems/new">
+            <NewMenuItem />
           </Route>
         </Switch>
       )}
