@@ -1,0 +1,115 @@
+.unavailable {
+	text-align: center;
+	margin: 0 4rem;
+
+}
+
+.restaurant-page {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.restaurant-page-header {
+	border-radius: 0;
+	width: 100%;
+	margin-bottom: 0;
+	padding: 2rem;
+	background-size: cover;
+	max-height: 20rem;
+	display: grid;
+	grid-template-areas: "one two";
+	grid-template-columns: auto 1fr;
+	gap: 1.5rem;
+	box-sizing: border-box;
+}
+
+.page-header-name {
+	color: white;
+}
+
+.header-info {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: space-between;
+	grid-area: two;
+}
+
+.restaurant-page-section-header-div {
+	padding-top: 0.5rem;
+	min-height: 2.4rem;
+	position: sticky;
+	background-color: white;
+	top: 0rem;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	border-bottom: 1px solid #555555;
+	transition: top 0.3s ease-in-out;
+	z-index: 1;
+	/* opacity: 0; */
+}
+
+.restaurant-page-section-header {
+	padding: 0.5rem 2rem;
+	/* color: white; */
+	/* background-color: white; */
+	font-weight: bold;
+	font-size: 0.8rem;
+	border-bottom: 3px solid white;
+	color: #999999;
+	/* font-family: "dunbar-tall"; */
+}
+
+.restaurant-page-section-header:hover {
+	cursor: pointer;
+	color: black;
+	/* border-bottom: 3px solid #555555; */
+}
+
+.restaurant-page-section-header.focus {
+	font-weight: bolder;
+	border-bottom: 3px solid #555555;
+	color: black;
+}
+
+.restaurant-page-about {
+	display: flex;
+	flex-direction: column;
+	margin-top: 2rem;
+}
+
+.restaurant-page-desc {
+	font-size: 0.9rem;
+	line-height: 1.2rem;
+	width: 80vw;
+	max-width: 50rem;
+	margin-bottom: 40rem;
+}
+
+@media (max-width: 700px) {
+	.restaurant-page {
+		margin: 0;
+		transition: top 0.3s ease-in-out;
+	}
+	.restaurant-card-img.page {
+		width: 8rem;
+		grid-area: one;
+	}
+	.header-info {
+		flex-direction: column;
+	}
+}
+
+@media (max-width: 490px) {
+	.restaurant-page-header {
+		grid-template-areas: "one"
+													"two";
+		grid-template-columns: 1fr;
+	}
+	.restaurant-page-desc {
+		width: 90vw;
+	}
+}
