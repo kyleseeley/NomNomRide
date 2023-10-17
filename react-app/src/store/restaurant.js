@@ -15,9 +15,9 @@ export const fetchRestuarants = () => async (dispatch) => {
             throw new Error("Error fetching restaurants");
           }
         
-        const resonseData = await response.json();
+        const responseData = await response.json();
         
-        dispatch(loadRestaurants(resonseData))
+        dispatch(loadRestaurants(responseData))
     }
     catch (error) {
         console.log("Error fetching restaurants", error)
@@ -31,7 +31,7 @@ const initialState = {
 const restaurantReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_RESTAURANTS:
-            return { ...state, allRestaurants: Object.values(action.restaurants)}
+            return { ...state, allRestaurants: action.restaurants}
         default:
             return state;
     }
