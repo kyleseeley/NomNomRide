@@ -52,6 +52,22 @@ def seed_menuItems():
         description="Food",
         image="cake.jpg"
     )
+    menuItem7 = MenuItem(
+        restaurantId=4,
+        name="Lemon Pepper Wings",
+        type="Entrees",
+        price=16,
+        description="Food",
+        image="wings.jpg"
+    )
+    menuItem8 = MenuItem(
+        restaurantId=5,
+        name="Orange Chicken",
+        type="Entrees",
+        price=7,
+        description="Food",
+        image="orangechicken.jpg"
+    )
 
     db.session.add(menuItem1)
     db.session.add(menuItem2)
@@ -59,6 +75,8 @@ def seed_menuItems():
     db.session.add(menuItem4)
     db.session.add(menuItem5)
     db.session.add(menuItem6)
+    db.session.add(menuItem7)
+    db.session.add(menuItem8)
     db.session.commit()
 
 

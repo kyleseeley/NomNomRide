@@ -13,7 +13,7 @@ def seed_restaurants():
         lng=11,
         name="Chipotle",
         type="Mexican",
-        image="burrito.jpg",
+        image="https://www.godairyfree.org/wp-content/uploads/2007/10/fast-food-chipotle.jpg",
         starRating=4.3,
         numReviews=7,
     )
@@ -26,7 +26,7 @@ def seed_restaurants():
         lng=21,
         name="Outback",
         type="American",
-        image="steak.jpg",
+        image="https://www.sheknows.com/wp-content/uploads/2018/08/lb4x7ie5udr8uaz9kb3r.jpeg",
         starRating=3.1,
         numReviews=5,
     )
@@ -39,14 +39,42 @@ def seed_restaurants():
         lng=31,
         name="Culvers",
         type="Fast Food",
-        image="burger.jpg",
+        image="https://static.olocdn.net/img/culvers/hero/mobile.png?v=1697229916",
         starRating=4.8,
+        numReviews=3,
+    )
+    buffaloWildWings = Restaurant(
+        ownerId=1,
+        address='9876 Lemon Pepper Ct',
+        city='Dallas',
+        state='TX',
+        lat=18,
+        lng=18,
+        name="Buffalo Wild Wings",
+        type="American",
+        image="https://people.com/thmb/M1feAS2jkiGHy4VB1l0_IqefA0E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(719x571:721x573)/buffalo-wild-wings-246f6cd2919f4d0a905f833ec1fd5326.jpg",
+        starRating=3.2,
+        numReviews=9,
+    )
+    pandaExpress = Restaurant(
+        ownerId=2,
+        address='4477 Orange Chicken Cir',
+        city='Tampa Bay',
+        state='FL',
+        lat=43,
+        lng=43,
+        name="Panda Express",
+        type="Chinese",
+        image="https://www.mashed.com/img/gallery/panda-express-may-have-a-new-chicken-offering-on-the-menu-soon/l-intro-1660604759.jpg",
+        starRating=2.9,
         numReviews=3,
     )
 
     db.session.add(chipotle)
     db.session.add(outback)
     db.session.add(culvers)
+    db.session.add(buffaloWildWings)
+    db.session.add(pandaExpress)
     db.session.commit()
 
 
