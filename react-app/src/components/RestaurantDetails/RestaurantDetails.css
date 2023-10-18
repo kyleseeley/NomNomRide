@@ -79,6 +79,9 @@
 	min-height: 150vh;
 }
 
+.item-card:hover {
+	box-shadow:  0 2px 3px 2px #CCCCCC;
+}
 
 .cat-section {
 	display: flex;
@@ -86,13 +89,23 @@
 }
 
 .cat-item-list {
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
 }
 
-.item-card-img,
+.item-card-img {
+	margin: 0.5rem;
+}
+
 .item-card-name,
 .item-card-price {
-	margin: 0.3rem 0;
+	margin: 0.3rem 0 0.3rem 0.5rem;
+}
+
+.item-card-img {
+	aspect-ratio: 2 / 1;
+	max-width: 15rem;
+	object-fit: cover;
 }
 
 .item-card-price {

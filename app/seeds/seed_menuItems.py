@@ -10,7 +10,7 @@ def seed_menuItems():
         type="Entrees",
         price=10,
         description="Food",
-        image="steakburrito.jpg"
+        image="https://tb-static.uber.com/prod/image-proc/processed_images/98b8ba2dde94440f4cb7537f94f127b9/a19bb09692310dfd41e49a96c424b3a6.jpeg"
     )
     menuItem2 = MenuItem(
         restaurantId=1,
@@ -18,7 +18,7 @@ def seed_menuItems():
         type="Side Dish",
         price=11,
         description="Food",
-        image="queso.jpg"
+        image="https://tb-static.uber.com/prod/image-proc/processed_images/e01af377d7b9937677e9217616664418/a19bb09692310dfd41e49a96c424b3a6.jpeg"
     )
     menuItem3 = MenuItem(
         restaurantId=2,
@@ -68,6 +68,38 @@ def seed_menuItems():
         description="Food",
         image="orangechicken.jpg"
     )
+    menuItem9 = MenuItem(
+        restaurantId=1,
+        name="Burrito Bowl",
+        type="Entrees",
+        price=12.5,
+        description="Food",
+        image="https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvMzllMTJjODlhNzE2ZWEyYmYwNzE1MTM0MTBjYWE0Y2UvYTE5YmIwOTY5MjMxMGRmZDQxZTQ5YTk2YzQyNGIzYTYuanBlZw=="
+    )
+    menuItem9 = MenuItem(
+        restaurantId=1,
+        name="Quesadilla",
+        type="Entrees",
+        price=13.2,
+        description="Food",
+        image="https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNzdlMmIwNTkyZDY2ZDJkZGU3NTE3ZmU3MGViNDJkY2YvYTE5YmIwOTY5MjMxMGRmZDQxZTQ5YTk2YzQyNGIzYTYuanBlZw=="
+    )
+    menuItem10 = MenuItem(
+        restaurantId=1,
+        name="One Taco",
+        type="Entrees",
+        price=4.4,
+        description="Food",
+        image="https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNDMyYTQ5ZmIxZDU5M2I1NDkzZDA4NzBmZDRjNjVhYmYvYTE5YmIwOTY5MjMxMGRmZDQxZTQ5YTk2YzQyNGIzYTYuanBlZw=="
+    )
+    menuItem11 = MenuItem(
+        restaurantId=1,
+        name="Three Tacos",
+        type="Entrees",
+        price=12.5,
+        description="Food",
+        image="https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvM2Q5ZTAzNGEzMDZhZTVjOGIzN2E0ZTM3MGMyYzdkYzMvYTE5YmIwOTY5MjMxMGRmZDQxZTQ5YTk2YzQyNGIzYTYuanBlZw=="
+    )
 
     db.session.add(menuItem1)
     db.session.add(menuItem2)
@@ -77,6 +109,9 @@ def seed_menuItems():
     db.session.add(menuItem6)
     db.session.add(menuItem7)
     db.session.add(menuItem8)
+    db.session.add(menuItem9)
+    db.session.add(menuItem10)
+    db.session.add(menuItem11)
     db.session.commit()
 
 
