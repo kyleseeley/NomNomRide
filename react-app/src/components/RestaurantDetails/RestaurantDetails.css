@@ -11,30 +11,36 @@
 	align-items: center;
 }
 
-.restaurant-page-header {
+.restaurant-banner {
 	border-radius: 0;
 	width: 100%;
 	margin-bottom: 0;
 	padding: 2rem;
 	background-size: cover;
-	max-height: 20rem;
-	display: grid;
-	grid-template-areas: "one two";
-	grid-template-columns: auto 1fr;
-	gap: 1.5rem;
+	height: 10rem;
 	box-sizing: border-box;
 }
 
-.page-header-name {
-	color: white;
+.restaurant-name {
+	font-size: 2.5rem;
+	margin: 1rem 0 0 0;
 }
 
-.header-info {
+.restaurant-details {
+	margin: 0.5rem 0;
+}
+
+.fa-star {
+	font-size: 0.8rem;
+}
+
+.header {
+	position: relative;
+	left: 2rem;
 	display: flex;
-	align-items: center;
+	flex-direction: column;
 	width: 100%;
 	justify-content: space-between;
-	grid-area: two;
 }
 
 .restaurant-page-section-header-div {

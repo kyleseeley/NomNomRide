@@ -11,21 +11,20 @@ const RestaurantDetails = () => {
 	const restaurantItems = useSelector(state => state.menuItems)
 	console.log(restaurant)
 	console.log(restaurantItems)
+	const categories = {}
+	for (const item in restaurantItems) {
+		if (!categories[item.type]) categories[item.type] = item.type
+	}
 	const { restaurantId } = useParams()
 	const [focusTab, setFocusTab] = useState()
-	const [sectionHeaders, setSectionHeaders] = useState([])
 	const [isLoaded, setIsLoaded] = useState(false)
 
 	useEffect(() => {
 		window.scroll(0, 0)
 		dispatch(fetchOneRestaurant(restaurantId))
 		.then(dispatch(fetchMenuItemsThunk(restaurantId)))
+		.then()
 		.then(setIsLoaded(true))
-		// setSectionHeaders(() => {
-		// 	const headers = []
-		// 	if (restaurantProducts.length) headers.push(['MERCH', 'restaurant-page-merch'])
-		// 	return [...headers, ['INTERACTIONS', 'restaurant-page-interactions'], ['ABOUT', 'restaurant-page-about']]
-		// })
 	}, [dispatch, restaurantId])
 
 	const scrollToId = (id, tabName) => {
@@ -47,8 +46,7 @@ const RestaurantDetails = () => {
 	// )
 	return (
 		<div className="restaurant-page page-container">
-			<div className='restaurant-page-section-header-div'>
-							{/* ${scrollTop ? 'visible' : ''} */}
+			{/* <div className='restaurant-page-section-header-div'>
 				{sectionHeaders.map(header => {
 					return (
 						<span
@@ -60,21 +58,23 @@ const RestaurantDetails = () => {
 						</span>
 					)
 				})}
-			</div>
+			</div> */}
 			<div
 				style={{
+					backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${restaurant?.image})`,
 					backgroundSize: 'cover',
 					backgroundPosition: 'center'
 				}}
-				className="restaurant-page-header"
-			>
-				{/* <img className='restaurant-card-img page' src={restaurant.profileImage} alt={restaurant.name} /> */}
-				<div className="header-info">
-								{/* <h3 className='page-header-name'><b>{restaurant.displayName}</b></h3> */}
-				</div>
+				className="restaurant-banner"/>
+			<div className="header">
+				<h1 className='restaurant-name'>{restaurant?.name} ({restaurant?.address})</h1>
+				<p className='restaurant-details'>
+					<i className="fa-solid fa-star" />
+					&nbsp; <b>{restaurant?.starRating} ({restaurant?.numReviews} ratings)</b>
+				</p>
 			</div>
-			<div id="restaurant-page-merch">
-				{/* <ProductList products={currProducts} /> */}
+			<div className='menu-section'>
+
 			</div>
 		</div>
 	)

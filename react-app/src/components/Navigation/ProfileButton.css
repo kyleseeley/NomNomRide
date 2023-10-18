@@ -21,7 +21,7 @@
   height: 3rem;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   border: 1px solid rgb(167, 167, 167);
   border-radius: 2rem;
 }
