@@ -3,17 +3,18 @@ body {
 }
 
 #root {
-  height: 100%;
-  display: flex;
-  min-height: 100vh;
+  /* height: 100%; */
+  top: 0;
+  display: relative;
+  /* min-height: 100vh; */
 }
 
 img {
   user-select: none;
 }
 
-#page-container.offset-top {
-  padding-top: 3rem;
+.page-container {
+  padding-top: 5rem;
 }
 
 h1 {
@@ -31,4 +32,3 @@ div {
 .hidden {
   display: none;
 }
-

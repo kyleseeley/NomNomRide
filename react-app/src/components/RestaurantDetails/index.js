@@ -9,10 +9,10 @@ const RestaurantDetails = () => {
   const dispatch = useDispatch()
 	const restaurant = useSelector(state => state.restaurant.restaurant)
 	const restaurantItems = useSelector(state => state.menuItems)
+	console.log(restaurant)
 	console.log(restaurantItems)
 	const { restaurantId } = useParams()
 	const [focusTab, setFocusTab] = useState()
-	const [currProducts, setCurrProducts] = useState([])
 	const [sectionHeaders, setSectionHeaders] = useState([])
 	const [isLoaded, setIsLoaded] = useState(false)
 
@@ -46,7 +46,7 @@ const RestaurantDetails = () => {
 	// 	</div>
 	// )
 	return (
-		<div className="restaurant-page">
+		<div className="restaurant-page page-container">
 			<div className='restaurant-page-section-header-div'>
 							{/* ${scrollTop ? 'visible' : ''} */}
 				{sectionHeaders.map(header => {
