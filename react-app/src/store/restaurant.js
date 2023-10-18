@@ -21,14 +21,13 @@ export const deleteOneRestaurant = (restaurantId) => ({
 
 export const fetchRestaurants = () => async (dispatch) => {
   try {
-    const response = await fetch("/api/restaurants/");
+    const response = await csrfFetch("/api/restaurants/");
 
     if (!response.ok) {
       throw new Error("Error fetching restaurants");
     }
 
     const responseData = await response.json();
-    console.log("response data", responseData);
     dispatch(loadRestaurants(responseData.restaurants));
   } catch (error) {
     console.log("Error fetching restaurants", error);
@@ -37,7 +36,7 @@ export const fetchRestaurants = () => async (dispatch) => {
 
 export const fetchOneRestaurant = (restaurantId) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/restaurants/${restaurantId}`);
+    const response = await csrfFetch(`/api/restaurants/${restaurantId}`);
 
     if (!response.ok) {
       throw new Error("Error fetching restaurant");
@@ -53,7 +52,7 @@ export const fetchOneRestaurant = (restaurantId) => async (dispatch) => {
 export const createNewRestaurant =
   (address, city, state, lat, lng, name, type, image) => async (dispatch) => {
     try {
-      const response = await fetch("/api/restaurants", {
+      const response = await csrfFetch("/api/restaurants", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +83,7 @@ export const createNewRestaurant =
 export const updateRestaurant =
   (address, city, state, lat, lng, name, type, image) => async (dispatch) => {
     try {
-      const response = await fetch("/api/restaurants", {
+      const response = await csrfFetch("/api/restaurants", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -112,9 +111,9 @@ export const updateRestaurant =
     }
   };
 
-export const delteRestaurant = (id) => async (dispatch) => {
+export const deleteRestaurant = (id) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/restaurants/${id}`, {
+    const response = await csrfFetch(`/api/restaurants/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
