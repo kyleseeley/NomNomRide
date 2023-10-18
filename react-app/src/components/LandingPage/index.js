@@ -7,8 +7,9 @@ import "./LandingPage.css";
 const LandingPage = () => {
     const dispatch = useDispatch();
 
-    const allRestaurants = useSelector((state) => state.restaurant.allRestaurants) || []
+    const allRestaurants = useSelector((state) => state.restaurant.allRestaurants) || {}
     console.log("all restaurants", allRestaurants)
+    const restaurantList = Object.values(allRestaurants)
 
     useEffect(() => {
         dispatch(fetchRestaurants())
@@ -17,12 +18,12 @@ const LandingPage = () => {
     return (
         <div className="landing-page">
           <h1>All Restaurants</h1>
-          {allRestaurants.restaurants ? (
-            allRestaurants.restaurants.length === 0 ? (
+          {restaurantList? (
+            restaurantList.length === 0 ? (
               <p>Loading...</p>
             ) : (
               <div className="restaurant-list">
-                {allRestaurants.restaurants.map((restaurant) => (
+                {restaurantList.map((restaurant) => (
                   <div key={restaurant.id} className="restaurant-card">
                     <h2>{restaurant.name}</h2>
                     <p>{restaurant.starRating}</p>
