@@ -9,6 +9,7 @@ const LandingPage = () => {
 
   const allRestaurants =
     useSelector((state) => state.restaurant.allRestaurants) || [];
+  const restaurantList = Object.values(allRestaurants);
 
   useEffect(() => {
     dispatch(fetchRestaurants());
@@ -17,12 +18,12 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <h1>All Restaurants</h1>
-      {allRestaurants.restaurants ? (
-        allRestaurants.restaurants.length === 0 ? (
+      {allRestaurants ? (
+        restaurantList.length === 0 ? (
           <p>Loading...</p>
         ) : (
           <div className="restaurant-list">
-            {allRestaurants.restaurants.map((restaurant) => (
+            {restaurantList.map((restaurant) => (
               <Link
                 to={`/${restaurant.id}`}
                 key={restaurant.id}
@@ -33,6 +34,7 @@ const LandingPage = () => {
                 </div>
                 <div className="restaurant-info">
                   <p className="restaurant-name">{restaurant.name}</p>
+                  <p className="restaurant-address">{restaurant.address}</p>
                   <p className="restaurant-rating">{restaurant.starRating}</p>
                 </div>
               </Link>
