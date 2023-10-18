@@ -9,12 +9,13 @@ const RestaurantDetails = () => {
   const dispatch = useDispatch()
 	const restaurant = useSelector(state => state.restaurant.restaurant)
 	const restaurantItems = useSelector(state => state.menuItems)
-	console.log(restaurant)
-	console.log(restaurantItems)
 	const categories = {}
-	for (const item in restaurantItems) {
-		if (!categories[item.type]) categories[item.type] = item.type
+	for (const item of Object.values(restaurantItems)) {
+		if (!categories[item.type]) categories[item.type] = [item]
+		else categories[item.type] = [...categories[item.type], item]
 	}
+	console.log(categories, "CATTTTTTTTTTT")
+
 	const { restaurantId } = useParams()
 	const [focusTab, setFocusTab] = useState()
 	const [isLoaded, setIsLoaded] = useState(false)
@@ -27,14 +28,14 @@ const RestaurantDetails = () => {
 		.then(setIsLoaded(true))
 	}, [dispatch, restaurantId])
 
-	const scrollToId = (id, tabName) => {
-		const element = id ? document.getElementById(id) : id
-		const elementPosition = element.getBoundingClientRect().top + window.scrollY + 40
+	const scrollToId = (catName) => {
+		const element = catName ? document.getElementById(catName) : catName
+		const elementPosition = element.getBoundingClientRect().top + window.scrollY - 60
 		window.scrollTo({
 			top: elementPosition,
 			behavior: "smooth"
 		})
-		setFocusTab(tabName)
+		setFocusTab(catName)
 	}
 
 	// if link name is invalid, catch all
@@ -46,19 +47,6 @@ const RestaurantDetails = () => {
 	// )
 	return (
 		<div className="restaurant-page page-container">
-			{/* <div className='restaurant-page-section-header-div'>
-				{sectionHeaders.map(header => {
-					return (
-						<span
-							key={header[0]}
-							className={`restaurant-page-section-header
-								${focusTab === header[0] ? 'focus' : ''}`}
-							onClick={() => scrollToId(header[1], header[0])}>
-							{header[0]}
-						</span>
-					)
-				})}
-			</div> */}
 			<div
 				style={{
 					backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${restaurant?.image})`,
@@ -74,7 +62,42 @@ const RestaurantDetails = () => {
 				</p>
 			</div>
 			<div className='menu-section'>
-
+				<div className='restaurant-page-cat-div'>
+					{Object.keys(categories).map(category => {
+						return (
+							<span
+								key={category}
+								className={`restaurant-page-cat
+									${focusTab === category ? 'focus' : ''}`}
+								onClick={() => scrollToId(category)}>
+								{category}
+							</span>
+						)
+					})}
+				</div>
+				<div className='cat-section'>
+				{Object.keys(categories).map(category => {
+						return (
+							<span
+								key={category}
+								id={category}>
+								<h2>{category}</h2>
+								<div className='cat-item-list'>
+									{Object.values(categories[category]).map(item => {
+										return (
+											<div className='item-card'>
+												<img className='item-card-img' src={item?.image} alt={item?.image}/>
+												<p className='item-card-name'><b>{item?.name}</b></p>
+												<p className='item-card-price'>${item?.price}</p>
+												{/* <p>{item?.description}</p> */}
+											</div>
+										)
+									})}
+								</div>
+							</span>
+						)
+					})}
+				</div>
 			</div>
 		</div>
 	)
