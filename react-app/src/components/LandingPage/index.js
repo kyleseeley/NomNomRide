@@ -9,7 +9,6 @@ const LandingPage = () => {
 
   const allRestaurants =
     useSelector((state) => state.restaurant.allRestaurants) || [];
-  console.log("all restaurants", allRestaurants);
 
   useEffect(() => {
     dispatch(fetchRestaurants());
@@ -33,20 +32,8 @@ const LandingPage = () => {
                   <img src={restaurant.image} alt="Preview" />
                 </div>
                 <div className="restaurant-info">
-                  <div>
-                    <h2 className="restaurant-name">
-                      {restaurant.name}
-                      <span
-                        className="restaurant-address"
-                        data-title={restaurant.address}
-                      >
-                        ({restaurant.address})
-                      </span>
-                    </h2>
-                  </div>
-                  <div className="restaurant-rating-container">
-                    <p className="restaurant-rating">{restaurant.starRating}</p>
-                  </div>
+                  <p className="restaurant-name">{restaurant.name}</p>
+                  <p className="restaurant-rating">{restaurant.starRating}</p>
                 </div>
               </Link>
             ))}
