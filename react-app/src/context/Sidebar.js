@@ -35,7 +35,7 @@ export function Sidebar() {
   return (
     <>
       <div id='sidebar-background' className={isSidebarVisible ? '' : 'hidden'} onClick={() => setIsSidebarVisible(false)}>&nbsp;</div>
-      <div className={`sidebar ${isSidebarVisible ? 'open' : ''}`}>
+      <div className={`account-sidebar ${isSidebarVisible ? 'open' : ''}`}>
         <div className="sidebar-buttons">
           {user ? <>
           </> : <>

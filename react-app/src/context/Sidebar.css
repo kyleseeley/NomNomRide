@@ -7,14 +7,13 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.sidebar {
+.account-sidebar {
   position: fixed;
   align-self: flex-start;
   top: 0;
   padding-top: 1.5rem;
   left: -17rem;
   width: 17rem;
-  min-width: 12rem;
   padding-right: 1rem;
   height: 100vh;
   transition: left 0.3s ease-in-out;
@@ -22,7 +21,7 @@
   z-index: 1;
 }
 
-.sidebar.open {
+.account-sidebar.open {
   padding-left: 1rem;
   left: 0;
 }
