@@ -33,8 +33,9 @@ const LandingPage = () => {
                   <img src={restaurant.image} alt="Preview" />
                 </div>
                 <div className="restaurant-info">
-                  <p className="restaurant-name">{restaurant.name}</p>
-                  <p className="restaurant-address">{restaurant.address}</p>
+                  <p className="restaurant-name">
+                    {restaurant.name} ({restaurant.address})
+                  </p>
                   <p className="restaurant-rating">{restaurant.starRating}</p>
                 </div>
               </Link>
