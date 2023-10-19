@@ -1,14 +1,26 @@
 .landing-page {
-  padding-top: 60px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 60px 20px;
   text-align: center;
+}
+
+.landing-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  /* justify-content: center; */
+}
+
+.sidebar {
+  width: 20%;
+  padding-right: 20px;
 }
 
 .restaurant-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
+  width: 80%;
 }
 
 .restaurant-card {
@@ -54,31 +66,6 @@
   max-width: 85%;
 }
 
-/* .restaurant-address {
-  font-size: 1.2rem;
-  color: black;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 40%;
-} */
-
-/* .restaurant-address::after {
-  content: attr(data-title);
-  position: absolute;
-  background-color: #fff;
-  white-space: nowrap;
-  font-size: 1rem;
-  top: 0;
-  left: 100%;
-  padding-left: 5px;
-  border: 1px solid #ccc;
-  max-width: 100%;
-  opacity: 0;
-  transition: opacity 0.3s;
-} */
-
 .restaurant-rating-container {
   display: flex;
   align-items: center;
@@ -108,4 +95,19 @@
 .restaurant-rating span {
   position: relative;
   z-index: 1;
+}
+
+.restaurant-sort-sidebar {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+.restaurant-sort-sidebar label {
+  margin: 5px 0;
+}
+
+.restaurant-sort-sidebar .Submit {
+  font-size: 14px;
+  width: 70%;
 }
