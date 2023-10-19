@@ -4,14 +4,19 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import SearchBar from '../SearchBar';
+import { useSidebarContext } from '../../context/Sidebar';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const location = useLocation()
+  const { setIsSidebarVisible } = useSidebarContext()
 
   return (
     <ul className='nav'>
       <li className='nav-left'>
+        <i
+          onClick={() => setIsSidebarVisible(true)}
+          className={`fa-solid fa-bars toggle-sidebar`} />
         <NavLink exact to="/" className='logo-link'>
           {/* <img
             src={logo}

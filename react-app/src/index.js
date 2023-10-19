@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-
+import { SidebarProvider, Sidebar } from "./context/Sidebar";
 import { ModalProvider, Modal } from "./context/Modal";
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
@@ -23,12 +23,15 @@ if (process.env.NODE_ENV !== "production") {
 function Root() {
 	return (
 		<ModalProvider>
-			<Provider store={store}>
-				<BrowserRouter>
-					<App />
-					<Modal />
-				</BrowserRouter>
-			</Provider>
+			<SidebarProvider>
+				<Provider store={store}>
+					<BrowserRouter>
+						<App />
+						<Sidebar />
+						<Modal />
+					</BrowserRouter>
+				</Provider>
+			</SidebarProvider>
 		</ModalProvider>
 	);
 }
