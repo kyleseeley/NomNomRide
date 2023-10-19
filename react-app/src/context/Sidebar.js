@@ -39,13 +39,27 @@ export function Sidebar() {
         <div className="sidebar-buttons">
           {user ? <>
           </> : <>
-            <NavLink to="/signup" className="sidebar-button-signup">
+            <NavLink
+              to="/signup"
+              onClick={() => setIsSidebarVisible(false)}
+              className="sidebar-button-signup">
               Sign up
             </NavLink>
-            <NavLink to="/login" className="sidebar-button-login">
+            <NavLink
+              to="/login"
+              onClick={() => setIsSidebarVisible(false)}
+              className="sidebar-button-login">
               Log in
             </NavLink>
           </>}
+        </div>
+        <div className="sidebar-links">
+          <NavLink
+            to='/new'
+            onClick={() => setIsSidebarVisible(false)}
+            className='add-restaurant-link'>
+            Add your restaurant
+          </NavLink>
         </div>
       </div>
     </>
