@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
 import "./Sidebar.css"
-import ReactDOM from 'react-dom'
 import { NavLink } from "react-router-dom";
 
 

@@ -19,6 +19,10 @@
   box-shadow: 0 0 5px #CCCCCC;
 }
 
+.fa-bars:hover {
+  cursor: pointer;
+}
+
 .nav.nav-hidden {
   top: -4rem;
 }
