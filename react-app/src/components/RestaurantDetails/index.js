@@ -6,17 +6,16 @@ import { fetchOneRestaurant } from '../../store/restaurant'
 import { fetchMenuItemsThunk } from '../../store/menuItems'
 
 const RestaurantDetails = () => {
-  const dispatch = useDispatch()
-	const restaurant = useSelector(state => state.restaurant.restaurant)
+	const dispatch = useDispatch()
+	const { restaurantId } = useParams()
+	const restaurant = useSelector(state => state.restaurant[restaurantId])
 	const restaurantItems = useSelector(state => state.menuItems)
 	const categories = {}
 	for (const item of Object.values(restaurantItems)) {
 		if (!categories[item.type]) categories[item.type] = [item]
 		else categories[item.type] = [...categories[item.type], item]
 	}
-	console.log(categories, "CATTTTTTTTTTT")
 
-	const { restaurantId } = useParams()
 	const [focusTab, setFocusTab] = useState()
 	const [isLoaded, setIsLoaded] = useState(false)
 
@@ -49,7 +48,7 @@ const RestaurantDetails = () => {
 		<div className="restaurant-page page-container">
 			<div
 				style={{
-					backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${restaurant?.image})`,
+					backgroundImage: `url(${restaurant?.image})`,
 					backgroundSize: 'cover',
 					backgroundPosition: 'center'
 				}}
@@ -85,7 +84,9 @@ const RestaurantDetails = () => {
 								<div className='cat-item-list'>
 									{Object.values(categories[category]).map(item => {
 										return (
-											<div className='item-card'>
+											<div
+												key={item?.id}
+												className='item-card'>
 												<img className='item-card-img' src={item?.image} alt={item?.image}/>
 												<p className='item-card-name'><b>{item?.name}</b></p>
 												<p className='item-card-price'>${item?.price}</p>

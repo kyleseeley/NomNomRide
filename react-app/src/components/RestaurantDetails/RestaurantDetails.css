@@ -93,10 +93,6 @@
 	grid-template-columns: repeat(4, 1fr);
 }
 
-.item-card-img {
-	margin: 0.5rem;
-}
-
 .item-card-name,
 .item-card-price {
 	margin: 0.3rem 0 0.3rem 0.5rem;
@@ -106,6 +102,7 @@
 	aspect-ratio: 2 / 1;
 	max-width: 15rem;
 	object-fit: cover;
+	margin: 0.5rem;
 }
 
 .item-card-price {

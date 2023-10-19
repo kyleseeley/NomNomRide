@@ -130,26 +130,24 @@ export const deleteRestaurant = (id) => async (dispatch) => {
   }
 };
 
-const initialState = {
-  allRestaurants: {},
-};
+const initialState = {}
 
 const restaurantReducer = (state = initialState, action) => {
-  const newState = { ...state };
+  let newState
   switch (action.type) {
     case LOAD_RESTAURANTS:
-      newState.allRestaurants = {};
+      newState = {};
       action.restaurants.forEach((restaurant) => {
-        newState.allRestaurants[restaurant.id] = restaurant;
+        newState[restaurant.id] = restaurant;
       });
       return newState;
     case LOAD_ONE_RESTAURANT:
-      newState.allRestaurants = { ...state.allRestaurants };
-      newState.allRestaurants[action.restaurant.id] = action.restaurant;
+      newState = { ...state };
+      newState[action.restaurant.id] = action.restaurant;
       return newState;
     case DELETE_ONE_RESTAURANT:
-      newState.allRestaurants = { ...state.allRestaurants };
-      delete newState.allRestaurants[action.restaurantId];
+      newState = { ...state };
+      delete newState[action.restaurantId];
       return newState;
     default:
       return state;
