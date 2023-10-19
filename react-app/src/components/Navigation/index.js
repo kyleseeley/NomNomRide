@@ -36,11 +36,15 @@ function Navigation({ isLoaded }){
         <SearchBar />
       </li>
 
-      {isLoaded && <li className='nav-right'>
-        <div className='nav-right-profile'>
-          {<ProfileButton user={sessionUser} />}
-        </div>
-      </li>}
+      <li className='nav-right'>
+        <button className='cart-button'><i className="fa-solid fa-cart-shopping" />Cart <b>·</b> </button>
+        {!sessionUser && <>
+          <button className="login-button">
+            <i className="fas fa-user-circle" />Log In
+          </button>
+          <button className="signup-button">Sign Up</button>
+        </>}
+      </li>
     </ul>
   )
 }

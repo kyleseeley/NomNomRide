@@ -5,7 +5,6 @@ import OpenModalButton from "../OpenModalButton";
 // import LoginFormModal from "../Modals/loginForm";
 // import SignupFormModal from "../Modals/signupForm";
 import { useHistory } from "react-router-dom";
-import './ProfileButton.css'
 
 function ProfileButton({ user }) {
   const history = useHistory()
