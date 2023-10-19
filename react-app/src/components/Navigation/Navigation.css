@@ -53,18 +53,6 @@
   margin-right: 1rem;
 }
 
-.nav-button {
-  position: relative;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-}
-
-.nav-button:hover {
-  background-color: #DDDDDD;
-}
-
 .login-button,
 .signup-button,
 .cart-button {
@@ -77,14 +65,15 @@
   margin-right: 1rem;
 }
 
+.fa-user-circle,
+.fa-cart-shopping {
+  margin-right: 0.5rem;
+}
+
 .cart-button {
   color: white;
   background-color: black;
   margin-right: 1.5rem;
-}
-
-.fa-cart-shopping {
-  margin-right: 0.5rem;
 }
 
 .fa-solid.fa-info {

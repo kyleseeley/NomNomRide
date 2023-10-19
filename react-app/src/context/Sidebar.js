@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import "./Sidebar.css"
-import ReactDOM from 'react-dom'
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 
@@ -26,31 +26,28 @@ export function useSidebarContext() {
 }
 
 export function Sidebar() {
-    const { isSidebarVisible, setIsSidebarVisible } = useSidebarContext()
-    // dispatch for session user, if logged in then show following
-    // also show recommended for user, if user isn't logged in show generic recommended
+  const { isSidebarVisible, setIsSidebarVisible } = useSidebarContext()
+  const user = useSelector(state => state.session.user)
 
-    return (
-      <>
-        <div id='sidebar-background' className={isSidebarVisible ? '' : 'hidden'} onClick={() => setIsSidebarVisible(false)}>&nbsp;</div>
-        <div className={`sidebar ${isSidebarVisible ? 'open' : ''}`}>
-          <div id="sidebar-content">
-            <ul className="sidebar-pages">
-                <li>
-                    <NavLink to="/" className="sidebar-el link home-button">
-                        <i className="fa-solid fa-house sidebar-el-icon"></i>
-                        <span className="sidebar-el-name">Home</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/categories" className="sidebar-el link genre-button">
-                        <i className="fa-solid fa-icons sidebar-el-icon"></i>
-                        <span className="sidebar-el-name">Genres</span>
-                    </NavLink>
-                </li>
-            </ul>
-          </div>
+  // dispatch for session user, if logged in then show following
+  // also show recommended for user, if user isn't logged in show generic recommended
+
+  return (
+    <>
+      <div id='sidebar-background' className={isSidebarVisible ? '' : 'hidden'} onClick={() => setIsSidebarVisible(false)}>&nbsp;</div>
+      <div className={`sidebar ${isSidebarVisible ? 'open' : ''}`}>
+        <div className="sidebar-buttons">
+          {user ? <>
+          </> : <>
+            <NavLink to="/signup" className="sidebar-button-signup">
+              Sign up
+            </NavLink>
+            <NavLink to="/login" className="sidebar-button-login">
+              Log in
+            </NavLink>
+          </>}
         </div>
-      </>
-    )
+      </div>
+    </>
+  )
 }

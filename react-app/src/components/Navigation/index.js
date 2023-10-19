@@ -39,10 +39,10 @@ function Navigation({ isLoaded }){
       <li className='nav-right'>
         <button className='cart-button'><i className="fa-solid fa-cart-shopping" />Cart <b>·</b> </button>
         {!sessionUser && <>
-          <button className="login-button">
+          <NavLink to='/login' className="login-button">
             <i className="fas fa-user-circle" />Log In
-          </button>
-          <button className="signup-button">Sign Up</button>
+          </NavLink>
+          <NavLink to='/signup' className="signup-button">Sign Up</NavLink>
         </>}
       </li>
     </ul>

@@ -11,14 +11,14 @@
   position: fixed;
   align-self: flex-start;
   top: 0;
-  padding-top: 3rem;
-  left: -14rem;
-  width: 12rem;
+  padding-top: 1.5rem;
+  left: -17rem;
+  width: 17rem;
   min-width: 12rem;
   padding-right: 1rem;
   height: 100vh;
   transition: left 0.3s ease-in-out;
-  background-color: #efeff1;
+  background-color: white;
   z-index: 1;
 }
 
@@ -27,31 +27,37 @@
   left: 0;
 }
 
-.sidebar-pages {
-  list-style: none;
+.sidebar-buttons {
   padding: 0;
-}
-
-.sidebar-el {
-  padding: 1rem 2rem 1rem 1rem;
-  border-radius: 6px;
-}
-
-.sidebar-el.link {
+  height: fit-content;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
-.sidebar-el-icon {
-  width: 2rem;
+
+.sidebar-button-signup,
+.sidebar-button-login {
+  display: block;
+  text-align: center;
+  padding: 1.2rem 0;
+  width: 16rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
 }
 
-.sidebar-el.link:hover {
-  background-color: #DDDDDD;
-}
-
-.sidebar-el.title {
+.sidebar-button-login {
+  color: black;
   font-weight: bold;
+  background-color: #EEEEEE;
 }
+
+.sidebar-button-signup {
+  color: white;
+  font-weight: bold;
+  background-color: black;
+}
+
 
 /* @media (max-width: 1100px) {
   .sidebar {
