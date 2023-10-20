@@ -1,15 +1,13 @@
 export const FETCH_MENU_ITEMS = "menuItems/FETCH_MENU_ITEMS";
-export const CREATE_MENU_ITEM = "menuItems/CREATE_MENU_ITEM";
-export const UPDATE_ITEM = "items/UPDATE_ITEM";
+export const FETCH_ONE_MENU_ITEM = "menuItems/FETCH_ONE_MENU_ITEM";
+export const CREATE_OR_EDIT_MENU_ITEM = "menuItems/CREATE_OR_EDIT_MENU_ITEM";
 export const REMOVE_ITEM = "items/REMOVE_ITEM";
 
 // action creators
-export function fetchMenuItems(menuItems) {
-  return {
-    type: FETCH_MENU_ITEMS,
-    payload: menuItems,
-  };
-}
+export const fetchMenuItems = (menuItems) => ({
+  type: FETCH_MENU_ITEMS,
+  menuItems,
+});
 
 export const remove = (itemId, restaurantId) => ({
   type: REMOVE_ITEM,
@@ -22,7 +20,11 @@ export const fetchMenuItemsThunk = (restaurantId) => async (dispatch) => {
   const response = await fetch(`/api/restaurants/${restaurantId}/items`);
   if (response.ok) {
     const data = await response.json();
-    dispatch(fetchMenuItems(data.menuItems));
+    const payload = data.menuItems.reduce((obj, item) => {
+      obj[item.id] = item;
+      return obj;
+    }, {});
+    dispatch(fetchMenuItems(payload));
   } else if (response.status < 500) {
     const data = await response.json();
     if (data.errors) {
@@ -50,7 +52,7 @@ export const createMenuItem =
     });
     if (response.ok) {
       const data = await response.json();
-      dispatch({ type: CREATE_MENU_ITEM, menuItem: data });
+      dispatch({ type: CREATE_OR_EDIT_MENU_ITEM, menuItem: data });
       return null;
     } else if (response.status < 500) {
       const data = await response.json();
@@ -73,7 +75,7 @@ export const editMenuItem = (item) => async (dispatch) => {
 
   if (response.ok) {
     const updatedItem = await response.json();
-    dispatch({ type: CREATE_MENU_ITEM, menuItem: updatedItem });
+    dispatch({ type: CREATE_OR_EDIT_MENU_ITEM, menuItem: updatedItem });
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -85,28 +87,31 @@ export const editMenuItem = (item) => async (dispatch) => {
   }
 };
 
-export const deleteItem = (item, restaurantId) => async (dispatch) => {
-  const url = `/api/items/${item.id}`;
+export const deleteMenuItem = (itemId, restaurantId) => async (dispatch) => {
+  const url = `/api/items/${itemId}`;
 
   const response = await fetch(url, {
     method: "DELETE",
   });
   await response.json();
 
-  dispatch(remove(item.id, restaurantId));
+  dispatch(remove(itemId, restaurantId));
 };
 
-const initialState = { items: {}, fetchPending: true };
+const initialState = {};
 
 export default function menuItemsReducer(state = initialState, action) {
-  const newItems = { items: { ...state.items } };
+  const newItems = { ...state };
   switch (action.type) {
-    case CREATE_MENU_ITEM:
-      const newlyCreatedItem = action.menuItem;
-      newItems.items[newlyCreatedItem.id] = newlyCreatedItem;
+    case CREATE_OR_EDIT_MENU_ITEM:
+      const newOrEditedItem = action.menuItem;
+      newItems[newOrEditedItem.id] = newOrEditedItem;
       return newItems;
     case FETCH_MENU_ITEMS:
-      return { ...action.payload };
+      return { ...action.menuItems };
+    case REMOVE_ITEM:
+      delete newItems[action.itemId];
+      return newItems;
     default:
       return state;
   }

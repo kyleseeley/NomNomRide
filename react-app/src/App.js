@@ -6,10 +6,12 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
-import RestaurantDetails from './components/RestaurantDetails'
-import NewMenuItem from "./components/MenuItems/NewMenuItem";
+import RestaurantDetails from "./components/RestaurantDetails";
+import MenuItemForm from "./components/RestaurantManagement/MenuItemForm";
+import RestaurantManagement from "./components/RestaurantManagement";
+import RestaurantForm from "./components/RestaurantManagement/RestaurantForm";
 // import Checkout from ./components/Checkout
-// import newRestaurant from ./components/newRestaurant
+
 // import Search from ./components/Search
 
 function App() {
@@ -23,7 +25,7 @@ function App() {
     <>
       {isLoaded && (
         <Switch>
-          <Route path="/login" >
+          <Route path="/login">
             <LoginFormPage />
           </Route>
           <Route path="/signup">
@@ -32,20 +34,27 @@ function App() {
           <Route exact path="/">
             <LandingPage />
           </Route>
-          <Route exact path="/:restaurantId">
-            <RestaurantDetails />
-          </Route>
-          <Route exact path="/:restaurantId/menuItems/new">
-            <NewMenuItem />
-          </Route>
+
           <Route exact path="/checkout">
             {/* <Checkout /> */}
           </Route>
           <Route exact path="/new">
-            {/* <NewRestaurant /> */}
+            <RestaurantForm />
           </Route>
           <Route exact path="/search">
             {/* <SearchResults /> */}
+          </Route>
+          <Route path="/:restaurantId/manage">
+            <RestaurantManagement />
+          </Route>
+          <Route exact path="/:restaurantId/menuItems/new">
+            <MenuItemForm />
+          </Route>
+          <Route exact path="/:restaurantId/menuItems/:itemId/edit">
+            <MenuItemForm />
+          </Route>
+          <Route exact path="/:restaurantId">
+            <RestaurantDetails />
           </Route>
         </Switch>
       )}
