@@ -22,19 +22,6 @@ const LandingPage = () => {
     setSortCriteria(criteria);
   };
 
-  //   const sortedRestaurants = [...restaurantList];
-  //   if (shouldSortOnSubmit) {
-  //     if (sortCriteria === "rating") {
-  //       sortedRestaurants.sort((a, b) => b.starRating - a.starRating);
-  //     } else if (sortCriteria === "popularity") {
-  //       sortedRestaurants.sort((a, b) => b.numReviews - a.numReviews);
-  //     } else if (sortCriteria === "priceRange") {
-  //       sortedRestaurants.sort(
-  //         (a, b) => b.mostExpensiveMenuItem - a.mostExpensiveMenuItem
-  //       );
-  //     }
-  //   }
-
   const filteredRestaurants = selectedType
     ? restaurantList.filter((restaurant) => restaurant.type === selectedType)
     : restaurantList;
