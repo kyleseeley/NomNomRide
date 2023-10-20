@@ -1,0 +1,96 @@
+#cart-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.account-cart {
+  position: fixed;
+  align-self: flex-start;
+  top: 0;
+  padding-top: 1.5rem;
+  right: -29rem;
+  width: 28rem;
+  padding-right: 1rem;
+  height: 100vh;
+  transition: right 0.3s ease-in-out;
+  background-color: white;
+  z-index: 1;
+}
+
+.account-cart.open {
+  padding-left: 1rem;
+  right: 0;
+}
+
+.fa-x.modal {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  cursor: pointer;
+}
+
+.cart-main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cart-main.center {
+  justify-content: center;
+}
+
+.cart-profile-div {
+  display: flex;
+  margin-bottom: 1rem;
+  align-self: flex-start;
+}
+
+.cart-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-sidebar-button {
+  display: block;
+  text-align: center;
+  padding: 1.2rem 0;
+  width: 25rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+}
+
+.cart-sidebar-button.add-items {
+  color: black;
+  font-weight: bold;
+  background-color: #EEEEEE;
+}
+
+.cart-sidebar-button.checkout {
+  color: white;
+  font-weight: bold;
+  background-color: black;
+}
+
+.cart-start-shopping {
+  color: white;
+  font-size: 0.9rem;
+  background-color: black;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.empty-cart-text {
+  text-align: center;
+  color: #999999;
+  width: 80%;
+  margin: 0 0 2rem 0;
+}
