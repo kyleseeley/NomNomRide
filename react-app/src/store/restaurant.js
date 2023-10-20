@@ -52,7 +52,7 @@ export const fetchOneRestaurant = (restaurantId) => async (dispatch) => {
 export const createNewRestaurant =
   (address, city, state, lat, lng, name, type, image) => async (dispatch) => {
     try {
-      const response = await csrfFetch("/api/restaurants", {
+      const response = await csrfFetch("/api/restaurants/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,15 +75,17 @@ export const createNewRestaurant =
 
       const responseData = await response.json();
       dispatch(loadOneRestaurant(responseData));
+      return responseData.id;
     } catch (error) {
       console.log("Error create restaurant", error);
     }
   };
 
 export const updateRestaurant =
-  (address, city, state, lat, lng, name, type, image) => async (dispatch) => {
+  (restaurantId, address, city, state, lat, lng, name, type, image) =>
+  async (dispatch) => {
     try {
-      const response = await csrfFetch("/api/restaurants", {
+      const response = await csrfFetch(`/api/restaurants/${restaurantId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -130,10 +132,10 @@ export const deleteRestaurant = (id) => async (dispatch) => {
   }
 };
 
-const initialState = {}
+const initialState = {};
 
 const restaurantReducer = (state = initialState, action) => {
-  let newState
+  let newState;
   switch (action.type) {
     case LOAD_RESTAURANTS:
       newState = {};
