@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
 import "./Sidebar.css"
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
+import { logout } from "../store/session";
 
 
 const SidebarContext = createContext();
@@ -26,9 +27,17 @@ export function useSidebarContext() {
 }
 
 export function Sidebar() {
+  const dispatch = useDispatch()
+  const history = useHistory()
   const { isSidebarVisible, setIsSidebarVisible } = useSidebarContext()
   const user = useSelector(state => state.session.user)
-  console.log(user)
+
+  const handleLogout = () => {
+    console.log("huh?")
+    dispatch(logout())
+    setIsSidebarVisible(false)
+    history.push('/')
+  }
 
   // dispatch for session user, if logged in then show following
   // also show recommended for user, if user isn't logged in show generic recommended
@@ -41,15 +50,17 @@ export function Sidebar() {
           {user ? <>
             <div className="sidebar-profile-div">
               {/* user circle standin for image */}
-              <i className="fas fa-user-circle" />
+              <i className="fas fa-user-circle" id='sidebar-profile-img' />
               <div className="sidebar-user-info">
                 <div className="sidebar-user-name">{user.firstname}</div>
                 <NavLink to='/account' className='sidebar-account-link'>Manage account</NavLink>
               </div>
             </div>
-            <div className="sidebar-signout">
+            <button
+              onClick={handleLogout}
+              className="sidebar-signout">
               Sign out
-            </div>
+            </button>
           </> : <>
             <NavLink
               to="/signup"
