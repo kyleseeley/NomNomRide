@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, URLField
+from wtforms import StringField, FloatField, URLField, SelectField
 from wtforms.validators import DataRequired, Length, NumberRange, ValidationError
 
 def validateAddress(form, field):
@@ -37,7 +37,7 @@ def validateName(form, field):
 def validateType(form, field):
   type = field.data
   if not type:
-    raise ValidationError('Please enter a type.')
+    raise ValidationError('Please select a type.')
   if len(type) > 50:
     raise ValidationError('Length of type is too long.')
 def validateImage(form, field):
@@ -52,5 +52,6 @@ class RestaurantForm(FlaskForm):
   lat = FloatField('lat', validators=[DataRequired(), NumberRange(min=-90, max=90), validateLat])
   lng = FloatField('lng', validators=[DataRequired(), NumberRange(min=-180, max=180), validateLng])
   name = StringField('name', validators=[DataRequired(), Length(max=40), validateName])
-  type = StringField('type', validators=[DataRequired(), Length(max=40), validateType])
+  type = SelectField('type', choices=["Chinese", "American", 
+    "Fast Food", "Mexican", "Pizza", "Sushi", "Thai", "Burgers", "Indian", "Wings", "Italian", "BBQ", "Vegan", "Sandwich"], validators=[DataRequired(), validateType])
   image = URLField('image', validators=[DataRequired()])
