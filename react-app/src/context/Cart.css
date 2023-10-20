@@ -41,14 +41,12 @@
   margin-bottom: 1rem;
 }
 
-.cart-main.center {
-  justify-content: center;
+.cart-restaurant-details {
+  align-self: flex-start;
 }
 
-.cart-profile-div {
-  display: flex;
-  margin-bottom: 1rem;
-  align-self: flex-start;
+.cart-main.center {
+  justify-content: center;
 }
 
 .cart-buttons {

@@ -1,8 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./Cart.css"
-import { getCartThunk } from "../store/cart";
 
 
 const CartContext = createContext();
@@ -28,7 +27,6 @@ export function useCartContext() {
 
 export function Cart() {
   const { isCartVisible, setIsCartVisible } = useCartContext()
-  const user = useSelector(state => state.session.user)
   const cart = useSelector(state => state.cart)
 
   return (
@@ -39,12 +37,8 @@ export function Cart() {
           onClick={() => setIsCartVisible(false)}
           className="fa-solid fa-x modal" />
         {cart ? <div className="cart-main">
-          <div className="cart-profile-div">
-            <i className="fas fa-user-circle" id='cart-profile-img' />
-            <div className="cart-user-info">
-              <div className="cart-user-name">{user.firstname}</div>
-              <NavLink to='/account' className='cart-account-link'>Manage account</NavLink>
-            </div>
+          <div className="cart-restaurant-details">
+
           </div>
           <div className="cart-buttons">
             <NavLink

@@ -1,0 +1,77 @@
+.item-modal {
+  display: flex;
+  width: 70vw;
+  max-width: 50rem;
+  height: 30rem;
+  align-items: top;
+  padding-top: 1rem;
+  overflow-y: auto;
+}
+
+.fa-x.modal {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.item-img-container {
+  width: 30rem;
+  display: flex;
+  align-items: center;
+}
+
+.item-modal-img {
+  width: 90%;
+}
+
+.item-modal-details {
+  justify-self: center;
+  margin-left: 2rem;
+}
+
+.item-modal-name {
+  width: fit-content;
+  margin-bottom: 0;
+}
+
+.item-modal-price {
+  color: #999999;
+  font-size: 1.2rem;
+  width: fit-content;
+}
+
+.item-modal-quantity-label {
+  margin: 2rem 0 0.5rem 0;
+}
+
+.item-modal-quantity-select {
+  min-width: 3rem;
+  min-height: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.item-modal-add-cart {
+  all: unset;
+  background-color: black;
+  color: white;
+  padding: 1rem 0.1rem 1rem 1rem;
+  width: 6rem;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .item-img-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .item-modal {
+    flex-direction: column;
+  }
+  .item-img-container {
+    width: 100%;
+  }
+}

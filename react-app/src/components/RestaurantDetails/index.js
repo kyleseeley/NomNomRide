@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchOneRestaurant } from '../../store/restaurant'
 import { fetchMenuItemsThunk } from '../../store/menuItems'
+import ItemList from '../Item/ItemList'
 
 const RestaurantDetails = () => {
 	const dispatch = useDispatch()
@@ -29,7 +30,7 @@ const RestaurantDetails = () => {
 
 	const scrollToId = (catName) => {
 		const element = catName ? document.getElementById(catName) : catName
-		const elementPosition = element.getBoundingClientRect().top + window.scrollY - 60
+		const elementPosition = element.getBoundingClientRect().top + window.scrollY - 80
 		window.scrollTo({
 			top: elementPosition,
 			behavior: "smooth"
@@ -77,25 +78,9 @@ const RestaurantDetails = () => {
 				<div className='cat-section'>
 				{Object.keys(categories).map(category => {
 						return (
-							<span
-								key={category}
-								id={category}>
-								<h2>{category}</h2>
-								<div className='cat-item-list'>
-									{Object.values(categories[category]).map(item => {
-										return (
-											<div
-												key={item?.id}
-												className='item-card'>
-												<img className='item-card-img' src={item?.image} alt={item?.image}/>
-												<p className='item-card-name'><b>{item?.name}</b></p>
-												<p className='item-card-price'>${item?.price}</p>
-												{/* <p>{item?.description}</p> */}
-											</div>
-										)
-									})}
-								</div>
-							</span>
+							<ItemList
+								category={category}
+								items={categories[category]}/>
 						)
 					})}
 				</div>
