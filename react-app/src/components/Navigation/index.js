@@ -1,15 +1,16 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import SearchBar from '../SearchBar';
+import { useCartContext } from '../../context/Cart';
 import { useSidebarContext } from '../../context/Sidebar';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const location = useLocation()
   const { setIsSidebarVisible } = useSidebarContext()
+  const { setIsCartVisible } = useCartContext()
 
   return (
     <ul className='nav'>
@@ -37,7 +38,11 @@ function Navigation({ isLoaded }){
       </li>
 
       <li className='nav-right'>
-        <button className='cart-button'><i className="fa-solid fa-cart-shopping" />Cart <b>·</b> </button>
+        {sessionUser && <button
+          onClick={() => setIsCartVisible(true)}
+          className='cart-button'>
+          <i className="fa-solid fa-cart-shopping" />Cart <b>·</b>
+        </button>}
         {!sessionUser && <>
           <NavLink to='/login' className="login-button">
             <i className="fas fa-user-circle" />Log In
