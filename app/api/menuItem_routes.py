@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, MenuItem, Restaurant, ShoppingCart, ShoppingCartItem
-from app.forms import MenuItemsForm
+from app.forms import MenuItemsForm, ShoppingCartItemForm
 from .auth_routes import validation_errors_to_error_messages
 
 
@@ -76,16 +76,20 @@ def post_shoppingCartItem(itemId):
     if not menuItem:
         return {'error': 'Item not found'}, 404
     cart = ShoppingCart.query.filter(
-        ShoppingCart.userId == current_user.id).first()
+        ShoppingCart.id == current_user.cartId).first()
     if not cart:
         return { 'error': 'Cart not found' }, 404
+    form = ShoppingCartItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_shoppingCartItem = ShoppingCartItem(
+            cartId=cart.id,
+            menuItemId=menuItem.id,
+            itemQuantity=form.data["quantity"]
+        )
 
-    new_shoppingCartItem = ShoppingCartItem(
-        cartId=cart.id,
-        menuItemId=menuItem.id,
-        itemQuantity=1
-    )
-
-    db.session.add(new_shoppingCartItem)
-    db.session.commit()
-    return new_shoppingCartItem.to_dict()
+        db.session.add(new_shoppingCartItem)
+        db.session.commit()
+        return new_shoppingCartItem.to_dict()
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401

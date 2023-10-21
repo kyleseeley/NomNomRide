@@ -44,3 +44,15 @@ class Restaurant(db.Model):
             "starRating": self.starRating,
             "numReviews": self.numReviews,
         }
+
+    def cart_to_dict(self):
+        return {
+            "address": self.address,
+            "city": self.city,
+            "state": self.state,
+            "lat": self.lat,
+            "lng": self.lng,
+            "name": self.name,
+            "type": self.type,
+            "image": self.image
+        }
