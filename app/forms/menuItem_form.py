@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,URLField
+from wtforms import StringField,URLField, SelectField
 from wtforms.validators import DataRequired, ValidationError
 
 
@@ -24,7 +24,7 @@ def validateImage(form, field):
 
 class MenuItemsForm(FlaskForm):
     name = StringField("name", validators=[DataRequired(),validateName])
-    type = StringField("type", validators=[DataRequired(),validateType])
+    type = SelectField("type", choices=["Entrees", "Side Dish","Appetizer","Dessert"], validators=[DataRequired(), validateType])
     price = StringField("price", validators=[DataRequired(),validatePrice])
     description = StringField("description")
     image = URLField("image")

@@ -17,7 +17,7 @@ class Restaurant(db.Model):
     lng = db.Column(db.Float())
     name = db.Column(db.String(60), nullable=False)
     type = db.Column(db.String(60), nullable=False)
-    image = db.Column(db.String())
+    image = db.Column(db.String(), nullable=False)
     starRating = db.Column(db.Float())
     numReviews = db.Column(db.Integer())
 
