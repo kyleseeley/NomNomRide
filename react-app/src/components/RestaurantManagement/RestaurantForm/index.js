@@ -85,7 +85,6 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
           image
         )
       );
-      console.log("Errors after editing:", errors);
 
       if (!errors && typeof onSubmit === "function") {
         onSubmit();
@@ -99,7 +98,6 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
         history.push(`/${id}/manage`);
       }
     }
-    console.log("Errors after creation:", errors);
 
     if (errors) {
       // Handle errors - API call encountered validation errors or other issues
