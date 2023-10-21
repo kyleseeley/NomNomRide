@@ -39,7 +39,8 @@ const MenuItemForm = () => {
 
   const typeList = ["Entrees", "Side Dish", "Appetizer", "Dessert"];
 
-  const submitHandler = async () => {
+  const submitHandler = async (e) => {
+    e.preventDefault()
     let errors;
     if (itemId !== undefined) {
       //editing

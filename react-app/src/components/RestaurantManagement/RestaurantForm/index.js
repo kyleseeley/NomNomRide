@@ -43,7 +43,8 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const submitHandler = async () => {
+  const submitHandler = async (e) => {
+    e.preventDefault()
     let errors;
     if (restaurant !== undefined) {
       //editing

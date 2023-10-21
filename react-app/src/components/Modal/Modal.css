@@ -1,0 +1,31 @@
+.Modal-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .Modal-background {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    position: absolute;
+    height: 100%;
+  }
+
+  .Modal-content {
+    max-width: 80vw;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.5) 4px 4px 4px 0px;
+    padding: 16px;
+    margin-top: 100px;
+    position: absolute;
+  }
+
+  .Modal-title {
+    text-align: center;
+  }
