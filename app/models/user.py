@@ -10,8 +10,8 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    cartId = db.Column(db.Integer(), db.ForeignKey(
-        add_prefix_for_prod("shoppingcarts.id")))
+    # cartId = db.Column(db.Integer(), db.ForeignKey(
+    #     add_prefix_for_prod("shoppingcarts.id")))
     firstname = db.Column(db.String(40), nullable=False)
     lastname = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
 
     reviews = db.relationship("Review", back_populates="user")
 
-    shoppingCart = db.relationship("ShoppingCart", back_populates="user")
+    # shoppingCart = db.relationship("ShoppingCart", back_populates="user")
 
     @property
     def password(self):

@@ -12,7 +12,7 @@ class ShoppingCart(db.Model):
         add_prefix_for_prod("restaurants.id")))
     total = db.Column(db.DECIMAL(6,2), nullable=False)
 
-    user = db.relationship("User", back_populates="shoppingCart")
+    # user = db.relationship("User", back_populates="shoppingCart")
 
     restaurant = db.relationship("Restaurant", back_populates="shoppingCart")
 
