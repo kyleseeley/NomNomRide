@@ -8,8 +8,6 @@ class ShoppingCart(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer(), primary_key=True)
-    userId = db.Column(db.Integer(), db.ForeignKey(
-        add_prefix_for_prod("users.id")))
     restaurantId = db.Column(db.Integer(), db.ForeignKey(
         add_prefix_for_prod("restaurants.id")))
     total = db.Column(db.DECIMAL(6,2), nullable=False)
@@ -24,7 +22,6 @@ class ShoppingCart(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "userId": self.userId,
             "restaurantId": self.restaurantId,
             "total": self.total
         }

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import Restaurant, Review, MenuItem, ShoppingCart, db
+from app.models import Restaurant, Review, MenuItem, ShoppingCart, User, db
 from app.forms import RestaurantForm, ReviewForm, MenuItemsForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -146,8 +146,6 @@ def post_review(restaurantId):
 
         db.session.add(new_review)
         db.session.commit()
-        db.session.add(new_review)
-        db.session.commit()
 
 		# Updating restaurant rating and number of reviews
         restaurantReviews = Review.query.filter(
@@ -210,14 +208,19 @@ def createItem(restaurantId):
 @restaurant_routes.route('/<int:restaurantId>/shopping-cart', methods=['POST'])
 @login_required
 def post_shoppingCart(restaurantId):
-    carts = ShoppingCart.query.filter(ShoppingCart.userId == current_user.id).first()
+    carts = ShoppingCart.query.filter(ShoppingCart.id == current_user.cartId).first()
     if carts:
         return { 'message': 'User already has a cart' }
+    user = User.query.filter(User.id == current_user.id).first()
+    if not user:
+        return jsonify({ "error": "User not found" })
     new_cart = ShoppingCart(
-        userId=current_user.id,
 		restaurantId=restaurantId,
         total=0
 	)
     db.session.add(new_cart)
     db.session.commit()
+    user.cartId = new_cart.to_dict()['id']
+    db.session.commit()
+
     return new_cart.to_dict()
