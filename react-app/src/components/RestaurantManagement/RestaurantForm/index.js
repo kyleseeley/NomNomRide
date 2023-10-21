@@ -38,12 +38,34 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
   const [lng, setLng] = useState(restaurant?.lng || "");
   const [lngError, setLngError] = useState(null);
   const [type, setType] = useState(restaurant?.type || "American");
+  const [typeError, setTypeError] = useState(restaurant?.type || "American");
   const [image, setImage] = useState(restaurant?.image || "");
   const [imageError, setImageError] = useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const submitHandler = async () => {
+    nameInputValidation();
+    addressInputValidation();
+    cityInputValidation();
+    stateInputValidation();
+    latInputValidation();
+    lngInputValidation();
+    typeInputValidation();
+    imageInputValidation();
+
+    if (
+      nameError ||
+      addressError ||
+      cityError ||
+      stateError ||
+      latError ||
+      lngError ||
+      imageError
+    ) {
+      return;
+    }
+
     let errors;
     if (restaurant !== undefined) {
       //editing
@@ -60,6 +82,8 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
           image
         )
       );
+      console.log("Errors after editing:", errors);
+
       if (!errors && typeof onSubmit === "function") {
         onSubmit();
       }
@@ -72,6 +96,8 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
         history.push(`/${id}/manage`);
       }
     }
+    console.log("Errors after creation:", errors);
+
     if (errors) {
       // Handle errors - API call encountered validation errors or other issues
       console.error("Error creating menu item:", errors);
@@ -117,8 +143,8 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
     if (lat === undefined || lat.length === 0) {
       setLatError("Latitude is required.");
     } else if (lat > 90 || lat < -90) {
-        setLatError("Latitude must be between -90 to 90.");
-      }else {
+      setLatError("Latitude must be between -90 to 90.");
+    } else {
       setLatError(null);
     }
   };
@@ -126,9 +152,16 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
     if (lng === undefined || lng.length === 0) {
       setLngError("Longitude is required.");
     } else if (lng > 180 || lng < -180) {
-        setLngError("Longitude must be between -180 to 180.");
-      }else {
+      setLngError("Longitude must be between -180 to 180.");
+    } else {
       setLngError(null);
+    }
+  };
+  const typeInputValidation = () => {
+    if (type === undefined || type.length === 0) {
+      setTypeError("Type is required");
+    } else {
+      setTypeError(null);
     }
   };
   const imageInputValidation = () => {
@@ -155,7 +188,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
             nameInputValidation();
           }}
         />
-        {nameError !== null && <div>{nameError}</div>}
+        {nameError !== null && <div className="error">{nameError}</div>}
       </div>
       <div>
         <label>Type</label>
@@ -171,6 +204,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
             </option>
           ))}
         </select>
+        {typeError !== null && <div className="error">{typeError}</div>}
       </div>
       <div>
         <label>Address</label>
@@ -184,7 +218,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
             addressInputValidation();
           }}
         />
-        {addressError !== null && <div>{addressError}</div>}
+        {addressError !== null && <div className="error">{addressError}</div>}
       </div>
       <div>
         <label>City</label>
@@ -198,7 +232,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
             cityInputValidation();
           }}
         />
-        {cityError !== null && <div>{cityError}</div>}
+        {cityError !== null && <div className="error">{cityError}</div>}
       </div>
       <div>
         <label>State</label>
@@ -212,7 +246,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
             stateInputValidation();
           }}
         />
-        {stateError !== null && <div>{stateError}</div>}
+        {stateError !== null && <div className="error">{stateError}</div>}
       </div>
       <div>
         <label>Latitude</label>
@@ -226,7 +260,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
             latInputValidation();
           }}
         />
-        {latError !== null && <div>{latError}</div>}
+        {latError !== null && <div className="error">{latError}</div>}
       </div>
       <div>
         <label>Longtitude</label>
@@ -240,7 +274,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
             lngInputValidation();
           }}
         />
-         {lngError !== null && <div>{lngError}</div>}
+        {lngError !== null && <div className="error">{lngError}</div>}
       </div>
       <div>
         <label>Image</label>
@@ -254,7 +288,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
             imageInputValidation();
           }}
         />
-        {imageError !== null && <div>{imageError}</div>}
+        {imageError !== null && <div className="error">{imageError}</div>}
       </div>
       <button onClick={submitHandler}>submit</button>
     </div>

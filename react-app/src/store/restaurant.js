@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 export const LOAD_RESTAURANTS = "/restaurants/LOAD_RESTAURANTS";
 export const LOAD_ONE_RESTAURANT = "/restaurants/LOAD_ONE_RESTAURANT";
 export const DELETE_ONE_RESTAURANT = "/restaurants/DELETE_ONE_RESTAURANT";
+export const CREATE_RESTAURANT = "/restaurants/CREATE_RESTAURANT";
 
 export const loadRestaurants = (restaurants) => ({
   type: LOAD_RESTAURANTS,
@@ -17,6 +18,11 @@ export const loadOneRestaurant = (restaurant) => ({
 export const deleteOneRestaurant = (restaurantId) => ({
   type: DELETE_ONE_RESTAURANT,
   restaurantId,
+});
+
+export const createRestaurant = (restaurant) => ({
+  type: CREATE_RESTAURANT,
+  restaurant,
 });
 
 export const fetchRestaurants = () => async (dispatch) => {
@@ -150,6 +156,10 @@ const restaurantReducer = (state = initialState, action) => {
     case DELETE_ONE_RESTAURANT:
       newState = { ...state };
       delete newState[action.restaurantId];
+      return newState;
+    case CREATE_RESTAURANT:
+      newState = { ...state };
+      newState[action.restaurant.id] = action.restaurant;
       return newState;
     default:
       return state;
