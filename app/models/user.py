@@ -23,11 +23,11 @@ class User(db.Model, UserMixin):
     lng = db.Column(db.Float())
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    restaurants = db.relationship("Restaurant", back_populates="owner", cascade="all, delete-orphan")
+    restaurants = db.relationship("Restaurant", back_populates="owner")
 
-    reviews = db.relationship("Review", back_populates="user", cascade="all, delete-orphan")
+    reviews = db.relationship("Review", back_populates="user")
 
-    shoppingCart = db.relationship("ShoppingCart", back_populates="user", cascade="all, delete-orphan")
+    shoppingCart = db.relationship("ShoppingCart", back_populates="user")
 
     @property
     def password(self):
