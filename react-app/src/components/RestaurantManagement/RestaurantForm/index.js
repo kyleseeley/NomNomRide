@@ -6,6 +6,7 @@ import {
   updateRestaurant,
 } from "../../../store/restaurant";
 import { useHistory, useParams } from "react-router-dom";
+import "./RestaurantForm.css";
 
 const typeList = [
   "Chinese",
@@ -38,7 +39,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
   const [lng, setLng] = useState(restaurant?.lng || "");
   const [lngError, setLngError] = useState(null);
   const [type, setType] = useState(restaurant?.type || "American");
-  const [typeError, setTypeError] = useState(restaurant?.type || "American");
+  const [typeError, setTypeError] = useState(null);
   const [image, setImage] = useState(restaurant?.image || "");
   const [imageError, setImageError] = useState(null);
   const dispatch = useDispatch();
@@ -178,121 +179,128 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
     <div className="page-container">
       {restaurant === undefined && <h1>Create New Restaurant</h1>}
       {restaurant !== undefined && <h1>Edit Restaurant</h1>}
-      <div>
-        <label>Name</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-          onBlur={() => {
-            nameInputValidation();
-          }}
-        />
-        {nameError !== null && <div className="error">{nameError}</div>}
+      <div className="form-wrapper">
+        <div>
+          <label>Name</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+            onBlur={() => {
+              nameInputValidation();
+            }}
+          />
+          {nameError !== null && <div className="error">{nameError}</div>}
+        </div>
+        <div>
+          <label>Type</label>
+          <select
+            value={type}
+            onChange={(e) => {
+              setType(e.target.value);
+            }}
+            className="select"
+          >
+            {typeList.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+          {typeError !== null && <div className="error">{typeError}</div>}
+        </div>
+        <div>
+          <label>Address</label>
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => {
+              setAddress(e.target.value);
+            }}
+            onBlur={() => {
+              addressInputValidation();
+            }}
+          />
+          {addressError !== null && <div className="error">{addressError}</div>}
+        </div>
+        <div>
+          <label>City</label>
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
+            onBlur={() => {
+              cityInputValidation();
+            }}
+          />
+          {cityError !== null && <div className="error">{cityError}</div>}
+        </div>
+        <div>
+          <label>State</label>
+          <input
+            type="text"
+            value={state}
+            onChange={(e) => {
+              setState(e.target.value);
+            }}
+            onBlur={() => {
+              stateInputValidation();
+            }}
+          />
+          {stateError !== null && <div className="error">{stateError}</div>}
+        </div>
+        <div>
+          <label>Latitude</label>
+          <input
+            type="number"
+            value={lat}
+            onChange={(e) => {
+              setLat(e.target.value);
+            }}
+            onBlur={() => {
+              latInputValidation();
+            }}
+          />
+          {latError !== null && <div className="error">{latError}</div>}
+        </div>
+        <div>
+          <label>Longtitude</label>
+          <input
+            type="number"
+            value={lng}
+            onChange={(e) => {
+              setLng(e.target.value);
+            }}
+            onBlur={() => {
+              lngInputValidation();
+            }}
+          />
+          {lngError !== null && <div className="error">{lngError}</div>}
+        </div>
+        <div>
+          <label>Image</label>
+          <input
+            type="text"
+            value={image}
+            onChange={(e) => {
+              setImage(e.target.value);
+            }}
+            onBlur={() => {
+              imageInputValidation();
+            }}
+          />
+          {imageError !== null && <div className="error">{imageError}</div>}
+        </div>
+        <div className="submit">
+          <button className="submit-button" onClick={submitHandler}>
+            Submit
+          </button>
+        </div>
       </div>
-      <div>
-        <label>Type</label>
-        <select
-          value={type}
-          onChange={(e) => {
-            setType(e.target.value);
-          }}
-        >
-          {typeList.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-        {typeError !== null && <div className="error">{typeError}</div>}
-      </div>
-      <div>
-        <label>Address</label>
-        <input
-          type="text"
-          value={address}
-          onChange={(e) => {
-            setAddress(e.target.value);
-          }}
-          onBlur={() => {
-            addressInputValidation();
-          }}
-        />
-        {addressError !== null && <div className="error">{addressError}</div>}
-      </div>
-      <div>
-        <label>City</label>
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => {
-            setCity(e.target.value);
-          }}
-          onBlur={() => {
-            cityInputValidation();
-          }}
-        />
-        {cityError !== null && <div className="error">{cityError}</div>}
-      </div>
-      <div>
-        <label>State</label>
-        <input
-          type="text"
-          value={state}
-          onChange={(e) => {
-            setState(e.target.value);
-          }}
-          onBlur={() => {
-            stateInputValidation();
-          }}
-        />
-        {stateError !== null && <div className="error">{stateError}</div>}
-      </div>
-      <div>
-        <label>Latitude</label>
-        <input
-          type="number"
-          value={lat}
-          onChange={(e) => {
-            setLat(e.target.value);
-          }}
-          onBlur={() => {
-            latInputValidation();
-          }}
-        />
-        {latError !== null && <div className="error">{latError}</div>}
-      </div>
-      <div>
-        <label>Longtitude</label>
-        <input
-          type="number"
-          value={lng}
-          onChange={(e) => {
-            setLng(e.target.value);
-          }}
-          onBlur={() => {
-            lngInputValidation();
-          }}
-        />
-        {lngError !== null && <div className="error">{lngError}</div>}
-      </div>
-      <div>
-        <label>Image</label>
-        <input
-          type="text"
-          value={image}
-          onChange={(e) => {
-            setImage(e.target.value);
-          }}
-          onBlur={() => {
-            imageInputValidation();
-          }}
-        />
-        {imageError !== null && <div className="error">{imageError}</div>}
-      </div>
-      <button onClick={submitHandler}>submit</button>
     </div>
   );
 };
