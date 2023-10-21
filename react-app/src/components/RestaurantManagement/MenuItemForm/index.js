@@ -12,25 +12,33 @@ const MenuItemForm = () => {
   const item = useSelector((state) => state.menuItems[itemId]);
 
   const [name, setName] = useState(item?.name || "");
+  const [nameError, setNameError] = useState(null);
   const [type, setType] = useState(item?.type || "Entrees");
   const [price, setPrice] = useState(item?.price || 0);
+  const [priceError, setPriceError] = useState(null);
   const [description, setDescription] = useState(item?.description || "");
+  const [descriptionError, setDescriptionError] = useState(null);
   const [image, setImage] = useState(item?.image || "");
+
   const dispatch = useDispatch();
   const history = useHistory();
+
   useEffect(() => {
     dispatch(fetchMenuItemsThunk(restaurantId));
   }, [dispatch]);
 
   useEffect(() => {
     if (item !== undefined) {
-      setName(item.name)
-      setType(item.type)
-      setPrice(item.price)
-      setDescription(item.description)
-      setImage(item.image)
+      setName(item.name);
+      setType(item.type);
+      setPrice(item.price);
+      setDescription(item.description);
+      setImage(item.image);
     }
   }, [item]);
+
+  const typeList = ["Entrees", "Side Dish", "Appetizer", "Dessert"];
+
   const submitHandler = async () => {
     let errors;
     if (itemId !== undefined) {
@@ -61,6 +69,36 @@ const MenuItemForm = () => {
       // You can display error messages to the user or handle them as needed.
     }
   };
+
+  const nameInputValidation = () => {
+    if (name === undefined || name.length === 0) {
+      setNameError("Name is required.");
+    } else if (name.length > 255) {
+      setNameError("Name is too long.");
+    } else {
+      setNameError(null);
+    }
+  };
+
+  const priceInputValidation = () => {
+    if (price === undefined || price.length === 0) {
+      setPriceError("Price is required.");
+    } else if (price < 0) {
+      setPriceError("Price should be more than 0.");
+    } else {
+      setPriceError(null);
+    }
+  };
+  const descriptionInputValidation = () => {
+    if (description === undefined || description.length === 0) {
+      setDescriptionError("Description is required.");
+    } else if (price > 255) {
+      setDescriptionError("Description is too long.");
+    } else {
+      setDescriptionError(null);
+    }
+  };
+
   return (
     <div className="page-container">
       {itemId === undefined && <h1>Create New Item</h1>}
@@ -73,7 +111,11 @@ const MenuItemForm = () => {
           onChange={(e) => {
             setName(e.target.value);
           }}
+          onBlur={() => {
+            nameInputValidation();
+          }}
         />
+        {nameError !== null && <div>{nameError}</div>}
       </div>
       <div>
         <label>Type</label>
@@ -82,11 +124,13 @@ const MenuItemForm = () => {
           onChange={(e) => {
             setType(e.target.value);
           }}
+
         >
-          {/* Todo:spelling/match enum in backend */}
-          <option>Entrees</option>
-          <option>Appetizer</option>
-          <option>Dessert</option>
+          {typeList.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
         </select>
       </div>
       <div>
@@ -97,8 +141,12 @@ const MenuItemForm = () => {
           onChange={(e) => {
             setPrice(e.target.value);
           }}
+          onBlur={() => {
+            priceInputValidation();
+          }}
         />
       </div>
+      {priceError !== null && <div>{priceError}</div>}
       <div>
         <label>Description</label>
         <textarea
@@ -106,8 +154,12 @@ const MenuItemForm = () => {
           onChange={(e) => {
             setDescription(e.target.value);
           }}
+          onBlur={() => {
+            descriptionInputValidation();
+          }}
         />
       </div>
+      {descriptionError !== null && <div>{descriptionError}</div>}
       <div>
         <label>Image</label>
         <input

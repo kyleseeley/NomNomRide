@@ -26,13 +26,20 @@ const typeList = [
 
 const RestaurantForm = ({ restaurant, onSubmit }) => {
   const [name, setName] = useState(restaurant?.name || "");
+  const [nameError, setNameError] = useState(null);
   const [address, setAddress] = useState(restaurant?.address || "");
+  const [addressError, setAddressError] = useState(null);
   const [city, setCity] = useState(restaurant?.city || "");
+  const [cityError, setCityError] = useState(null);
   const [state, setState] = useState(restaurant?.state || "");
+  const [stateError, setStateError] = useState(null);
   const [lat, setLat] = useState(restaurant?.lat || "");
+  const [latError, setLatError] = useState(null);
   const [lng, setLng] = useState(restaurant?.lng || "");
+  const [lngError, setLngError] = useState(null);
   const [type, setType] = useState(restaurant?.type || "American");
   const [image, setImage] = useState(restaurant?.image || "");
+  const [imageError, setImageError] = useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -71,6 +78,67 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
       // You can display error messages to the user or handle them as needed.
     }
   };
+
+  const nameInputValidation = () => {
+    if (name === undefined || name.length === 0) {
+      setNameError("Name is required.");
+    } else if (name.length > 40) {
+      setNameError("Name is too long.");
+    } else {
+      setNameError(null);
+    }
+  };
+  const addressInputValidation = () => {
+    if (address === undefined || address.length === 0) {
+      setAddressError("Address is required.");
+    } else if (address.length > 50) {
+      setAddressError("Address is too long.");
+    } else {
+      setAddressError(null);
+    }
+  };
+  const cityInputValidation = () => {
+    if (city === undefined || city.length === 0) {
+      setCityError("City is required.");
+    } else if (city.length > 50) {
+      setCityError("City Name is too long.");
+    } else {
+      setCityError(null);
+    }
+  };
+  const stateInputValidation = () => {
+    if (state === undefined || state.length === 0) {
+      setStateError("State is required.");
+    } else {
+      setStateError(null);
+    }
+  };
+  const latInputValidation = () => {
+    if (lat === undefined || lat.length === 0) {
+      setLatError("Latitude is required.");
+    } else if (lat > 90 || lat < -90) {
+        setLatError("Latitude must be between -90 to 90.");
+      }else {
+      setLatError(null);
+    }
+  };
+  const lngInputValidation = () => {
+    if (lng === undefined || lng.length === 0) {
+      setLngError("Longitude is required.");
+    } else if (lng > 180 || lng < -180) {
+        setLngError("Longitude must be between -180 to 180.");
+      }else {
+      setLngError(null);
+    }
+  };
+  const imageInputValidation = () => {
+    if (image === undefined || image.length === 0) {
+      setImageError("Image is required.");
+    } else {
+      setImageError(null);
+    }
+  };
+
   return (
     <div className="page-container">
       {restaurant === undefined && <h1>Create New Restaurant</h1>}
@@ -83,7 +151,11 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
           onChange={(e) => {
             setName(e.target.value);
           }}
+          onBlur={() => {
+            nameInputValidation();
+          }}
         />
+        {nameError !== null && <div>{nameError}</div>}
       </div>
       <div>
         <label>Type</label>
@@ -108,7 +180,11 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
           onChange={(e) => {
             setAddress(e.target.value);
           }}
+          onBlur={() => {
+            addressInputValidation();
+          }}
         />
+        {addressError !== null && <div>{addressError}</div>}
       </div>
       <div>
         <label>City</label>
@@ -118,7 +194,11 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
           onChange={(e) => {
             setCity(e.target.value);
           }}
+          onBlur={() => {
+            cityInputValidation();
+          }}
         />
+        {cityError !== null && <div>{cityError}</div>}
       </div>
       <div>
         <label>State</label>
@@ -128,7 +208,11 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
           onChange={(e) => {
             setState(e.target.value);
           }}
+          onBlur={() => {
+            stateInputValidation();
+          }}
         />
+        {stateError !== null && <div>{stateError}</div>}
       </div>
       <div>
         <label>Latitude</label>
@@ -138,7 +222,11 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
           onChange={(e) => {
             setLat(e.target.value);
           }}
+          onBlur={() => {
+            latInputValidation();
+          }}
         />
+        {latError !== null && <div>{latError}</div>}
       </div>
       <div>
         <label>Longtitude</label>
@@ -148,7 +236,11 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
           onChange={(e) => {
             setLng(e.target.value);
           }}
+          onBlur={() => {
+            lngInputValidation();
+          }}
         />
+         {lngError !== null && <div>{lngError}</div>}
       </div>
       <div>
         <label>Image</label>
@@ -158,7 +250,11 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
           onChange={(e) => {
             setImage(e.target.value);
           }}
+          onBlur={() => {
+            imageInputValidation();
+          }}
         />
+        {imageError !== null && <div>{imageError}</div>}
       </div>
       <button onClick={submitHandler}>submit</button>
     </div>

@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { deleteRestaurant } from "../../../store/restaurant";
 import RestaurantForm from "../RestaurantForm";
 import RestaurantInfo from "../RestaurantInfo";
+
+
 const GeneralTab = ({ restaurant }) => {
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
-  const handleDelete = (restaurantId) => {
-    dispatch(deleteRestaurant(restaurantId));
+  const history = useHistory()
+  const handleDelete = async(restaurantId) => {
+    await dispatch(deleteRestaurant(restaurantId));
+    history.push(`/`);
   };
 
   return (

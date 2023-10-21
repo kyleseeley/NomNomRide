@@ -22,7 +22,7 @@ const RestaurantManagement = () => {
     return <div className="page-container">loading...</div>;
   return (
     <div className="page-container">
-      <h1>Manage your restaurant "{restaurant.name}"</h1>
+      <h1>Manage your restaurant {restaurant.name}</h1>
       <tabs>
         <tab>
           <Link to={`/${restaurantId}/manage`}>
