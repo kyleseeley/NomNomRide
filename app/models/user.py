@@ -50,5 +50,5 @@ class User(db.Model, UserMixin):
             'address': self.address,
             'city': self.city,
             'state': self.state,
-            'cartId': self.cartId
+            # 'cartId': self.cartId
         }
