@@ -176,7 +176,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
   };
 
   return (
-    <div className="page-container">
+    <div className="restaurant-form-container">
       {restaurant === undefined && <h1>Create New Restaurant</h1>}
       {restaurant !== undefined && <h1>Edit Restaurant</h1>}
       <div className="form-wrapper">
