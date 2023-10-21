@@ -8,11 +8,12 @@ class ShoppingCart(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer(), primary_key=True)
+    userId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")))
     restaurantId = db.Column(db.Integer(), db.ForeignKey(
         add_prefix_for_prod("restaurants.id")))
     total = db.Column(db.DECIMAL(6,2), nullable=False)
 
-    # user = db.relationship("User", back_populates="shoppingCart")
+    user = db.relationship("User", back_populates="shoppingCart")
 
     restaurant = db.relationship("Restaurant", back_populates="shoppingCart")
 
