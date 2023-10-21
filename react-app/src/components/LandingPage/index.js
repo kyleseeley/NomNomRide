@@ -9,8 +9,7 @@ import TopBar from "./TopBar";
 const LandingPage = () => {
   const dispatch = useDispatch();
 
-  const allRestaurants =
-    useSelector((state) => state.restaurant.allRestaurants) || [];
+  const allRestaurants = useSelector((state) => state.restaurant) || [];
   const restaurantList = Object.values(allRestaurants);
 
   const [sortCriteria, setSortCriteria] = useState("rating");

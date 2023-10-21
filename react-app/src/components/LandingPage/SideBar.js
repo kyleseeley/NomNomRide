@@ -4,12 +4,10 @@ const SideBar = ({ onSort }) => {
   const [selectedCriteria, setSelectedCriteria] = useState("rating");
 
   const handleSortChange = (criteria) => {
-    console.log("sort change", criteria);
     setSelectedCriteria(criteria);
   };
 
   const handleSortSubmit = () => {
-    console.log("selected criteria", selectedCriteria);
     onSort(selectedCriteria);
   };
 
