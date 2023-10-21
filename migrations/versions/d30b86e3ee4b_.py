@@ -7,6 +7,7 @@ Create Date: 2023-10-21 15:01:06.445939
 """
 from alembic import op
 import sqlalchemy as sa
+from app.models import environment, SCHEMA
 
 
 # revision identifiers, used by Alembic.
@@ -90,6 +91,13 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
+    if environment == "production":
+        op.execute(f"ALTER TABLE menuitems SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE restaurants SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE shoppingcarts SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE shoppingcartitems SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
