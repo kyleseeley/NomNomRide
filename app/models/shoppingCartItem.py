@@ -25,3 +25,12 @@ class ShoppingCartItem(db.Model):
             "menuItemId": self.menuItemId,
             "itemQuantity": self.itemQuantity,
         }
+
+    def get_item_details(self):
+        menuItem = self.menuItem.to_dict()
+        return {
+            "name": menuItem.name,
+            "price": menuItem.price,
+            "description": menuItem.description,
+            "image": menuItem.image
+        }

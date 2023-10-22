@@ -26,3 +26,16 @@ class ShoppingCart(db.Model):
             "restaurantId": self.restaurantId,
             "total": self.total
         }
+
+    def get_cart_items(self):
+        return {
+            'cartItems': [shoppingCartItem.to_dict() for shoppingCartItem in self.rshoppingCartItem]
+        }
+
+    def get_restaurant(self):
+        restaurant = self.restaurant.to_dict()
+        return {
+            "name": restaurant.name,
+            "address": restaurant.address,
+            "city": restaurant.city
+        }

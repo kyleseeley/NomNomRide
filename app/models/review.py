@@ -25,5 +25,6 @@ class Review(db.Model):
             "userId": self.userId,
             "restaurantId": self.restaurantId,
             "review": self.review,
-            "stars": self.stars
+            "stars": self.stars,
+            'restaurantName': self.restaurant.to_dict()['name']
         }

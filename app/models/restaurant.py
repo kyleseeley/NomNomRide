@@ -45,14 +45,12 @@ class Restaurant(db.Model):
             "numReviews": self.numReviews,
         }
 
-    def cart_to_dict(self):
+    def get_menuItems(self):
         return {
-            "address": self.address,
-            "city": self.city,
-            "state": self.state,
-            "lat": self.lat,
-            "lng": self.lng,
-            "name": self.name,
-            "type": self.type,
-            "image": self.image
+            'menuItems': [menuItem.to_dict() for menuItem in self.menuItems]
+        }
+
+    def get_reviews(self):
+        return {
+            'reviews': [review.to_dict() for review in self.reviews]
         }

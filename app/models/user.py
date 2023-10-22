@@ -47,5 +47,20 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'address': self.address,
             'city': self.city,
-            'state': self.state,
+            'state': self.state
+        }
+
+    def get_cart(self):
+        return {
+            'cart': self.shoppingCart.to_dict()
+        }
+
+    def get_user_restaurants(self):
+        return {
+            'restaurants': [restaurant.to_dict() for restaurant in self.restaurants]
+        }
+
+    def get_user_reviews(self):
+        return {
+            'reviews': [review.to_dict() for review in self.reviews]
         }
