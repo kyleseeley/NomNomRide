@@ -41,6 +41,18 @@ const MenuItemForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault()
+    
+    nameInputValidation();
+    priceInputValidation();
+    descriptionInputValidation();
+
+    if (
+      nameError ||
+      priceError ||
+      descriptionError
+    ) {
+      return;
+    }
     let errors;
     if (itemId !== undefined) {
       //editing
