@@ -14,7 +14,7 @@ def get_current_user():
 @login_required
 def get_user_reviews():
   user = User.query.get(current_user.id)
-  return user.get_user_reviews()
+  return user.get_reviews()
 
 @session_routes.route("/restaurants")
 @login_required
