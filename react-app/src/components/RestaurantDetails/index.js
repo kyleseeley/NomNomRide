@@ -5,11 +5,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchOneRestaurant } from '../../store/restaurant'
 import { fetchMenuItemsThunk } from '../../store/menuItems'
 import ItemList from '../Item/ItemList'
+import { NavLink } from 'react-router-dom'
 
 const RestaurantDetails = () => {
 	const dispatch = useDispatch()
 	const { restaurantId } = useParams()
 	const restaurant = useSelector(state => state.restaurant[restaurantId])
+	const user = useSelector(state => state.session.user)
 	const restaurantItems = useSelector(state => state.menuItems)
 	const categories = {}
 	for (const item of Object.values(restaurantItems)) {
@@ -61,6 +63,10 @@ const RestaurantDetails = () => {
 					&nbsp; <b>{restaurant?.starRating} ({restaurant?.numReviews} ratings)</b>
 				</p>
 			</div>
+			{restaurant?.ownerId == user?.id &&
+			<NavLink to={`/${restaurant.id}/manage`}>
+				Update Restaurant
+			</NavLink>}
 			<div className='menu-section'>
 				<div className='restaurant-page-cat-div'>
 					{Object.keys(categories).map(category => {
@@ -79,6 +85,7 @@ const RestaurantDetails = () => {
 				{Object.keys(categories).map(category => {
 						return (
 							<ItemList
+								key={category}
 								category={category}
 								items={categories[category]}/>
 						)

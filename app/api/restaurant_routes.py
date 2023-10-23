@@ -210,7 +210,7 @@ def createItem(restaurantId):
 def post_shoppingCart(restaurantId):
     cart = current_user.get_cart()
     if 'cart' in cart:
-        return { 'message': 'User already has a cart.'}
+        return cart['cart']
     user = User.query.filter(User.id == current_user.id).first()
     if not user:
         return jsonify({ "error": "User not found" })

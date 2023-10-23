@@ -54,6 +54,7 @@ class User(db.Model, UserMixin):
         if self.shoppingCart:
             return {
                 'cart': self.shoppingCart[0].to_dict(),
+                'restaurant': self.shoppingCart[0].get_restaurant(),
                 'items': self.shoppingCart[0].get_cart_items()
                 }
         else:
@@ -68,4 +69,3 @@ class User(db.Model, UserMixin):
         return {
             'reviews': [review.to_dict() for review in self.reviews]
         }
-

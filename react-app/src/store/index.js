@@ -3,15 +3,15 @@ import thunk from 'redux-thunk';
 import restaurantReducer from './restaurant';
 import menuItemsReducer from "./menuItems"
 import sessionReducer from './session';
-// import shoppingCartReducer from './shoppingCart';
-// import shoppingCartItemReducer from './shoppingCartItems';
+import cartReducer from './cart';
+// import cartItemReducer from './cartItems';
 // import reviewReducer from './reviews';
 const rootReducer = combineReducers({
   session: sessionReducer,
   restaurant: restaurantReducer,
   menuItems: menuItemsReducer,
-  // shoppingCart: shoppingCartReducer,
-  // shoppingCartItems: shoppingCartItemsReducer
+  cart: cartReducer,
+  // cartItems: cartItemReducer,
   // reviews: reviewReducer
 });
 

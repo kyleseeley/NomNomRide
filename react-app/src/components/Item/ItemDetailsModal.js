@@ -1,18 +1,24 @@
 import './ItemDetailsModal.css'
 import { useModal } from '../../context/Modal';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getCartThunk, postCartThunk } from '../../store/cart';
+import { postCartItemThunk } from '../../store/cartItems';
 
 const ItemDetailsModal = ({ item }) => {
+	const dispatch = useDispatch()
 	const [quantity, setQuantity] = useState(1)
 	const { closeModal } = useModal()
 	const user = useSelector(state => state.session.user)
+	const cart = useSelector(state => state.cart.cart)
 
 
 	const addToCart = () => {
-		// add to cart
-		closeModal()
+		if (!cart?.id) dispatch(postCartThunk(item.restaurantId))
+		dispatch(postCartItemThunk(item.id, quantity))
+		.then(() => dispatch(getCartThunk()))
 
+		closeModal()
 	}
 
 	return (

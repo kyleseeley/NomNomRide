@@ -36,9 +36,9 @@ export function Cart() {
         <i
           onClick={() => setIsCartVisible(false)}
           className="fa-solid fa-x modal" />
-        {cart ? <div className="cart-main">
+        {cart?.restaurant ? <div className="cart-main">
           <div className="cart-restaurant-details">
-
+            <h1>{cart.restaurant.name}</h1>
           </div>
           <div className="cart-buttons">
             <NavLink

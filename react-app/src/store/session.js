@@ -100,6 +100,8 @@ export default function sessionReducer(state = initialState, action) {
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
+		// case SET_RESTAURANTS:
+		// 	return {restaurants: action.payload}
 		default:
 			return state;
 	}

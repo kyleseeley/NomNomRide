@@ -1,16 +1,27 @@
-import React from 'react';
+import { useEffect, React } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './Navigation.css';
 import SearchBar from '../SearchBar';
 import { useCartContext } from '../../context/Cart';
 import { useSidebarContext } from '../../context/Sidebar';
+import { getCartItemsThunk } from '../../store/cartItems';
+import { getCartThunk } from '../../store/cart';
 
 function Navigation({ isLoaded }){
+  const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
+  const cart = useSelector(state => state.cart)
   const location = useLocation()
   const { setIsSidebarVisible } = useSidebarContext()
   const { setIsCartVisible } = useCartContext()
+
+  useEffect(() => {
+    if (sessionUser) {
+      dispatch(getCartThunk())
+      .then(dispatch(getCartItemsThunk()))
+    }
+  }, [sessionUser, dispatch])
 
   return (
     <ul className='nav'>

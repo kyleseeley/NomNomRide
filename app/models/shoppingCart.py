@@ -29,12 +29,12 @@ class ShoppingCart(db.Model):
 
     def get_cart_items(self):
         return [shoppingCartItem.to_dict() for shoppingCartItem in self.shoppingCartItems]
-        
+
 
     def get_restaurant(self):
         restaurant = self.restaurant.to_dict()
         return {
-            "name": restaurant.name,
-            "address": restaurant.address,
-            "city": restaurant.city
+            "name": restaurant['name'],
+            "address": restaurant['address'],
+            "city": restaurant['city']
         }
