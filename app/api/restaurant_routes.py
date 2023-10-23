@@ -208,19 +208,18 @@ def createItem(restaurantId):
 @restaurant_routes.route('/<int:restaurantId>/shopping-cart', methods=['POST'])
 @login_required
 def post_shoppingCart(restaurantId):
-    carts = ShoppingCart.query.filter(ShoppingCart.id == current_user.cartId).first()
-    if carts:
-        return { 'message': 'User already has a cart' }
+    cart = current_user.get_cart()
+    if 'cart' in cart:
+        return { 'message': 'User already has a cart.'}
     user = User.query.filter(User.id == current_user.id).first()
     if not user:
         return jsonify({ "error": "User not found" })
     new_cart = ShoppingCart(
+        userId=current_user.id,
 		restaurantId=restaurantId,
         total=0
 	)
     db.session.add(new_cart)
-    db.session.commit()
-    user.cartId = new_cart.to_dict()['id']
     db.session.commit()
 
     return new_cart.to_dict()

@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_login import login_required, current_user
-from app.models import ShoppingCartItem, db
+from app.models import ShoppingCartItem, ShoppingCart, db
 from app.forms import ShoppingCartItemForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -15,7 +15,7 @@ def update_cartItem(shoppingCartItemId):
 	"""
 	if not current_user:
 		return { 'error': 'Unauthorized' }, 401
-	shoppingCartItem = ShoppingCartItem.query.filter(ShoppingCartItem.id == shoppingCartItemId).first()
+	shoppingCartItem = ShoppingCartItem.query.get(shoppingCartItemId)
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
 	form = ShoppingCartItemForm()
@@ -37,8 +37,16 @@ def delete_cartItem(shoppingCartItemId):
 	shoppingCartItem = ShoppingCartItem.query.filter(ShoppingCartItem.id == shoppingCartItemId).first()
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
+	cart = current_user.get_cart()
+	if cart['cart']['id'] != shoppingCartItem.cartId:
+		return { 'error': 'Unauthorized' }, 401
+
+	if len(cart['items']) == 1: # if last item in cart, delete cart as well
+		cart = ShoppingCart.query.get(cart['cart']['id'])
+		db.session.delete(cart)
 
 	db.session.delete(shoppingCartItem)
 	db.session.commit()
+
 
 	return { "message": "Successfully deleted" }

@@ -51,16 +51,21 @@ class User(db.Model, UserMixin):
         }
 
     def get_cart(self):
-        return {
-            'cart': self.shoppingCart.to_dict()
-        }
+        if self.shoppingCart:
+            return {
+                'cart': self.shoppingCart[0].to_dict(),
+                'items': self.shoppingCart[0].get_cart_items()
+                }
+        else:
+            return { 'message': 'No shopping cart.' }
 
-    def get_user_restaurants(self):
+    def get_restaurants(self):
         return {
             'restaurants': [restaurant.to_dict() for restaurant in self.restaurants]
         }
 
-    def get_user_reviews(self):
+    def get_reviews(self):
         return {
             'reviews': [review.to_dict() for review in self.reviews]
         }
+

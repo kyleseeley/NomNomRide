@@ -28,9 +28,8 @@ class ShoppingCart(db.Model):
         }
 
     def get_cart_items(self):
-        return {
-            'cartItems': [shoppingCartItem.to_dict() for shoppingCartItem in self.rshoppingCartItem]
-        }
+        return [shoppingCartItem.to_dict() for shoppingCartItem in self.shoppingCartItems]
+        
 
     def get_restaurant(self):
         restaurant = self.restaurant.to_dict()

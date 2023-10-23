@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
-from flask_login import login_required, current_user
-from app.models import User, Review
+from flask import Blueprint
+from flask_login import login_required
+from app.models import User
 
 user_routes = Blueprint('users', __name__)
 
@@ -27,14 +27,35 @@ def user(id):
     return user.to_dict()
 
 
-@user_routes.route("/<int:userId>/reviews")
-@login_required
-def get_user_reviews(userId):
-    if userId != current_user.id:
-        return jsonify({"error": "You don't have permission to access this user's reviews"}), 401
+# @user_routes.route("/<int:userId>/reviews")
+# @login_required
+# def get_user_reviews(userId):
+#     if userId != current_user.id:
+#         return jsonify({"error": "You don't have permission to access this user's reviews"}), 401
 
-    reviews = Review.query.filter_by(userId=userId).all()
+#     # reviews = Review.query.filter_by(userId=userId).all()
 
-    reviewList = [review.to_dict() for review in reviews]
+#     # reviewList = [review.to_dict() for review in reviews]
+#     user = User.query.get(current_user.id)
 
-    return jsonify({"reviews": reviewList})
+#     return jsonify(user.get_user_reviews)
+
+# @user_routes.route("/<int:userId>/restaurants")
+# @login_required
+# def get_restaurants(userId):
+#     if userId != current_user.id:
+#         return jsonify({"error": "You don't have permission to access this user's restaurants"}), 401
+
+#     user = User.query.get(current_user.id)
+
+#     return jsonify(user.get_restaurants)
+
+# @user_routes.route('/<int:userId>/shopping-cart')
+# @login_required
+# def get_cart(userId):
+#     if userId != current_user.id:
+#         return jsonify({"error": "You don't have permission to access this user's cart"}), 401
+
+#     user = User.query.get(current_user.id)
+
+#     return jsonify(user.get_cart)
