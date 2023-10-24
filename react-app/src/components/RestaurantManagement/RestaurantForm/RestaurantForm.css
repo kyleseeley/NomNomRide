@@ -14,26 +14,26 @@
   color: #333;
 }
 
-.page-container div label {
+/* .page-container div label {
   font-weight: bold;
   padding-top: 2px;
-}
+} */
 
-.page-container div {
+/* .page-container div {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3px;
-}
+} */
 
 .error {
   color: red;
 }
 
-.page-container div input {
+/* .page-container div input {
   width: 250px;
   text-align: center;
-}
+} */
 
 .select {
   width: 257px;
