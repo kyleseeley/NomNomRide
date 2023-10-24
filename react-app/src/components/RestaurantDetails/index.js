@@ -126,16 +126,18 @@ const RestaurantDetails = () => {
         </div>
       </div>
       <div className="reviews-section">
-        <h2>Reviews</h2>
-        <ul>
+        <h2 className="review-title">Reviews</h2>
+        <ul className="reviews-list">
           {reviewsArray.map((review) => (
-            <li key={review.id}>
+            <li key={review.id} className="review-item">
               <p className="review-name">
-                Review by: {review.firstname} {review.lastname.charAt(0)}.
+                {review.firstname} {review.lastname.charAt(0)}.
               </p>
-              <p>Written {calculateTimeAgo(review.createdAt)} ago</p>
-              <p className="review-rating">Rating: {review.stars} Stars</p>
-              <p className="review-content">Review: {review.review}</p>
+              <p className="review-time">
+                {calculateTimeAgo(review.createdAt)} ago
+              </p>
+              <p className="review-rating">{review.stars} Stars</p>
+              <p className="review-content">{review.review}</p>
             </li>
           ))}
         </ul>
