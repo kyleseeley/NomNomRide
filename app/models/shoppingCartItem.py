@@ -11,7 +11,7 @@ class ShoppingCartItem(db.Model):
     cartId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("shoppingcarts.id")), nullable=False)
     menuItemId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod(
         "menuitems.id")), nullable=False)
-    itemQuantity = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
 
     menuItem = db.relationship("MenuItem", back_populates="shoppingCartItems")
 
@@ -24,7 +24,7 @@ class ShoppingCartItem(db.Model):
             "id": self.id,
             "cartId": self.cartId,
             "menuItemId": self.menuItemId,
-            "itemQuantity": self.itemQuantity,
+            "quantity": self.quantity,
             "name": menuItem['name'],
             "price": menuItem['price'],
             "description": menuItem['description'],

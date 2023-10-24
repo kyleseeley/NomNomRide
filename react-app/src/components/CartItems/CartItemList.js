@@ -10,14 +10,14 @@ const CartItemList = ({ items }) => {
 
   return (
     <>
-      <h2 id={category}>{category}</h2>
-      <ul className='cat-item-list'>
+      <div className='cart-item-list'>
         {items.map(item => (
-          <li className='item-li' key={item.id}>
-            <CartItemCard item={item} isLoaded={isLoaded} />
-          </li>
+            <CartItemCard
+              key={item.id}
+              item={item}
+              isLoaded={isLoaded} />
         ))}
-      </ul>
+      </div>
     </>
   )
 }

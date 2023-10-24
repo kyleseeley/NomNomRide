@@ -87,7 +87,7 @@ def post_shoppingCartItem(itemId):
             if item['menuItemId'] == itemId:
                 currItem = ShoppingCartItem.query.get(item['id'])
                 updateCart.total += menuItem.price * form.data['quantity']
-                currItem.itemQuantity += form.data['quantity']
+                currItem.quantity += form.data['quantity']
                 db.session.commit()
                 return currItem.to_dict()
 
@@ -98,7 +98,7 @@ def post_shoppingCartItem(itemId):
         new_shoppingCartItem = ShoppingCartItem(
             cartId=updateCart.id,
             menuItemId=itemId,
-            itemQuantity=form.data["quantity"]
+            quantity=form.data["quantity"]
         )
 
 

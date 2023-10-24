@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import CartItemList from "../components/CartItems/CartItemList";
 import "./Cart.css"
 
 
@@ -38,8 +39,9 @@ export function Cart() {
           className="fa-solid fa-x modal" />
         {cart?.restaurant ? <div className="cart-main">
           <div className="cart-restaurant-details">
-            <h1>{cart.restaurant.name}</h1>
+            <h1>{`${cart.restaurant.name} (${cart.restaurant.address})`}</h1>
           </div>
+          <CartItemList items={cart.items} />
           <div className="cart-buttons">
             <NavLink
               to='/checkout'

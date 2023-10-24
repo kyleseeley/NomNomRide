@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import ShoppingCartItem, ShoppingCart, db
 from app.forms import ShoppingCartItemForm
@@ -16,16 +16,16 @@ def update_cartItem(shoppingCartItemId):
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
 	form = ShoppingCartItemForm()
-	
+	# form['csrf_token'].data = request.cookies['csrf_token']
 	if form.validate_on_submit():
 
 		# update cart total
 		cart = ShoppingCart.query.get(shoppingCartItem.cartId)
 		itemDetails = shoppingCartItem.getItemDetails()
-		cart.total += itemDetails.price * (form.data['quantity'] - shoppingCartItem.itemQuantity)
+		cart.total += itemDetails.price * (form.data['quantity'] - shoppingCartItem.quantity)
 
 		# updating cartItem quantity
-		shoppingCartItem.itemQuantity=form.data["quantity"]
+		shoppingCartItem.quantity=form.data["quantity"]
 		db.session.commit()
 		return shoppingCartItem.to_dict()
 	else:

@@ -61,30 +61,24 @@ export const postCartItemThunk =
     }
   };
 
-export const updateCartItemThunk =
-  (itemId, quantity) =>
-  async (dispatch) => {
-    try {
-      const response = await csrfFetch(`/api/shopping-cart-items/${itemId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          quantity
-        }),
-      });
+export const updateCartItemThunk = (itemId, quantity) => async (dispatch) => {
+  try {
+    await fetch(`/api/shopping-cart-items/${itemId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        quantity
+      }),
+    });
 
-      if (!response.ok) {
-        throw new Error("Error update item");
-      }
-
-      // const responseData = await response.json();
-      // dispatch(loadOneCartItem(responseData));
-    } catch (error) {
-      console.log("Error update item", error);
-    }
-  };
+    // const responseData = await response.json();
+    // dispatch(loadOneCartItem(responseData));
+  } catch (error) {
+    console.log("Could not update item", error);
+  }
+};
 
 export const deleteCartItemThunk = (id) => async (dispatch) => {
   try {
