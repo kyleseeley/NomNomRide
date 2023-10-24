@@ -1,6 +1,6 @@
 .cart-item-card {
   display: flex;
   justify-content: space-between;
-  margin: 1rem;
-  width: 80%;
+  width: 100%;
+  margin-top: 1rem;
 }

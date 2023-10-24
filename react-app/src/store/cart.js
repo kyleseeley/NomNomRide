@@ -38,7 +38,9 @@ export const getCartThunk = () => async (dispatch) => {
 };
 
 export const noCartThunk = () => async dispatch => {
-	const response = await fetch(`/api/shopping-cart/`)
+	const response = await fetch(`/api/shopping-cart/`, {
+		method: 'DELETE'
+	})
   if (response.ok) {
 		dispatch(noCart())
   }

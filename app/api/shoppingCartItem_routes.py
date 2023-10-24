@@ -16,13 +16,13 @@ def update_cartItem(shoppingCartItemId):
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
 	form = ShoppingCartItemForm()
-	# form['csrf_token'].data = request.cookies['csrf_token']
+	form['csrf_token'].data = request.cookies['csrf_token']
 	if form.validate_on_submit():
 
 		# update cart total
 		cart = ShoppingCart.query.get(shoppingCartItem.cartId)
-		itemDetails = shoppingCartItem.getItemDetails()
-		cart.total += itemDetails.price * (form.data['quantity'] - shoppingCartItem.quantity)
+		itemDetails = shoppingCartItem.to_dict()
+		cart.total += itemDetails['price'] * (form.data['quantity'] - shoppingCartItem.quantity)
 
 		# updating cartItem quantity
 		shoppingCartItem.quantity=form.data["quantity"]
@@ -52,8 +52,8 @@ def delete_cartItem(shoppingCartItemId):
 		db.session.delete(cart)
 	else:
 		# update cart total
-		itemDetails = shoppingCartItem.getItemDetails()
-		cart.total -= itemDetails.price * shoppingCartItem.quantity
+		itemDetails = shoppingCartItem.to_dict()
+		cart.total -= itemDetails['price'] * shoppingCartItem.quantity
 
 	db.session.delete(shoppingCartItem)
 	db.session.commit()

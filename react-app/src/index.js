@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { SidebarProvider, Sidebar } from "./context/Sidebar";
-import { CartProvider, Cart } from "./context/Cart";
 import { ModalProvider, Modal } from "./context/Modal";
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
@@ -25,16 +24,13 @@ function Root() {
 	return (
 		<ModalProvider>
 			<SidebarProvider>
-				<CartProvider>
 					<Provider store={store}>
 						<BrowserRouter>
 							<App />
 							<Sidebar />
-							<Cart />
 							<Modal />
 						</BrowserRouter>
 					</Provider>
-				</CartProvider>
 			</SidebarProvider>
 		</ModalProvider>
 	);

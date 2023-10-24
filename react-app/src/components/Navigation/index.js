@@ -1,12 +1,12 @@
-import { useEffect, React } from 'react';
+import { useEffect, useState, React } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './Navigation.css';
 import SearchBar from '../SearchBar';
-import { useCartContext } from '../../context/Cart';
 import { useSidebarContext } from '../../context/Sidebar';
 import { getCartItemsThunk } from '../../store/cartItems';
 import { getCartThunk } from '../../store/cart';
+import Cart from './Cart'
 
 function Navigation({ isLoaded }){
   const dispatch = useDispatch()
@@ -14,7 +14,7 @@ function Navigation({ isLoaded }){
   const cart = useSelector(state => state.cart)
   const location = useLocation()
   const { setIsSidebarVisible } = useSidebarContext()
-  const { setIsCartVisible } = useCartContext()
+  const [isCartVisible, setIsCartVisible] = useState(false)
 
   useEffect(() => {
     if (sessionUser) {
@@ -60,6 +60,7 @@ function Navigation({ isLoaded }){
           </NavLink>
           <NavLink to='/signup' className="signup-button">Sign Up</NavLink>
         </>}
+        {isCartVisible && <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />}
       </li>
     </ul>
   )

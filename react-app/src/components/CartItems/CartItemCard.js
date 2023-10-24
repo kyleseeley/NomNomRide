@@ -2,20 +2,28 @@ import './CartItemCard.css'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { deleteCartItemThunk, updateCartItemThunk } from '../../store/cartItems'
+import { getCartThunk } from '../../store/cart'
 
-const CartItemCard = ({ item, isLoaded }) => {
+const CartItemCard = ({ item, setNumItems }) => {
   const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(item.quantity)
+  const [remove, setRemove] = useState(false)
 
   const updateCartItem = quantity => {
-    if (quantity == 'Remove') dispatch(deleteCartItemThunk(item.id))
+    if (quantity == 'remove') {
+      dispatch(deleteCartItemThunk(item.id))
+      .then(() => dispatch(getCartThunk()))
+      setRemove(true)
+      setNumItems(prev => prev - 1)
+    }
     else {
       setQuantity(quantity)
       dispatch(updateCartItemThunk(item.id, quantity))
+      .then(() => dispatch(getCartThunk()))
     }
   }
 
-  if (isLoaded) return (
+  if (!remove) return (
     <div className='cart-item-card'>
       <div className='cart-item-quantity'>
         <select

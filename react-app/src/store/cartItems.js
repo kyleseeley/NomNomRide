@@ -90,12 +90,12 @@ export const deleteCartItemThunk = (id) => async (dispatch) => {
     });
 
     if (!response.ok) {
-      throw new Error("Error delete item");
+      throw new Error("Could not delete item");
     }
 
     // dispatch(deleteOneCartItem(id));
   } catch (error) {
-    console.log("Error delete item", error);
+    console.log("Could not delete item", error);
   }
 };
 

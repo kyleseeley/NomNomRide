@@ -24,11 +24,12 @@
 
 .header {
 	position: relative;
-	left: 2rem;
+	padding-left: 2rem;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	justify-content: space-between;
+	box-sizing: border-box;
 }
 
 .restaurant-name {
