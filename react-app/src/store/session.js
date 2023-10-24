@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
@@ -93,6 +95,36 @@ export const signUp = (username, email, password) => async (dispatch) => {
 		return ["An error occurred. Please try again."];
 	}
 };
+
+export const restoreUserThunk = () => async dispatch => {
+	console.log("HAAAAAAAAAAAAAAAAAAA")
+	const response = await csrfFetch('/api/session/')
+	const data = await response.json()
+	dispatch(setUser(data))
+	return response
+}
+
+export const editUserThunk = user => async dispatch => {
+	const response = await csrfFetch('/api/session/userInfo', {
+			method: 'PUT',
+			body: JSON.stringify(user)
+	})
+
+	const data = await response.json()
+	dispatch(setUser(data))
+	return response
+}
+
+export const deleteUserThunk = () => async dispatch => {
+	const response = await csrfFetch('/api/session/userInfo', {
+			method: 'DELETE'
+	})
+
+	if (response.ok) {
+		dispatch(removeUser())
+	}
+	return response
+}
 
 export default function sessionReducer(state = initialState, action) {
 	switch (action.type) {

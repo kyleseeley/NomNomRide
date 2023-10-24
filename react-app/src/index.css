@@ -30,3 +30,9 @@ div {
 .hidden {
   display: none;
 }
+
+.error-msg {
+  color: #FF5A5F;
+  font-size: 12px;
+  margin: 0 0 5px 0;
+}
