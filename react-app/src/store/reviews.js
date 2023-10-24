@@ -33,7 +33,9 @@ export const userReviews = (reviews) => ({
 
 export const fetchReviews = (restaurantId) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/restaurant/${restaurantId}/reviews`);
+    const response = await csrfFetch(
+      `/api/restaurants/${restaurantId}/reviews`
+    );
 
     if (!response.ok) {
       throw new Error("Error fetching reviews");
