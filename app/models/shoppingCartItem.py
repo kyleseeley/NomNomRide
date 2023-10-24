@@ -19,16 +19,12 @@ class ShoppingCartItem(db.Model):
         "ShoppingCart", back_populates="shoppingCartItems")
 
     def to_dict(self):
+        menuItem = self.menuItem.to_dict()
         return {
             "id": self.id,
             "cartId": self.cartId,
             "menuItemId": self.menuItemId,
             "itemQuantity": self.itemQuantity,
-        }
-
-    def get_item_details(self):
-        menuItem = self.menuItem.to_dict()
-        return {
             "name": menuItem['name'],
             "price": menuItem['price'],
             "description": menuItem['description'],
