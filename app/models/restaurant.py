@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime
 
 
 class Restaurant(db.Model):
@@ -20,6 +21,8 @@ class Restaurant(db.Model):
     image = db.Column(db.String(), nullable=False)
     starRating = db.Column(db.Float())
     numReviews = db.Column(db.Integer())
+    createdAt = db.Column(db.DateTime, default=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     owner = db.relationship("User", back_populates="restaurants")
 

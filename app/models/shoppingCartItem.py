@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime
 
 
 class ShoppingCartItem(db.Model):
@@ -11,7 +12,7 @@ class ShoppingCartItem(db.Model):
     cartId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("shoppingcarts.id")), nullable=False)
     menuItemId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod(
         "menuitems.id")), nullable=False)
-    itemQuantity = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
 
     menuItem = db.relationship("MenuItem", back_populates="shoppingCartItems")
 
@@ -19,18 +20,14 @@ class ShoppingCartItem(db.Model):
         "ShoppingCart", back_populates="shoppingCartItems")
 
     def to_dict(self):
+        menuItem = self.menuItem.to_dict()
         return {
             "id": self.id,
             "cartId": self.cartId,
             "menuItemId": self.menuItemId,
-            "itemQuantity": self.itemQuantity,
-        }
-
-    def get_item_details(self):
-        menuItem = self.menuItem.to_dict()
-        return {
-            "name": menuItem.name,
-            "price": menuItem.price,
-            "description": menuItem.description,
-            "image": menuItem.image
+            "quantity": self.quantity,
+            "name": menuItem['name'],
+            "price": menuItem['price'],
+            "description": menuItem['description'],
+            "image": menuItem['image']
         }

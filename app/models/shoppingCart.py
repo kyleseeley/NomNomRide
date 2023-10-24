@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime
 
 
 class ShoppingCart(db.Model):
@@ -12,6 +13,8 @@ class ShoppingCart(db.Model):
     restaurantId = db.Column(db.Integer(), db.ForeignKey(
         add_prefix_for_prod("restaurants.id")))
     total = db.Column(db.DECIMAL(6,2), nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     user = db.relationship("User", back_populates="shoppingCart")
 
@@ -29,12 +32,12 @@ class ShoppingCart(db.Model):
 
     def get_cart_items(self):
         return [shoppingCartItem.to_dict() for shoppingCartItem in self.shoppingCartItems]
-        
+
 
     def get_restaurant(self):
         restaurant = self.restaurant.to_dict()
         return {
-            "name": restaurant.name,
-            "address": restaurant.address,
-            "city": restaurant.city
+            "name": restaurant['name'],
+            "address": restaurant['address'],
+            "city": restaurant['city']
         }

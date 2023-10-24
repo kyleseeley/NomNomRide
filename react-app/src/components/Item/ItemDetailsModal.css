@@ -46,9 +46,15 @@
 }
 
 .item-modal-quantity-select {
-  min-width: 3rem;
-  min-height: 2.5rem;
+  height: 2.5rem;
   margin-bottom: 2rem;
+  width: 3rem;
+  background-color: #EEEEEE;
+  text-align: center;
+  border-radius: 12px;
+  border: none;
+  padding: 0.5rem 0;
+  cursor: pointer;
 }
 
 .item-modal-add-cart {

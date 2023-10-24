@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import ShoppingCartItem, ShoppingCart, db
 from app.forms import ShoppingCartItemForm
@@ -10,17 +10,22 @@ cartItem_routes = Blueprint('cartItem', __name__)
 @cartItem_routes.route('/<int:shoppingCartItemId>', methods=["PUT"])
 @login_required
 def update_cartItem(shoppingCartItemId):
-	"""
-	Add item to cart, and if cart doesn't exist create a new cart
-	"""
 	if not current_user:
 		return { 'error': 'Unauthorized' }, 401
 	shoppingCartItem = ShoppingCartItem.query.get(shoppingCartItemId)
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
 	form = ShoppingCartItemForm()
+	form['csrf_token'].data = request.cookies['csrf_token']
 	if form.validate_on_submit():
-		shoppingCartItem.itemQuantity=form.data["quantity"]
+
+		# update cart total
+		cart = ShoppingCart.query.get(shoppingCartItem.cartId)
+		itemDetails = shoppingCartItem.to_dict()
+		cart.total += itemDetails['price'] * (form.data['quantity'] - shoppingCartItem.quantity)
+
+		# updating cartItem quantity
+		shoppingCartItem.quantity=form.data["quantity"]
 		db.session.commit()
 		return shoppingCartItem.to_dict()
 	else:
@@ -37,13 +42,18 @@ def delete_cartItem(shoppingCartItemId):
 	shoppingCartItem = ShoppingCartItem.query.filter(ShoppingCartItem.id == shoppingCartItemId).first()
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
-	cart = current_user.get_cart()
-	if cart['cart']['id'] != shoppingCartItem.cartId:
+	cart_dict = current_user.get_cart()
+	if cart_dict['cart']['id'] != shoppingCartItem.cartId:
 		return { 'error': 'Unauthorized' }, 401
+	cart = ShoppingCart.query.get(cart_dict['cart']['id'])
 
-	if len(cart['items']) == 1: # if last item in cart, delete cart as well
-		cart = ShoppingCart.query.get(cart['cart']['id'])
+	# if last item in cart, delete cart as well
+	if len(cart_dict['items']) == 1:
 		db.session.delete(cart)
+	else:
+		# update cart total
+		itemDetails = shoppingCartItem.to_dict()
+		cart.total -= itemDetails['price'] * shoppingCartItem.quantity
 
 	db.session.delete(shoppingCartItem)
 	db.session.commit()

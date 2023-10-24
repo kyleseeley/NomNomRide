@@ -31,9 +31,9 @@ export function Sidebar() {
   const history = useHistory()
   const { isSidebarVisible, setIsSidebarVisible } = useSidebarContext()
   const user = useSelector(state => state.session.user)
+  // const ownedRestaurants = useSelector(state => state.session.restaurants)
 
   const handleLogout = () => {
-    console.log("huh?")
     dispatch(logout())
     setIsSidebarVisible(false)
     history.push('/')
@@ -56,6 +56,9 @@ export function Sidebar() {
                 <NavLink to='/account' className='sidebar-account-link'>Manage account</NavLink>
               </div>
             </div>
+            <NavLink to='/'>
+              Manage Your Restaurants
+            </NavLink>
             <button
               onClick={handleLogout}
               className="sidebar-signout">

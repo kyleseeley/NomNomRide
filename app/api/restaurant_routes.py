@@ -113,12 +113,32 @@ def restaurant_reviews(restaurantId):
     if restaurant is None:
         return jsonify({"message": "Restaurant not found"}), 404
 
-    reviews = Review.query.filter_by(restaurantId=restaurantId).all()
+    # reviews = Review.query.filter_by(restaurantId=restaurantId).all()
+    reviews = (
+        db.session.query(Review, User)
+        .join(User, User.id == Review.userId)
+        .filter(Review.restaurantId == restaurantId)
+        .all()
+    )
 
     if not reviews:
         return jsonify({"message": "This restaurant has no reviews."})
+    
+    reviews_data = [
+        {
+            "id": review.id,
+            "userId": user.id,
+            "review": review.review,
+            "stars": review.stars,
+            "firstname": user.firstname,
+            "lastname": user.lastname,
+            "createdAt": review.createdAt
+        }
+        for review, user in reviews
+    ]
 
-    return {'reviews': [review.to_dict() for review in reviews]}
+    return {'reviews': reviews_data}
+    # return {'reviews': [review.to_dict() for review in reviews]}
 
 
 @restaurant_routes.route("/<int:restaurantId>/reviews", methods=["POST"])
@@ -210,7 +230,7 @@ def createItem(restaurantId):
 def post_shoppingCart(restaurantId):
     cart = current_user.get_cart()
     if 'cart' in cart:
-        return { 'message': 'User already has a cart.'}
+        return cart['cart']
     user = User.query.filter(User.id == current_user.id).first()
     if not user:
         return jsonify({ "error": "User not found" })

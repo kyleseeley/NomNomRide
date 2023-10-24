@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime
 
 
 class Review(db.Model):
@@ -14,6 +15,8 @@ class Review(db.Model):
         add_prefix_for_prod("restaurants.id")))
     review = db.Column(db.String(), nullable=False)
     stars = db.Column(db.Integer(), nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     user = db.relationship("User", back_populates="reviews")
 
@@ -26,5 +29,6 @@ class Review(db.Model):
             "restaurantId": self.restaurantId,
             "review": self.review,
             "stars": self.stars,
+            "createdAt": self.createdAt,
             'restaurantName': self.restaurant.to_dict()['name']
         }

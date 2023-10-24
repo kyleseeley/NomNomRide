@@ -67,6 +67,7 @@ def deleteItem(itemId):
 @items_routes.route('/<int:itemId>/shopping-cart-items', methods=["POST"])
 @login_required
 def post_shoppingCartItem(itemId):
+
     if not current_user:
         return {'error': 'Unauthorized'}, 401
     menuItem = MenuItem.query.get(itemId)
@@ -81,18 +82,25 @@ def post_shoppingCartItem(itemId):
         # first check if user already has the item in their cart
         # if user already has item, just increase quantity
         # will have to change later if individual items have other addons
+        updateCart = ShoppingCart.query.get(cart['cart']['id'])
         for item in cart['items']:
             if item['menuItemId'] == itemId:
                 currItem = ShoppingCartItem.query.get(item['id'])
-                currItem.itemQuantity += form.data['quantity']
+                updateCart.total += menuItem.price * form.data['quantity']
+                currItem.quantity += form.data['quantity']
                 db.session.commit()
                 return currItem.to_dict()
 
+        # update cart total
+        updateCart.total += menuItem.price * form.data['quantity']
+
+        # create new shopping cart item
         new_shoppingCartItem = ShoppingCartItem(
-            cartId=cart['cart']['id'],
+            cartId=updateCart.id,
             menuItemId=itemId,
-            itemQuantity=form.data["quantity"]
+            quantity=form.data["quantity"]
         )
+
 
         db.session.add(new_shoppingCartItem)
         db.session.commit()

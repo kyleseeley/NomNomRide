@@ -7,7 +7,7 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.account-cart {
+.cart-sidebar {
   position: fixed;
   align-self: flex-start;
   top: 0;
@@ -21,7 +21,7 @@
   z-index: 1;
 }
 
-.account-cart.open {
+.cart-sidebar.open {
   padding-left: 1rem;
   right: 0;
 }
@@ -42,7 +42,67 @@
 }
 
 .cart-restaurant-details {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
   align-self: flex-start;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-restaurant-name {
+  margin-bottom: 0;
+}
+
+.cart-user-address {
+  margin-top: 0.5rem;
+  color: #999999;
+}
+
+.fa-ellipsis.cart {
+  padding: 0.5rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  background-color: #EEEEEE;
+}
+
+.fa-ellipsis.cart:hover {
+  cursor: pointer;
+  background-color: #CCCCCC;
+}
+
+.options-dropdown {
+  position: absolute;
+  background-color: white;
+  width: 15rem;
+  right: 1rem;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1px black;
+}
+
+.cart-options-button {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem;
+}
+
+.cart-options-button:hover {
+  background-color: #EEEEEE;
+  cursor: pointer;
+}
+
+.cart-options-button-icon {
+  padding-right: 1rem;
+}
+
+.cart-options-button.delete {
+  border-top: 1px solid #DDDDDD;
+  color: red;
+}
+
+.fa-trash.cart-options-button-icon {
+  border-top: 1px solid white;
 }
 
 .cart-main.center {
@@ -50,9 +110,15 @@
 }
 
 .cart-buttons {
+  position: absolute;
+  bottom: 0;
+  padding: 1.5rem 0 3rem 0;
+  background-color: white;
+  box-shadow: 0 -5px 5px -5px #CCCCCC;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .cart-sidebar-button {

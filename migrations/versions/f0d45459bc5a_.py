@@ -1,16 +1,17 @@
 """empty message
 
-Revision ID: f52f986d52e2
+Revision ID: f0d45459bc5a
 Revises: 
-Create Date: 2023-10-22 16:26:44.642363
+Create Date: 2023-10-24 15:50:43.995908
 
 """
 from alembic import op
 import sqlalchemy as sa
+from app.models import environment, SCHEMA
 
 
 # revision identifiers, used by Alembic.
-revision = 'f52f986d52e2'
+revision = 'f0d45459bc5a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,6 +31,8 @@ def upgrade():
     sa.Column('lat', sa.Float(), nullable=True),
     sa.Column('lng', sa.Float(), nullable=True),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
+    sa.Column('createdAt', sa.DateTime(), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -47,6 +50,8 @@ def upgrade():
     sa.Column('image', sa.String(), nullable=False),
     sa.Column('starRating', sa.Float(), nullable=True),
     sa.Column('numReviews', sa.Integer(), nullable=True),
+    sa.Column('createdAt', sa.DateTime(), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['ownerId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -58,6 +63,8 @@ def upgrade():
     sa.Column('price', sa.DECIMAL(precision=6, scale=2), nullable=False),
     sa.Column('description', sa.String(length=255), nullable=False),
     sa.Column('image', sa.String(), nullable=True),
+    sa.Column('createdAt', sa.DateTime(), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['restaurantId'], ['restaurants.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -67,6 +74,8 @@ def upgrade():
     sa.Column('restaurantId', sa.Integer(), nullable=True),
     sa.Column('review', sa.String(), nullable=False),
     sa.Column('stars', sa.Integer(), nullable=False),
+    sa.Column('createdAt', sa.DateTime(), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['restaurantId'], ['restaurants.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -76,6 +85,8 @@ def upgrade():
     sa.Column('userId', sa.Integer(), nullable=True),
     sa.Column('restaurantId', sa.Integer(), nullable=True),
     sa.Column('total', sa.DECIMAL(precision=6, scale=2), nullable=False),
+    sa.Column('createdAt', sa.DateTime(), nullable=True),
+    sa.Column('updatedAt', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['restaurantId'], ['restaurants.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -84,12 +95,19 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('cartId', sa.Integer(), nullable=False),
     sa.Column('menuItemId', sa.Integer(), nullable=False),
-    sa.Column('itemQuantity', sa.Integer(), nullable=False),
+    sa.Column('quantity', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['cartId'], ['shoppingcarts.id'], ),
     sa.ForeignKeyConstraint(['menuItemId'], ['menuitems.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
+if environment == "production":
+        op.execute(f"ALTER TABLE menuitems SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE restaurants SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE shoppingcarts SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE shoppingcartitems SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
