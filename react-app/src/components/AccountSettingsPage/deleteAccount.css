@@ -1,0 +1,40 @@
+.delete-account-container {
+  max-width: 20rem;
+}
+
+.red-text {
+  font-weight: bold;
+  color: #e41d56;
+}
+
+.delete-confirmation {
+  border-radius: 5px;
+  width: 100%;
+  box-shadow: 0 0 10px #CCCCCC;
+}
+
+.delete-acc-button-div {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-acc-cancel {
+  margin-right: 1rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid #CCCCCC;
+}
+
+.confirm-delete-acc-button {
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: #ffadc3;
+  color: white;
+  border: none;
+}
+
+.confirm-delete-acc-button:enabled {
+  background-color: #e41d56;
+}

@@ -10,6 +10,7 @@ import RestaurantDetails from "./components/RestaurantDetails";
 import MenuItemForm from "./components/RestaurantManagement/MenuItemForm";
 import RestaurantManagement from "./components/RestaurantManagement";
 import RestaurantForm from "./components/RestaurantManagement/RestaurantForm";
+import AccountSettings from "./components/AccountSettingsPage";
 // import Checkout from ./components/Checkout
 
 // import Search from ./components/Search
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route exact path="/search">
             {/* <SearchResults /> */}
+          </Route>
+          <Route exact path='/account'>
+            <AccountSettings />
           </Route>
           <Route path="/:restaurantId/manage">
             <RestaurantManagement />

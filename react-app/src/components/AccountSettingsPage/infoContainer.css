@@ -1,0 +1,68 @@
+.info-container {
+  display: grid;
+  width: 100%;
+  grid-template-areas:
+      "one two"
+      "three three";
+  grid-template-columns: 2fr 1fr;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.info-label {
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.info-edit-button {
+  all: unset;
+  justify-self: end;
+  grid-area: two;
+  margin-bottom: 1rem;
+  text-decoration: underline;
+  user-select: none;
+  cursor: pointer;
+}
+
+.info-edit-button.gray {
+  color: #CCCCCC;
+  cursor: initial;
+}
+
+.info-inputs-div {
+  display: flex;
+}
+
+.info-inputs-div.col {
+  flex-direction: column;
+}
+
+.info-input-label {
+  margin-top: 1rem;
+}
+
+.info-input {
+  margin-right: 1rem;
+}
+
+.info-edit-panel {
+  grid-area: three;
+}
+
+.save-personal {
+  background-color: black;
+  margin-top: 1rem;
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  height: 2rem;
+  width: 4rem;
+  cursor: pointer;
+}
+
+.save-personal:disabled {
+  background-color: #999999;
+  cursor: initial;
+}
