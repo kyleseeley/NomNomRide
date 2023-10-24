@@ -52,7 +52,7 @@ function Navigation({ isLoaded }){
         {sessionUser && <button
           onClick={() => setIsCartVisible(true)}
           className='cart-button'>
-          <i className="fa-solid fa-cart-shopping" />Cart <b>·</b>
+          <i className="fa-solid fa-cart-shopping" />Cart
         </button>}
         {!sessionUser && <>
           <NavLink to='/login' className="login-button">
@@ -60,7 +60,7 @@ function Navigation({ isLoaded }){
           </NavLink>
           <NavLink to='/signup' className="signup-button">Sign Up</NavLink>
         </>}
-        {isCartVisible && <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />}
+        <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />
       </li>
     </ul>
   )
