@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime
 
 
 class ShoppingCart(db.Model):
@@ -12,6 +13,8 @@ class ShoppingCart(db.Model):
     restaurantId = db.Column(db.Integer(), db.ForeignKey(
         add_prefix_for_prod("restaurants.id")))
     total = db.Column(db.DECIMAL(6,2), nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     user = db.relationship("User", back_populates="shoppingCart")
 
