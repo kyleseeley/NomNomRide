@@ -16,9 +16,9 @@ const CartItemList = ({ cart, numItems, setNumItems }) => {
           <span className='cart-num-items'>
             {`${numItems} item${numItems > 1 ? 's' : ''}`}
           </span>
-          <span>Subtotal: ${cart.cart.total}</span>
+          <span>Subtotal: ${cart?.cart?.total}</span>
         </div>
-        {cart.items.map(item => (
+        {cart.items && cart.items.map(item => (
             <CartItemCard
               setNumItems={setNumItems}
               key={item.id}
@@ -27,7 +27,7 @@ const CartItemList = ({ cart, numItems, setNumItems }) => {
         ))}
         <div className='bottom-subtotal'>
           <span>Subtotal</span>
-          <span>${cart.cart.total}</span>
+          <span>${cart?.cart?.total}</span>
         </div>
       </div>
     </>

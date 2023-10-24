@@ -10,9 +10,13 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
   const history = useHistory()
   const cart = useSelector(state => state.cart)
   const user = useSelector(state => state.session.user)
-  const [numItems, setNumItems] = useState(cart.cart ? cart.items.length : 0)
+  const [numItems, setNumItems] = useState(0)
   const [showOptions, setShowOptions] = useState(false)
   const optionsRef = useRef()
+
+  useEffect(() => {
+    setNumItems(cart.cart ? cart.items.length : 0)
+  })
 
   const openOptions = () => {
     if (showOptions) return;
@@ -53,7 +57,7 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
         {numItems ? <div className="cart-main">
           <div className="cart-restaurant-details">
             <span>
-              <h1 className="cart-restaurant-name">{`${cart.restaurant.name} (${cart.restaurant.address})`}</h1>
+              <h1 className="cart-restaurant-name">{`${cart?.restaurant?.name} (${cart?.restaurant?.address})`}</h1>
               <p className="cart-user-address">Deliver to {user?.address}</p>
             </span>
             <span>
