@@ -14,25 +14,8 @@
   color: #333;
 }
 
-.restaurant-form-container div label {
-  font-weight: bold;
-  padding-top: 2px;
-}
-
-.restaurant-form-container div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-}
-
 .error {
   color: red;
-}
-
-.restaurant-form-container div input {
-  width: 250px;
-  text-align: center;
 }
 
 .select {

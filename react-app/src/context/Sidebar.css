@@ -68,7 +68,7 @@
   display: block;
   text-align: center;
   padding: 1.2rem 0;
-  width: 16rem;
+  width: 14rem;
   border-radius: 10px;
   margin-bottom: 0.5rem;
   text-decoration: none;
@@ -77,7 +77,7 @@
 .sidebar-button-login {
   color: black;
   font-weight: bold;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .sidebar-button-signup {
@@ -93,7 +93,6 @@
   font-size: 0.9rem;
   font-weight: bold;
 }
-
 
 /* @media (max-width: 1100px) {
   .sidebar {
