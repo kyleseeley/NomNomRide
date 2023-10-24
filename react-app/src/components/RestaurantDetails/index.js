@@ -47,7 +47,10 @@ const RestaurantDetails = () => {
 
   const calculateTimeAgo = (reviewDate) => {
     const currentTime = new Date();
+    console.log("currentTime", currentTime);
     const reviewTime = new Date(reviewDate);
+    console.log("review date", reviewDate);
+    console.log("review time", reviewTime);
     const timeDifference = currentTime - reviewTime;
     const minutesAgo = Math.floor(timeDifference / (1000 * 60));
     if (minutesAgo < 60) {

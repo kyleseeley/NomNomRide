@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 33f45132f71d
-Revises:
-Create Date: 2023-10-23 17:58:55.196538
+Revision ID: f0d45459bc5a
+Revises: 
+Create Date: 2023-10-24 15:50:43.995908
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ from app.models import environment, SCHEMA
 
 
 # revision identifiers, used by Alembic.
-revision = '33f45132f71d'
+revision = 'f0d45459bc5a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -101,7 +101,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
-    if environment == "production":
+if environment == "production":
         op.execute(f"ALTER TABLE menuitems SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE restaurants SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")

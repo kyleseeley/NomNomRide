@@ -29,5 +29,6 @@ class Review(db.Model):
             "restaurantId": self.restaurantId,
             "review": self.review,
             "stars": self.stars,
+            "createdAt": self.createdAt,
             'restaurantName': self.restaurant.to_dict()['name']
         }
