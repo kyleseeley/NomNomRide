@@ -124,7 +124,21 @@ def restaurant_reviews(restaurantId):
     if not reviews:
         return jsonify({"message": "This restaurant has no reviews."})
     
-    return {'reviews': [review.to_dict() for review in reviews]}
+    reviews_data = [
+        {
+            "id": review.id,
+            "userId": user.id,
+            "review": review.review,
+            "stars": review.stars,
+            "firstname": user.firstname,
+            "lastname": user.lastname,
+            "createdAt": review.createdAt
+        }
+        for review, user in reviews
+    ]
+
+    return {'reviews': reviews_data}
+    # return {'reviews': [review.to_dict() for review in reviews]}
 
 
 @restaurant_routes.route("/<int:restaurantId>/reviews", methods=["POST"])
