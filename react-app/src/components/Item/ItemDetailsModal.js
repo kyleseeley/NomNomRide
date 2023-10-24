@@ -14,9 +14,15 @@ const ItemDetailsModal = ({ item }) => {
 
 
 	const addToCart = () => {
-		if (!cart?.id) dispatch(postCartThunk(item.restaurantId))
-		dispatch(postCartItemThunk(item.id, quantity))
-		.then(() => dispatch(getCartThunk()))
+		if (!cart?.id) {
+			dispatch(postCartThunk(item.restaurantId))
+			.then(() => dispatch(postCartItemThunk(item.id, quantity)))
+			.then(() => dispatch(getCartThunk()))
+		}
+		else {
+			dispatch(postCartItemThunk(item.id, quantity))
+			.then(() => dispatch(getCartThunk()))
+		}
 
 		closeModal()
 	}
