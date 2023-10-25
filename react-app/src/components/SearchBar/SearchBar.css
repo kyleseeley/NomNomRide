@@ -55,6 +55,7 @@
 
 .search-button {
   all: unset;
+  margin-right: 0.5rem;
   /* color: white; */
 }
 

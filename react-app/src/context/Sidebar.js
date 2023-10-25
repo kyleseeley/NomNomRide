@@ -53,10 +53,18 @@ export function Sidebar() {
               <i className="fas fa-user-circle" id='sidebar-profile-img' />
               <div className="sidebar-user-info">
                 <div className="sidebar-user-name">{user.firstname}</div>
-                <NavLink to='/account' className='sidebar-account-link'>Manage account</NavLink>
+                <NavLink
+                  onClick={() => setIsSidebarVisible(false)}
+                  to='/account'
+                  className='sidebar-account-link'>
+                    Manage account
+                </NavLink>
               </div>
             </div>
-            <NavLink to='/'>
+            <NavLink
+              onClick={() => setIsSidebarVisible(false)}
+              to='/'
+              className='sidebar-link'>
               Manage Your Restaurants
             </NavLink>
             <button
@@ -79,13 +87,13 @@ export function Sidebar() {
             </NavLink>
           </>}
         </div>
-        <div className="sidebar-links">
-          <NavLink
+        <div className="sidebar-extra-links">
+          {user && <NavLink
             to='/new'
             onClick={() => setIsSidebarVisible(false)}
-            className='add-restaurant-link'>
+            className='sidebar-extra-link'>
             Add your restaurant
-          </NavLink>
+          </NavLink>}
         </div>
       </div>
     </>

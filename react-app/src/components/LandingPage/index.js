@@ -15,6 +15,7 @@ const LandingPage = () => {
   const [sortCriteria, setSortCriteria] = useState("rating");
   const [shouldSortOnSubmit, setShouldSortOnSubmit] = useState(false);
   const [selectedType, setSelectedType] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const sortRestaurants = (criteria) => {
     setShouldSortOnSubmit(true);
@@ -40,7 +41,8 @@ const LandingPage = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchRestaurants());
+    dispatch(fetchRestaurants())
+    .then(() => setIsLoaded(true))
   }, [dispatch]);
 
   return (
@@ -70,7 +72,7 @@ const LandingPage = () => {
         <div className="sidebar">
           <SideBar onSort={sortRestaurants} />
         </div>
-        {allRestaurants ? (
+        {isLoaded ? (
           sortedRestaurants.length === 0 ? (
             <p>There are no restaurants of this type.</p>
           ) : (
@@ -95,7 +97,17 @@ const LandingPage = () => {
             </div>
           )
         ) : (
-          <p>Loading...</p>
+        <div className="restaurant-list">
+            {Array.from({length: 16}, (_, i) => i + 1).map(i => (
+              <Link key={i} className="restaurant-card">
+                <div className="restaurant-image skeleton" />
+                <div className="restaurant-info">
+                  <p className="restaurant-name skeleton" />
+                  <p className="restaurant-rating skeleton" />
+                </div>
+              </Link>
+            ))}
+          </div>
         )}
       </div>
     </div>

@@ -8,18 +8,20 @@ import { getCartItemsThunk } from '../../store/cartItems';
 import { getCartThunk } from '../../store/cart';
 import Cart from './Cart'
 
-function Navigation({ isLoaded }){
+function Navigation(){
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
   const cart = useSelector(state => state.cart)
   const location = useLocation()
   const { setIsSidebarVisible } = useSidebarContext()
   const [isCartVisible, setIsCartVisible] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     if (sessionUser) {
       dispatch(getCartThunk())
       .then(dispatch(getCartItemsThunk()))
+      .then(setIsLoaded(true))
     }
   }, [sessionUser, dispatch])
 
@@ -49,18 +51,20 @@ function Navigation({ isLoaded }){
       </li>
 
       <li className='nav-right'>
-        {sessionUser && <button
-          onClick={() => setIsCartVisible(true)}
-          className='cart-button'>
-          <i className="fa-solid fa-cart-shopping" />Cart
-        </button>}
-        {!sessionUser && <>
-          <NavLink to='/login' className="login-button">
-            <i className="fas fa-user-circle" />Log In
-          </NavLink>
-          <NavLink to='/signup' className="signup-button">Sign Up</NavLink>
+        {isLoaded && <>
+          {sessionUser && <button
+            onClick={() => setIsCartVisible(true)}
+            className='cart-button'>
+            <i className="fa-solid fa-cart-shopping" />Cart
+          </button>}
+          {!sessionUser && <>
+            <NavLink to='/login' className="login-button">
+              <i className="fas fa-user-circle" />Log In
+            </NavLink>
+            <NavLink to='/signup' className="signup-button">Sign Up</NavLink>
+          </>}
+          <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />
         </>}
-        <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />
       </li>
     </ul>
   )
