@@ -91,15 +91,21 @@ def userCheckout():
 
   line_items = []
   total_amount = 0 
+
+  for cart_item in cart_items:
+    item_details = cart_item.to_dict()
+
+    line_item = {
+        'price': item_details['price'],  
+        'quantity': item_details['quantity'],
+    }
+    line_items.append(line_item)
+
+    total_amount += item_details['price'] * item_details['quantity']
   
   try:
     checkout_session = stripe.checkout.Session.create(
-      line_items=[
-        {
-          'price': '{{PRICE_ID}}',
-          'quantity': 1,
-        },
-      ],
+      line_items=line_items,
       mode='payment',
       ui_mode='embedded',
     )
