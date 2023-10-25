@@ -1,8 +1,11 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from app.forms import SignUpForm
 from flask_login import login_required, current_user
-from app.models import User, db
+from app.models import User, Order, db
 from .auth_routes import validation_errors_to_error_messages
+import stripe
+
+stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
 
 session_routes = Blueprint('current', __name__)
 
@@ -73,3 +76,42 @@ def deleteUser():
   db.session.delete(user)
   db.session.commit()
   return { 'message': 'Deleted successfully' }
+
+
+@session_routes.route('/checkout', methods=['POST'])
+@login_required
+def userCheckout():
+  user = User.query.get(current_user.id)
+  if not user:
+    return { 'error': 'User not found' }, 404
+  
+  restaurant_id = request.json.get("restaurant_id")
+  cart_info = user.get_cart()
+  cart_items = cart_info.get("items", [])
+
+  line_items = []
+  total_amount = 0 
+  
+  try:
+    checkout_session = stripe.checkout.Session.create(
+      line_items=[
+        {
+          'price': '{{PRICE_ID}}',
+          'quantity': 1,
+        },
+      ],
+      mode='payment',
+      ui_mode='embedded',
+    )
+  except Exception as e:
+    return str(e)
+  
+  new_order = Order(
+    userId=user.id,
+    restaurantId=restaurant_id,
+    total=total_amount
+  )
+  db.session.add(new_order)
+  db.session.commit()
+
+  return jsonify({'sessionId': checkout_session.id})
