@@ -45,6 +45,7 @@
 .clear-search {
   all: unset;
   padding-right: 0.2rem;
+  cursor: pointer;
 }
 
 .clear-search.hide {
@@ -54,7 +55,6 @@
 .search-button {
   all: unset;
   margin-right: 0.5rem;
-  /* color: white; */
 }
 
 @media (max-width: 700px) {

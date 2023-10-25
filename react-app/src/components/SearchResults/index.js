@@ -1,24 +1,23 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
 import './SearchResults.css'
-import { NavLink, useHistory } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { searchRestaurantsThunk } from '../../store/restaurant'
 
 const SearchResults = () => {
-  const { location } = useHistory()
-  const term = location.state.term
+  const location = useLocation()
   const dispatch = useDispatch()
   const restaurants = Object.values(useSelector(state => state.restaurant)) || []
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    dispatch(searchRestaurantsThunk(term))
+    dispatch(searchRestaurantsThunk(location.search.slice(7)))
     .then(setIsLoaded(true))
-  }, [dispatch, term])
+  }, [dispatch, location])
   return (
     <div className='search-results-page page-container'>
       {isLoaded ? <div className="restaurant-list">
-        {restaurants.map((restaurant) => (
+        {restaurants ? restaurants.map((restaurant) => (
           <NavLink
             to={`/${restaurant.id}`}
             key={restaurant.id} className="restaurant-card">
@@ -32,7 +31,9 @@ const SearchResults = () => {
               <p className="restaurant-rating">{restaurant.starRating}</p>
             </div>
           </NavLink>
-        ))}
+        )) : <h2 className='no-match'>
+          No restaurants matched your search.
+        </h2>}
       </div> : <div>
       <div className="restaurant-list">
         {Array.from({length: 16}, (_, i) => i + 1).map(i => (

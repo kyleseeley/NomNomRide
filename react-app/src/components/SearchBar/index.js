@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {DebounceInput} from 'react-debounce-input'
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import './SearchBar.css'
 
 function SearchBar() {
   const history = useHistory()
+  const location = useLocation()
   const [term, setTerm] = useState("");
+
+  useEffect(() => {
+    if (location.pathname == '/search') {
+      setTerm(location.search.slice(7))
+    }
+  }, [location])
 
   const clearSearch = () => {
     setTerm('')
@@ -17,15 +24,13 @@ function SearchBar() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    history.push('/search', { term: term })
+    history.push(`/search?query=${term}`)
 
   };
 
   return (
-    <>
-      <form
-          onSubmit={handleSubmit}
-          className='search-bar'>
+    <div className='search-bar'>
+      <form onSubmit={handleSubmit}>
           <button
               type="submit"
               className="search-button">
@@ -40,15 +45,15 @@ function SearchBar() {
               onChange={handleChange}
               className="search-input"
           />
-          <div className="buttons-div">
-            <button
-              onClick={clearSearch}
-              className={`clear-search ${term.length === 0 ? 'hide' : ''}`}>
-              <i className="fa-solid fa-x" />
-            </button>
-          </div>
       </form>
-    </>
+      <div className="buttons-div">
+        <button
+          onClick={clearSearch}
+          className={`clear-search ${term.length === 0 ? 'hide' : ''}`}>
+          <i className="fa-solid fa-x" />
+        </button>
+      </div>
+    </div>
   );
 };
 

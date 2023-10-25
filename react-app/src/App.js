@@ -42,7 +42,7 @@ function App() {
           <Route exact path="/new">
             <RestaurantForm />
           </Route>
-          <Route exact path="/search">
+          <Route path="/search">
             <SearchResults />
           </Route>
           <Route exact path='/account'>
