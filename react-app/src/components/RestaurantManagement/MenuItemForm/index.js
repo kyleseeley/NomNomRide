@@ -216,7 +216,8 @@ const MenuItemForm = () => {
               </tr>
             </table>
 
-            <button className="submit-button" onClick={submitHandler}>submit</button>
+            <button className="cart-button" onClick={submitHandler}>Submit</button>
+            <button className="login-button" onClick={()=>history.goBack()}>Cancel</button>
           </div>
         </div>
       </div>

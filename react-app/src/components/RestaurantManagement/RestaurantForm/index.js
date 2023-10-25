@@ -25,7 +25,7 @@ const typeList = [
   "Sandwich",
 ];
 
-const RestaurantForm = ({ restaurant, onSubmit }) => {
+const RestaurantForm = ({ restaurant, onFinish }) => {
   const [name, setName] = useState(restaurant?.name || "");
   const [nameError, setNameError] = useState(null);
   const [address, setAddress] = useState(restaurant?.address || "");
@@ -86,8 +86,8 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
         )
       );
 
-      if (!errors && typeof onSubmit === "function") {
-        onSubmit();
+      if (!errors && typeof onFinish === "function") {
+        onFinish();
       }
     } else {
       //creation
@@ -103,6 +103,16 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
       // Handle errors - API call encountered validation errors or other issues
       console.error("Error creating menu item:", errors);
       // You can display error messages to the user or handle them as needed.
+    }
+  };
+
+  const cancelHandler = () => {
+    //if editing
+    if (typeof onFinish === "function") {
+      onFinish();
+    }else{
+     //creating
+     history.goBack()
     }
   };
 
@@ -174,7 +184,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
   };
 
   return (
-    <div className="page-container">
+    <div className={restaurant === undefined ? "page-container" : ""}>
       <div className="login-form-container">
         <div className="form-wrapper">
           {restaurant === undefined && <h1>Create New Restaurant</h1>}
@@ -186,7 +196,7 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
                 <label>Name</label>
               </td>
               <td>
-                <input
+              <input
                   type="text"
                   value={name}
                   onChange={(e) => {
@@ -340,8 +350,13 @@ const RestaurantForm = ({ restaurant, onSubmit }) => {
             </tr>
           </table>
           <div className="submit">
-            <button className="submit-button" onClick={submitHandler}>
+            <button className="cart-button" onClick={submitHandler}>
               Submit
+            </button>
+          </div>
+          <div className="cancel-button">
+            <button className="login-button" onClick={cancelHandler}>
+              Cancel
             </button>
           </div>
         </div>

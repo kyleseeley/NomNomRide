@@ -1,0 +1,19 @@
+.manage-item-container th {
+  text-align: left;
+}
+
+.manage-item-container td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.manage-item-container tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.manage-item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
