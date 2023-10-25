@@ -85,7 +85,7 @@ def userCheckout():
   if not user:
     return { 'error': 'User not found' }, 404
   
-  restaurant_id = request.json.get("restaurant_id")
+  restaurantId = request.json.get("restaurantId")
   cart_info = user.get_cart()
   cart_items = cart_info.get("items", [])
 
@@ -114,7 +114,7 @@ def userCheckout():
   
   new_order = Order(
     userId=user.id,
-    restaurantId=restaurant_id,
+    restaurantId=restaurantId,
     total=total_amount
   )
   db.session.add(new_order)
