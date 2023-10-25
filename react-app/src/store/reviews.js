@@ -6,8 +6,9 @@ export const UPDATE_REVIEW = "reviews/UPDATE_REVIEW";
 export const DELETE_REVIEW = "reviews/DELETE_REVIEW";
 export const USER_REVIEWS = "reviews/USER_REVIEWS";
 
-export const restaurantReviews = (reviews) => ({
+export const restaurantReviews = (restaurantId, reviews) => ({
   type: RESTAURANT_REVIEWS,
+  restaurantId,
   reviews,
 });
 
@@ -42,7 +43,7 @@ export const fetchReviews = (restaurantId) => async (dispatch) => {
     }
 
     const responseData = await response.json();
-    dispatch(restaurantReviews(responseData.reviews));
+    dispatch(restaurantReviews(restaurantId, responseData.reviews));
   } catch (error) {
     console.log("Error fetching reviews", error);
   }
@@ -51,7 +52,7 @@ export const fetchReviews = (restaurantId) => async (dispatch) => {
 export const createNewReview = (reviewData) => async (dispatch) => {
   try {
     const response = await csrfFetch(
-      `/api/restaurant/${reviewData.restaurantId}/reviews`,
+      `/api/restaurants/${reviewData.restaurantId}/reviews`,
       {
         method: "POST",
         headers: {
@@ -110,21 +111,21 @@ export const deleteReviewById =
       dispatch(deleteReview(reviewId));
       dispatch(fetchReviews(restaurantId));
     } catch (error) {
-      console.log("Error deleting review");
+      console.log("Error deleting review", error);
     }
   };
 
 export const fetchUserReviews = () => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/session/reviews`);
-
     if (!response.ok) {
       throw new Error("Erorr fetching user reviews");
     }
-    const reviews = await response.json();
-    dispatch(userReviews(reviews));
+    const responseData = await response.json();
+    const reviewsFromUser = responseData.reviews || [];
+    dispatch(userReviews(reviewsFromUser));
   } catch (error) {
-    console.log("Error fetching user reviews");
+    console.log("Error fetching user reviews", error);
   }
 };
 
@@ -134,10 +135,19 @@ const reviewReducer = (state = initialState, action) => {
   let newState = { ...state };
   switch (action.type) {
     case RESTAURANT_REVIEWS:
-      action.reviews.forEach((review) => {
-        newState[review.id] = review;
-      });
-      return newState;
+      const { restaurantId, reviews } = action;
+      return {
+        ...newState,
+        [restaurantId]: reviews,
+      };
+    // newState[restaurantId] = { ...newState[restaurantId] };
+    // reviews.forEach((review) => {
+    //   newState[restaurantId][review.id] = review;
+    // });
+    // action.reviews.forEach((review) => {
+    //   newState[review.id] = review;
+    // });
+    // return newState;
     case CREATE_REVIEW:
       newState[action.review.id] = action.review;
       return newState;
@@ -149,7 +159,9 @@ const reviewReducer = (state = initialState, action) => {
       return newState;
     case USER_REVIEWS:
       action.reviews.forEach((review) => {
-        newState[review.id] = review;
+        if (!newState[review.id]) {
+          newState[review.id] = review;
+        }
       });
       return newState;
     default:
