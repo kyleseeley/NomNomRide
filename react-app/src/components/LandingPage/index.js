@@ -76,7 +76,7 @@ const LandingPage = () => {
             <p>There are no restaurants of this type.</p>
           ) : (
             <div className="landing-main">
-              <h1>All Restaurants</h1>
+              <h1 className="landing-header">All Restaurants</h1>
               <div className="restaurant-list">
                 {sortedRestaurants.map((restaurant) => (
                   <Link
@@ -99,16 +99,19 @@ const LandingPage = () => {
             </div>
           )
         ) : (
-          <div className="restaurant-list">
-              {Array.from({length: 16}, (_, i) => i + 1).map(i => (
-                <div key={i} className="restaurant-card">
-                  <div className="restaurant-image skeleton" />
-                  <div className="restaurant-info">
-                    <p className="restaurant-name skeleton" />
-                    <p className="restaurant-rating skeleton" />
+          <div className="landing-main">
+            <h1 className="landing-header skeleton" />
+            <div className="restaurant-list">
+                {Array.from({length: 16}, (_, i) => i + 1).map(i => (
+                  <div key={i} className="restaurant-card">
+                    <div className="restaurant-image skeleton" />
+                    <div className="restaurant-info">
+                      <p className="restaurant-name skeleton" />
+                      <p className="restaurant-rating skeleton" />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
         )}
       </div>

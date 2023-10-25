@@ -31,12 +31,17 @@
   display: none;
 }
 
+.landing-header {
+  min-width: 15rem;
+  font-size: 28px;
+  min-height: 3rem;
+}
+
 .restaurant-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
   width: 100%;
-  /* align-self: flex-start; */
 }
 
 .restaurant-card {
