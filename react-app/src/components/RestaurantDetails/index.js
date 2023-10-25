@@ -7,6 +7,7 @@ import { fetchMenuItemsThunk } from "../../store/menuItems";
 import { fetchReviews } from "../../store/reviews";
 import ItemList from "../Item/ItemList";
 import { NavLink } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 
 const RestaurantDetails = () => {
   const dispatch = useDispatch();
@@ -14,13 +15,31 @@ const RestaurantDetails = () => {
   const restaurant = useSelector((state) => state.restaurant[restaurantId]);
   const user = useSelector((state) => state.session.user);
   const restaurantItems = useSelector((state) => state.menuItems);
-  const restaurantReviews = useSelector((state) => state.reviews);
-  const reviewsArray = Object.values(restaurantReviews);
+  const restaurantReviews = useSelector((state) => state.reviews[restaurantId]);
+  const reviewsArray = restaurantReviews
+    ? Object.values(restaurantReviews)
+    : [];
   const categories = {};
   for (const item of Object.values(restaurantItems)) {
     if (!categories[item.type]) categories[item.type] = [item];
     else categories[item.type] = [...categories[item.type], item];
   }
+
+  const userReviews = useSelector((state) => state.reviews);
+
+  const hasLeftReview =
+    user &&
+    Object.keys(userReviews).length > 0 &&
+    Object.values(userReviews).some((review) => {
+      return review.userId === user.id && review.restaurantId === restaurant.id;
+    });
+
+  const hasOrdered =
+    user &&
+    restaurant &&
+    (user.shoppingCart ?? []).some(
+      (cart) => cart.restaurantId === restaurant.id
+    );
 
   const [focusTab, setFocusTab] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -32,7 +51,7 @@ const RestaurantDetails = () => {
       .then(dispatch(fetchReviews(restaurantId)))
       .then()
       .then(setIsLoaded(true));
-  }, [dispatch, restaurantId]);
+  }, [dispatch, restaurantId, user]);
 
   const scrollToId = (catName) => {
     const element = catName ? document.getElementById(catName) : catName;
@@ -47,10 +66,7 @@ const RestaurantDetails = () => {
 
   const calculateTimeAgo = (reviewDate) => {
     const currentTime = new Date();
-    console.log("currentTime", currentTime);
     const reviewTime = new Date(reviewDate);
-    console.log("review date", reviewDate);
-    console.log("review time", reviewTime);
     const timeDifference = currentTime - reviewTime;
     const minutesAgo = Math.floor(timeDifference / (1000 * 60));
     if (minutesAgo < 60) {
@@ -65,6 +81,8 @@ const RestaurantDetails = () => {
       }
     }
   };
+
+  //   console.log("user shoppingCart", user.shoppingCart);
 
   // if link name is invalid, catch all
   // if (restaurant.dne) return (
@@ -127,6 +145,9 @@ const RestaurantDetails = () => {
       </div>
       <div className="reviews-section">
         <h2 className="review-title">Reviews</h2>
+        {!hasLeftReview && hasOrdered && (
+          <button className="leave-review-button">Leave a Review</button>
+        )}
         <ul className="reviews-list">
           {reviewsArray.map((review) => (
             <li key={review.id} className="review-item">

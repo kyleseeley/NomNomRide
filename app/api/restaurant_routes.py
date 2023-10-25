@@ -128,6 +128,7 @@ def restaurant_reviews(restaurantId):
         {
             "id": review.id,
             "userId": user.id,
+            "restaurantId": review.restaurantId,
             "review": review.review,
             "stars": review.stars,
             "firstname": user.firstname,
