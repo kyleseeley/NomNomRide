@@ -9,7 +9,15 @@
   flex-grow: 1;
   max-width: 314px;
 }
-
+.form-wrapper input, select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid rgb(186, 191, 197);
+}
+.form-wrapper label {
+  font-size: 15px;
+  font-weight: 700;
+}
 .login-form {
   display: flex;
   gap: 16px;
@@ -23,19 +31,11 @@
 .login-form > h1 {
   text-align: center;
 }
-.login-form input {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid rgb(186, 191, 197);
-}
+
 .login-form button {
   width: 100%;
   margin-right: 0;
   text-align: center;
-}
-.login-form > div > label {
-  font-size: 15px;
-  font-weight: 700;
 }
 
 .login-form-input-container {
