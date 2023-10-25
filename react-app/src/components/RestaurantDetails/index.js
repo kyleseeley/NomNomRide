@@ -40,6 +40,7 @@ const RestaurantDetails = () => {
     (user.shoppingCart ?? []).some(
       (cart) => cart.restaurantId === restaurant.id
     );
+  console.log("hasOrdered", hasOrdered);
 
   const [focusTab, setFocusTab] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -81,8 +82,6 @@ const RestaurantDetails = () => {
       }
     }
   };
-
-  //   console.log("user shoppingCart", user.shoppingCart);
 
   // if link name is invalid, catch all
   // if (restaurant.dne) return (
