@@ -14,16 +14,21 @@ const RestaurantManagement = () => {
   });
   const restaurantItems = useSelector((state) => state.menuItems);
   const itemList = Object.values(restaurantItems);
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   useEffect(async () => {
     await dispatch(fetchOneRestaurant(restaurantId));
     await dispatch(fetchMenuItemsThunk(restaurantId));
   }, [dispatch, restaurantId]);
   if (restaurant === undefined)
-    return <div className="page-container">loading...</div>;
+    return <div className="page-container container-padding">loading...</div>;
   return (
-    <div className="page-container">
+    <div className="page-container container-padding">
       <h1>Manage your restaurant {restaurant.name}</h1>
-      <tabs>
+      <tabs value={value} onChange={handleChange} centered>
         <tab>
           <Link to={`/${restaurantId}/manage`}>
             <button>General</button>
