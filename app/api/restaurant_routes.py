@@ -16,13 +16,17 @@ def all_restaurants():
     restaurants = Restaurant.query.all()
     return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
+@restaurant_routes.route('/search')
+def search_restaurants():
+    query = request.args.get('query')
+    restaurants = Restaurant.query.filter(Restaurant.name.ilike(f'%{query}%')).all()
+    if not len(restaurants):
+        return { 'restaurants': [] }
+    return {'restaurants': [restaurant.to_dict() for restaurant in restaurants]}
 
 @restaurant_routes.route('/', methods=['POST'])
 @login_required
 def post_restaurant():
-    """
-    Query for all restaurants and returns them in a list of restaurant dictionaries
-    """
     if not current_user:
         return {'error': 'Unauthorized'}, 403
     form = RestaurantForm()
@@ -52,9 +56,6 @@ def post_restaurant():
 
 @restaurant_routes.route('/<int:restaurantId>')
 def single_restaurant(restaurantId):
-    """
-    Query for all restaurants and returns them in a list of restaurant dictionaries
-    """
     # restaurant = Restaurant.query().get(restaurantId)
     restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
     if not restaurant:
@@ -66,9 +67,6 @@ def single_restaurant(restaurantId):
 @restaurant_routes.route('/<int:restaurantId>', methods=['PUT'])
 @login_required
 def update_restaurant(restaurantId):
-    """
-    Query for all restaurants and returns them in a list of restaurant dictionaries
-    """
     restaurant = Restaurant.query.filter(Restaurant.id == restaurantId).first()
     if not restaurant:
         return {'error': 'Restaurant not found'}, 404
@@ -123,7 +121,7 @@ def restaurant_reviews(restaurantId):
 
     if not reviews:
         return jsonify({"message": "This restaurant has no reviews."})
-    
+
     reviews_data = [
         {
             "id": review.id,
