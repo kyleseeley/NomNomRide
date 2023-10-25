@@ -40,17 +40,13 @@ const MenuItemForm = () => {
   const typeList = ["Entrees", "Side Dish", "Appetizer", "Dessert"];
 
   const submitHandler = async (e) => {
-    e.preventDefault()
-    
+    e.preventDefault();
+
     nameInputValidation();
     priceInputValidation();
     descriptionInputValidation();
 
-    if (
-      nameError ||
-      priceError ||
-      descriptionError
-    ) {
+    if (nameError || priceError || descriptionError) {
       return;
     }
     let errors;
@@ -114,76 +110,116 @@ const MenuItemForm = () => {
 
   return (
     <div className="page-container">
-      {itemId === undefined && <h1>Create New Item</h1>}
-      {itemId !== undefined && <h1>Edit Item</h1>}
-      <div>
-        <label>Name</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-          onBlur={() => {
-            nameInputValidation();
-          }}
-        />
-        {nameError !== null && <div>{nameError}</div>}
-      </div>
-      <div>
-        <label>Type</label>
-        <select
-          value={type}
-          onChange={(e) => {
-            setType(e.target.value);
-          }}
+      <div className="login-form-container">
+        <div className=" form-wrapper">
+          <div className="login-form">
+            {itemId === undefined && <h1>Create New Item</h1>}
+            {itemId !== undefined && <h1>Edit Item</h1>}
+            <table>
+              <tr>
+                <td>
+                  {" "}
+                  <label>Name</label>
+                </td>
+                <td>
+                  {" "}
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                    onBlur={() => {
+                      nameInputValidation();
+                    }}
+                  />
+                  {nameError !== null && (
+                    <div className="error">{nameError}</div>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Type</label>
+                </td>
+                <td>
+                  {" "}
+                  <select
+                    className="select"
+                    value={type}
+                    onChange={(e) => {
+                      setType(e.target.value);
+                    }}
+                  >
+                    {typeList.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Price</label>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    value={price}
+                    onChange={(e) => {
+                      setPrice(e.target.value);
+                    }}
+                    onBlur={() => {
+                      priceInputValidation();
+                    }}
+                  />
+                  {priceError !== null && (
+                    <div className="error">{priceError}</div>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Description</label>
+                </td>
+                <td>
+                  {" "}
+                  <textarea
+                    value={description}
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
+                    onBlur={() => {
+                      descriptionInputValidation();
+                    }}
+                  />
+                  {descriptionError !== null && (
+                    <div className="error">{descriptionError}</div>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {" "}
+                  <label>Image</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={image}
+                    onChange={(e) => {
+                      setImage(e.target.value);
+                    }}
+                  />
+                </td>
+              </tr>
+            </table>
 
-        >
-          {typeList.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+            <button className="submit-button" onClick={submitHandler}>submit</button>
+          </div>
+        </div>
       </div>
-      <div>
-        <label>Price</label>
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => {
-            setPrice(e.target.value);
-          }}
-          onBlur={() => {
-            priceInputValidation();
-          }}
-        />
-      </div>
-      {priceError !== null && <div>{priceError}</div>}
-      <div>
-        <label>Description</label>
-        <textarea
-          value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
-          onBlur={() => {
-            descriptionInputValidation();
-          }}
-        />
-      </div>
-      {descriptionError !== null && <div>{descriptionError}</div>}
-      <div>
-        <label>Image</label>
-        <input
-          type="text"
-          value={image}
-          onChange={(e) => {
-            setImage(e.target.value);
-          }}
-        />
-      </div>
-      <button onClick={submitHandler}>submit</button>
     </div>
   );
 };
