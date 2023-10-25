@@ -10,16 +10,33 @@
 }
 
 .sidebar {
-  width: 20%;
-  max-width: 180px;
-  padding-right: 20px;
+  min-width: 300px;
+  margin-left: 2rem;
+}
+
+.filter-submit {
+  margin-top: 1rem;
+  width: 5rem;
+}
+
+.landing-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.landing-main::-webkit-scrollbar {
+  display: none;
 }
 
 .restaurant-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
-  width: 80%;
+  width: 100%;
+  /* align-self: flex-start; */
 }
 
 .restaurant-card {
@@ -28,8 +45,9 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 20vw;
-  max-width: 25rem;
+  width: 100%;
+  min-width: 200px;
+  max-width: 18vw;
 }
 
 .restaurant-image {
@@ -46,7 +64,7 @@
   height: 150px;
   display: block;
   margin: 0 auto;
-  border-radius: 10%;
+  border-radius: 1rem;
   object-fit: cover;
 }
 

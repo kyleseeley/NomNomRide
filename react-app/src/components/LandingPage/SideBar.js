@@ -44,7 +44,7 @@ const SideBar = ({ onSort }) => {
         />
         Price Range
       </label>
-      <button className="Submit" onClick={handleSortSubmit}>
+      <button className="filter-submit" onClick={handleSortSubmit}>
         Submit
       </button>
     </div>

@@ -39,13 +39,13 @@ function Navigation(){
             className='logo'
           />
         </NavLink>
-        {/* <i className="fa-solid fa-info">
+        <i className="fa-solid fa-info">
           {location.pathname === '/' && <div className='page-info'>
             <h4>Home Page Functionalities</h4>
             <ul>
             </ul>
           </div>}
-        </i> */}
+        </i>
       </li>
       <li className='search-bar-container'>
         <SearchBar />

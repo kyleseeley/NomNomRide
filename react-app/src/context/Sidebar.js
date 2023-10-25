@@ -39,17 +39,13 @@ export function Sidebar() {
     history.push('/')
   }
 
-  // dispatch for session user, if logged in then show following
-  // also show recommended for user, if user isn't logged in show generic recommended
-
   return (
     <>
       <div id='sidebar-background' className={isSidebarVisible ? '' : 'hidden'} onClick={() => setIsSidebarVisible(false)}>&nbsp;</div>
       <div className={`account-sidebar ${isSidebarVisible ? 'open' : ''}`}>
-        <div className="sidebar-main">
+        <div className={`sidebar-main ${user ? '' : 'nouser'}`}>
           {user ? <>
             <div className="sidebar-profile-div">
-              {/* user circle standin for image */}
               <i className="fas fa-user-circle" id='sidebar-profile-img' />
               <div className="sidebar-user-info">
                 <div className="sidebar-user-name">{user.firstname}</div>

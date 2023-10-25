@@ -35,6 +35,10 @@
   margin-bottom: 1rem;
 }
 
+.sidebar-main.nouser {
+  padding: 0;
+}
+
 .sidebar-profile-div {
   display: flex;
   margin-bottom: 1rem;

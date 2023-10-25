@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import './TopBar.css'
 
 const TopBar = ({ types, selectedType, onTypeSelect }) => {
   const typeIcons = {

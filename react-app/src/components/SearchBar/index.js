@@ -9,7 +9,7 @@ function SearchBar() {
   const [term, setTerm] = useState("");
 
   useEffect(() => {
-    if (location.pathname == '/search') {
+    if (location.pathname === '/search') {
       setTerm(location.search.slice(7))
     }
   }, [location])

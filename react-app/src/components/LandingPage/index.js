@@ -67,7 +67,6 @@ const LandingPage = () => {
         selectedType={selectedType}
         onTypeSelect={setSelectedType}
       />
-      <h1>All Restaurants</h1>
       <div className="landing-content">
         <div className="sidebar">
           <SideBar onSort={sortRestaurants} />
@@ -76,24 +75,27 @@ const LandingPage = () => {
           sortedRestaurants.length === 0 ? (
             <p>There are no restaurants of this type.</p>
           ) : (
-            <div className="restaurant-list">
-              {sortedRestaurants.map((restaurant) => (
-                <Link
-                  to={`/${restaurant.id}`}
-                  key={restaurant.id}
-                  className="restaurant-card"
-                >
-                  <div className="restaurant-image">
-                    <img src={restaurant.image} alt="Preview" />
-                  </div>
-                  <div className="restaurant-info">
-                    <p className="restaurant-name">
-                      {restaurant.name} ({restaurant.address})
-                    </p>
-                    <p className="restaurant-rating">{restaurant.starRating}</p>
-                  </div>
-                </Link>
-              ))}
+            <div className="landing-main">
+              <h1>All Restaurants</h1>
+              <div className="restaurant-list">
+                {sortedRestaurants.map((restaurant) => (
+                  <Link
+                    to={`/${restaurant.id}`}
+                    key={restaurant.id}
+                    className="restaurant-card"
+                  >
+                    <div className="restaurant-image">
+                      <img src={restaurant.image} alt="Preview" />
+                    </div>
+                    <div className="restaurant-info">
+                      <p className="restaurant-name">
+                        {restaurant.name} ({restaurant.address})
+                      </p>
+                      <p className="restaurant-rating">{restaurant.starRating}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           )
         ) : (
