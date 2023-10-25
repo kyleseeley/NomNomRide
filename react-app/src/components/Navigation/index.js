@@ -23,6 +23,7 @@ function Navigation(){
       .then(dispatch(getCartItemsThunk()))
       .then(setIsLoaded(true))
     }
+    else setIsLoaded(true)
   }, [sessionUser, dispatch])
 
   return (
