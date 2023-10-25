@@ -16,8 +16,10 @@
   color: red;
 }
 table {
+  border-collapse: collapse;
   width: 100%;
 }
+
 table label {
   display: block;
   text-align: right;
@@ -45,4 +47,12 @@ table label {
 
 .submit-button:hover {
   background-color: #0056b3;
+}
+
+.container-padding {
+  padding: 16px;
+}
+.cancel-button {
+  margin-top: 8px;
+  text-align: center;
 }

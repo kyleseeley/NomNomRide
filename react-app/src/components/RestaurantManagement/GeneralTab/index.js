@@ -6,7 +6,7 @@ import RestaurantForm from "../RestaurantForm";
 import RestaurantInfo from "../RestaurantInfo";
 import { useModal } from "../../../context/Modal";
 import OpenModalButton from "../../OpenModalButton";
-
+import "./generalTab.css";
 const GeneralTab = ({ restaurant }) => {
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
@@ -15,32 +15,47 @@ const GeneralTab = ({ restaurant }) => {
 
   const handleDelete = async (restaurantId) => {
     await dispatch(deleteRestaurant(restaurantId));
-    closeModal()
+    closeModal();
     history.push(`/`);
   };
 
   return (
     <div>
-      {!isEditing && <RestaurantInfo restaurant={restaurant} />}
+      <div className="general-info-container">
+        {!isEditing && <RestaurantInfo restaurant={restaurant} />}
+      </div>
       {isEditing && (
         <RestaurantForm
           restaurant={restaurant}
-          onSubmit={() => setIsEditing(false)}
+          onFinish={() => setIsEditing(false)}
         />
       )}
-      {!isEditing && <button onClick={() => setIsEditing(true)}>Edit</button>}
-      <OpenModalButton
-        buttonText="Delete"
-        modalComponent={() => (
-          <div>
-            <h3>Are you sure to delete this restaurant?</h3>
-            <button className="primary" onClick={() => handleDelete(restaurant.id)}>
-              Yes
-            </button>
-            <button onClick={closeModal}>No</button>
-          </div>
-        )}
-      />
+      {!isEditing && (
+        <button onClick={() => setIsEditing(true)}>
+          <i class="fa-solid fa-pen-to-square"></i> Edit
+        </button>
+      )}
+      {!isEditing && (
+        <OpenModalButton
+          buttonText={
+            <div>
+              <i class="fa-solid fa-trash" /> Delete
+            </div>
+          }
+          modalComponent={() => (
+            <div>
+              <h3>Are you sure to delete this restaurant?</h3>
+              <button
+                className="primary"
+                onClick={() => handleDelete(restaurant.id)}
+              >
+                Yes
+              </button>
+              <button onClick={closeModal}>No</button>
+            </div>
+          )}
+        />
+      )}
     </div>
   );
 };
