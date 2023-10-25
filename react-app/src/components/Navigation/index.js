@@ -1,17 +1,17 @@
 import { useEffect, useState, React } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import './Navigation.css';
 import SearchBar from '../SearchBar';
 import { useSidebarContext } from '../../context/Sidebar';
 import { getCartItemsThunk } from '../../store/cartItems';
 import { getCartThunk } from '../../store/cart';
 import Cart from './Cart'
+import logo from '../../images/nomnomridelogo.png'
+import './Navigation.css';
 
 function Navigation(){
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
-  const cart = useSelector(state => state.cart)
   const location = useLocation()
   const { setIsSidebarVisible } = useSidebarContext()
   const [isCartVisible, setIsCartVisible] = useState(false)
@@ -33,19 +33,19 @@ function Navigation(){
           onClick={() => setIsSidebarVisible(true)}
           className={`fa-solid fa-bars toggle-sidebar`} />
         <NavLink exact to="/" className='logo-link'>
-          {/* <img
+          <img
             src={logo}
-            alt='logo'
+            alt='nomnomride'
             className='logo'
-          /> */}NomNomRide
+          />
         </NavLink>
-        <i className="fa-solid fa-info">
+        {/* <i className="fa-solid fa-info">
           {location.pathname === '/' && <div className='page-info'>
             <h4>Home Page Functionalities</h4>
             <ul>
             </ul>
           </div>}
-        </i>
+        </i> */}
       </li>
       <li className='search-bar-container'>
         <SearchBar />
