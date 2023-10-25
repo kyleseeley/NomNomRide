@@ -13,7 +13,7 @@ import RestaurantForm from "./components/RestaurantManagement/RestaurantForm";
 import AccountSettings from "./components/AccountSettingsPage";
 // import Checkout from ./components/Checkout
 
-// import Search from ./components/Search
+import SearchResults from './components/SearchResults'
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ function App() {
             <RestaurantForm />
           </Route>
           <Route exact path="/search">
-            {/* <SearchResults /> */}
+            <SearchResults />
           </Route>
           <Route exact path='/account'>
             <AccountSettings />

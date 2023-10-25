@@ -40,6 +40,21 @@ export const fetchRestaurants = () => async (dispatch) => {
   }
 };
 
+export const searchRestaurantsThunk = (query) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/restaurants/search?query=${query}`);
+
+    if (!response.ok) {
+      throw new Error("Error fetching restaurants");
+    }
+
+    const responseData = await response.json();
+    dispatch(loadRestaurants(responseData.restaurants));
+  } catch (error) {
+    console.log("Error fetching restaurants", error);
+  }
+};
+
 export const fetchOneRestaurant = (restaurantId) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/restaurants/${restaurantId}`);

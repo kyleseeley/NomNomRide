@@ -44,9 +44,7 @@
 
 .clear-search {
   all: unset;
-  margin-right: 0.5rem;
-  padding-right: 0.5rem;
-  border-right: 1px solid #CCCCCC;
+  padding-right: 0.2rem;
 }
 
 .clear-search.hide {

@@ -97,16 +97,16 @@ const LandingPage = () => {
             </div>
           )
         ) : (
-        <div className="restaurant-list">
-            {Array.from({length: 16}, (_, i) => i + 1).map(i => (
-              <Link key={i} className="restaurant-card">
-                <div className="restaurant-image skeleton" />
-                <div className="restaurant-info">
-                  <p className="restaurant-name skeleton" />
-                  <p className="restaurant-rating skeleton" />
+          <div className="restaurant-list">
+              {Array.from({length: 16}, (_, i) => i + 1).map(i => (
+                <div key={i} className="restaurant-card">
+                  <div className="restaurant-image skeleton" />
+                  <div className="restaurant-info">
+                    <p className="restaurant-name skeleton" />
+                    <p className="restaurant-rating skeleton" />
+                  </div>
                 </div>
-              </Link>
-            ))}
+              ))}
           </div>
         )}
       </div>
