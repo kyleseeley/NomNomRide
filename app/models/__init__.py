@@ -6,3 +6,4 @@ from .restaurant import Restaurant
 from .review import Review
 from .shoppingCart import ShoppingCart
 from .shoppingCartItem import ShoppingCartItem
+from .order import Order
