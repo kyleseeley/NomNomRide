@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { logout } from "../store/session";
-import RestaurantList from "../components/RestaurantManagement/RestaurantList"
+import RestaurantList from "../components/RestaurantManagement/RestaurantList";
 
 const SidebarContext = createContext();
 
@@ -92,13 +92,15 @@ export function Sidebar() {
             <RestaurantList />
           </div>
           {user && (
-            <NavLink
-              to="/new"
-              onClick={() => setIsSidebarVisible(false)}
-              className="sidebar-extra-link"
-            >
-              Add your restaurant
-            </NavLink>
+            <div className="sidebar-button-add">
+              <NavLink
+                to="/new"
+                onClick={() => setIsSidebarVisible(false)}
+                className="cart-button "
+              >
+                <i class="fa-solid fa-plus"></i> Add New
+              </NavLink>
+            </div>
           )}
         </div>
       </div>
