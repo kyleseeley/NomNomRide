@@ -31,7 +31,11 @@ const RestaurantDetails = () => {
     user &&
     Object.keys(userReviews).length > 0 &&
     Object.values(userReviews).some((review) => {
-      return review.userId === user.id && review.restaurantId === restaurant.id;
+      return (
+        review &&
+        review.userId === user.id &&
+        review.restaurantId === restaurant.id
+      );
     });
 
   const hasOrdered =
