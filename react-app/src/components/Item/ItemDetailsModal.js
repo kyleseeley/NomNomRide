@@ -19,9 +19,12 @@ const ItemDetailsModal = ({ item }) => {
 			.then(() => dispatch(postCartItemThunk(item.id, quantity)))
 			.then(() => dispatch(getCartThunk()))
 		}
-		else {
+		else if (cart.restaurantId === item.restaurantId) {
 			dispatch(postCartItemThunk(item.id, quantity))
 			.then(() => dispatch(getCartThunk()))
+		}
+		else {
+			
 		}
 
 		closeModal()

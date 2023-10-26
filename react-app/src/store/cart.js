@@ -51,7 +51,7 @@ const initialState = { cart: null };
 export default function cartReducer(state = initialState, action) {
 	switch (action.type) {
 		case GET_CART:
-			return { cart: action.payload.cart, restaurant: action.payload.restaurant, items: action.payload.items };
+			return { [action.payload.cart.id]: action.payload.cart, restaurant: action.payload.restaurant, items: action.payload.items };
 		case NO_CART:
 			return { cart: null };
 			default:
