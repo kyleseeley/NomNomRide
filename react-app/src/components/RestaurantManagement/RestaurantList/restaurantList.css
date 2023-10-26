@@ -1,0 +1,7 @@
+.restaurant-name-list {
+    display: flex;
+    gap:8px
+}
+.restaurant-list-container {
+    padding: auto;
+}
