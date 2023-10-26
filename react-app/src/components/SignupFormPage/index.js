@@ -25,25 +25,26 @@ function SignupFormPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
+    if (password === confirmPassword && password.length > 5) {
       const data = await dispatch(signUp(
         firstName, lastName, email,
         username, address, city,
         state, lat, lng, password
       ));
       if (data) {
+        console.log(data)
         setErrors(data);
       }
+    } else if (password.length < 6) {
+      setErrors({ password: "Password must be 6 characters or more" });
     } else {
-      setErrors([
-        "Confirm Password field must be the same as the Password field",
-      ]);
+      setErrors({ password: "Confirm Password field must be the same as the Password field" });
     }
   };
 
@@ -58,11 +59,11 @@ function SignupFormPage() {
               </div>
               {errors.length > 0 && (
                 <div>
-                  <ul>
+                  <div>
                     {errors.map((error, idx) => (
-                      <li key={idx}>{error}</li>
+                      <div className='error-msg' key={idx}>{error}</div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               )}
               <div className="login-form-input-container">
@@ -91,6 +92,7 @@ function SignupFormPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
+                {errors?.email && <div className="error-msg">{errors.email}</div>}
               </div>
               <div className="login-form-input-container">
                 <label>Username</label>
@@ -99,7 +101,8 @@ function SignupFormPage() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
-                />
+                  />
+                {errors?.username && <div className="error-msg">{errors.username}</div>}
               </div>
               <div className="login-form-input-container">
                 <label>Address</label>
@@ -123,8 +126,7 @@ function SignupFormPage() {
                 <label>State</label>
                 <select
                   defaultValue=''
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
+                  onChange={(e) => {setState(e.target.value)}}
                   required>
                     <option value='' disabled>
                       Please select an option...
@@ -144,6 +146,7 @@ function SignupFormPage() {
                   onChange={(e) => setLat(e.target.value)}
                   required
                 />
+                {errors?.lat && <div className="error-msg">{errors.lat}</div>}
               </div>
               <div className="login-form-input-container">
                 <label>Longitude</label>
@@ -153,15 +156,7 @@ function SignupFormPage() {
                   onChange={(e) => setLng(e.target.value)}
                   required
                 />
-              </div>
-              <div className="login-form-input-container">
-                <label>Username</label>
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
+                {errors?.lng && <div className="error-msg">{errors.lng}</div>}
               </div>
               <div className="login-form-input-container">
                 <label>Password</label>
@@ -171,6 +166,7 @@ function SignupFormPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                {errors?.password && <div className="error-msg">{errors.password}</div>}
               </div>
               <div className="login-form-input-container">
                 <label>Confirm Password</label>
