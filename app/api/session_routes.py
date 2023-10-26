@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from app.models import User, Order, db
 from .auth_routes import validation_errors_to_error_messages
 import stripe
+from datetime import datetime
 
 stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
 
@@ -103,21 +104,22 @@ def userCheckout():
 
     total_amount += item_details['price'] * item_details['quantity']
   
-  try:
-    checkout_session = stripe.checkout.Session.create(
-      line_items=line_items,
-      mode='payment',
-      ui_mode='embedded',
-    )
-  except Exception as e:
-    return str(e)
+  # try:
+  #   checkout_session = stripe.checkout.Session.create(
+  #     line_items=line_items,
+  #     mode='payment',
+  #     ui_mode='embedded',
+  #   )
+  # except Exception as e:
+  #   return str(e)
   
   new_order = Order(
     userId=user.id,
     restaurantId=restaurantId,
-    total=total_amount
+    total=total_amount,
+    orderDate=datetime.now()
   )
   db.session.add(new_order)
   db.session.commit()
 
-  return jsonify({'sessionId': checkout_session.id})
+  # return jsonify({'sessionId': checkout_session.id})
