@@ -91,9 +91,9 @@ const MenuItemForm = () => {
   };
 
   const priceInputValidation = () => {
-    if (price === undefined) {
+    if (price === "") {
       setPriceError("Price is required.");
-    } else if (price < 0) {
+    } else if (price <= 0) {
       setPriceError("Price should be more than 0.");
     } else {
       setPriceError(null);
@@ -102,7 +102,7 @@ const MenuItemForm = () => {
   const descriptionInputValidation = () => {
     if (description === undefined || description.length === 0) {
       setDescriptionError("Description is required.");
-    } else if (price > 255) {
+    } else if (description.length > 255) {
       setDescriptionError("Description is too long.");
     } else {
       setDescriptionError(null);
