@@ -26,36 +26,3 @@ def user(id):
         return { "error": "User does not exist" }
     return user.to_dict()
 
-
-# @user_routes.route("/<int:userId>/reviews")
-# @login_required
-# def get_user_reviews(userId):
-#     if userId != current_user.id:
-#         return jsonify({"error": "You don't have permission to access this user's reviews"}), 401
-
-#     # reviews = Review.query.filter_by(userId=userId).all()
-
-#     # reviewList = [review.to_dict() for review in reviews]
-#     user = User.query.get(current_user.id)
-
-#     return jsonify(user.get_user_reviews)
-
-# @user_routes.route("/<int:userId>/restaurants")
-# @login_required
-# def get_restaurants(userId):
-#     if userId != current_user.id:
-#         return jsonify({"error": "You don't have permission to access this user's restaurants"}), 401
-
-#     user = User.query.get(current_user.id)
-
-#     return jsonify(user.get_restaurants)
-
-# @user_routes.route('/<int:userId>/shopping-cart')
-# @login_required
-# def get_cart(userId):
-#     if userId != current_user.id:
-#         return jsonify({"error": "You don't have permission to access this user's cart"}), 401
-
-#     user = User.query.get(current_user.id)
-
-#     return jsonify(user.get_cart)

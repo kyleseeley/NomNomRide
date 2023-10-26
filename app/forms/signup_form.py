@@ -8,7 +8,7 @@ from app.models import User
 def user_exists(form, field):
     # Checking if user exists
     email = field.data
-    if current_user.email == email:
+    if current_user.is_authenticated and current_user.email == email:
         user = User.query.filter(User.email == email).all()
         if len(user) > 1:
             raise ValidationError('Email address is already in use.')
@@ -21,7 +21,7 @@ def user_exists(form, field):
 def username_exists(form, field):
     # Checking if username is already in use
     username = field.data
-    if current_user.username == username:
+    if current_user.is_authenticated and current_user.username == username:
         user = User.query.filter(User.username == username).all()
         if len(user) > 1:
             raise ValidationError('Username is already in use.')
@@ -92,11 +92,13 @@ class SignUpForm(FlaskForm):
         'username', validators=[DataRequired(), username_exists])
     address = StringField("Address", validators=[DataRequired(), address_data])
     city = StringField("City", validators=[DataRequired(), city_data])
-    state = SelectField("State", validators=[DataRequired(), state_data], choices=['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
-                                                                                   'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
-                                                                                   'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
-                                                                                   'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
-                                                                                   'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'])
+    state = SelectField("State", validators=[DataRequired(), state_data], choices=[
+        'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+        'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+        'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+        'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+        'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+    ])
     lat = FloatField("Latitude", validators=[
                      DataRequired(), NumberRange(min=-90, max=90), lat_data])
     lng = FloatField("Longitude", validators=[
