@@ -38,7 +38,7 @@ export function Sidebar() {
     setIsSidebarVisible(false)
     history.push('/')
   }
-
+  
   // dispatch for session user, if logged in then show following
   // also show recommended for user, if user isn't logged in show generic recommended
 
