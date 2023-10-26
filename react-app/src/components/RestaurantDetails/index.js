@@ -38,12 +38,12 @@ const RestaurantDetails = () => {
       );
     });
 
+  console.log("user", user);
+  console.log("user orders", user.orders);
   const hasOrdered =
     user &&
     restaurant &&
-    (user.shoppingCart ?? []).some(
-      (cart) => cart.restaurantId === restaurant.id
-    );
+    user.orders?.some((order) => order.restaurantId === restaurant.id);
   console.log("hasOrdered", hasOrdered);
 
   const [focusTab, setFocusTab] = useState();
