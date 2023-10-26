@@ -139,7 +139,7 @@ function SignupFormPage() {
               <div className="login-form-input-container">
                 <label>Latitude</label>
                 <input
-                  type="text"
+                  type="number"
                   value={lat}
                   onChange={(e) => setLat(e.target.value)}
                   required
@@ -148,7 +148,7 @@ function SignupFormPage() {
               <div className="login-form-input-container">
                 <label>Longitude</label>
                 <input
-                  type="text"
+                  type="number"
                   value={lng}
                   onChange={(e) => setLng(e.target.value)}
                   required
