@@ -12,7 +12,10 @@ function AccountSettings() {
     const [otherEdit, setOtherEdit] = useState(false)
     const [isLoaded, setIsLoaded] = useState(false)
 
-    useEffect(() => restoreUser(), [])
+    useEffect(() => {
+        restoreUser()
+        if (user.id === 1) setOtherEdit(true)
+    }, [])
 
     const changeEditStatus = () => {
         setOtherEdit(prev => !prev)
@@ -27,6 +30,10 @@ function AccountSettings() {
     return (
         <>{isLoaded &&
         <div className="account-settings">
+            {user?.id === 1 &&
+            <b className="error-msg">
+                Can't edit demo user's information
+            </b>}
             <h2>Personal Info</h2>
                 <InfoContainer
                     label='Legal name'

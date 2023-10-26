@@ -100,7 +100,12 @@ export const signUp = (
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
-			return data.errors;
+			const formattedErrors = {}
+			for (const err of data.errors) {
+				const splitErr = err.split(' : ')
+				formattedErrors[splitErr[0]] = splitErr[1]
+			}
+			return formattedErrors
 		}
 	} else {
 		return ["An error occurred. Please try again."];
@@ -108,7 +113,6 @@ export const signUp = (
 };
 
 export const restoreUserThunk = () => async dispatch => {
-	console.log("HAAAAAAAAAAAAAAAAAAA")
 	const response = await csrfFetch('/api/session/')
 	const data = await response.json()
 	dispatch(setUser(data))
@@ -143,8 +147,6 @@ export default function sessionReducer(state = initialState, action) {
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
-		// case SET_RESTAURANTS:
-		// 	return {restaurants: action.payload}
 		default:
 			return state;
 	}
