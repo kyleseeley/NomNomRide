@@ -1,0 +1,9 @@
+.top-bar-container {
+  max-width: 100%;
+  overflow-x: scroll;
+  scrollbar-color: white;
+}
+
+.top-bar-container::-webkit-scrollbar {
+  display: none;
+}

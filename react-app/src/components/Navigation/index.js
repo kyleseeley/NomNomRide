@@ -1,26 +1,29 @@
 import { useEffect, useState, React } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import './Navigation.css';
 import SearchBar from '../SearchBar';
 import { useSidebarContext } from '../../context/Sidebar';
 import { getCartItemsThunk } from '../../store/cartItems';
 import { getCartThunk } from '../../store/cart';
 import Cart from './Cart'
+import logo from '../../images/nomnomridelogo.png'
+import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation(){
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
-  const cart = useSelector(state => state.cart)
   const location = useLocation()
   const { setIsSidebarVisible } = useSidebarContext()
   const [isCartVisible, setIsCartVisible] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     if (sessionUser) {
       dispatch(getCartThunk())
       .then(dispatch(getCartItemsThunk()))
+      .then(setIsLoaded(true))
     }
+    else setIsLoaded(true)
   }, [sessionUser, dispatch])
 
   return (
@@ -30,11 +33,11 @@ function Navigation({ isLoaded }){
           onClick={() => setIsSidebarVisible(true)}
           className={`fa-solid fa-bars toggle-sidebar`} />
         <NavLink exact to="/" className='logo-link'>
-          {/* <img
+          <img
             src={logo}
-            alt='logo'
+            alt='nomnomride'
             className='logo'
-          /> */}NomNomRide
+          />
         </NavLink>
         <i className="fa-solid fa-info">
           {location.pathname === '/' && <div className='page-info'>
@@ -49,18 +52,20 @@ function Navigation({ isLoaded }){
       </li>
 
       <li className='nav-right'>
-        {sessionUser && <button
-          onClick={() => setIsCartVisible(true)}
-          className='cart-button'>
-          <i className="fa-solid fa-cart-shopping" />Cart
-        </button>}
-        {!sessionUser && <>
-          <NavLink to='/login' className="login-button">
-            <i className="fas fa-user-circle" />Log In
-          </NavLink>
-          <NavLink to='/signup' className="signup-button">Sign Up</NavLink>
+        {isLoaded && <>
+          {sessionUser && <button
+            onClick={() => setIsCartVisible(true)}
+            className='cart-button'>
+            <i className="fa-solid fa-cart-shopping" />Cart
+          </button>}
+          {!sessionUser && <>
+            <NavLink to='/login' className="login-button">
+              <i className="fas fa-user-circle" />Log In
+            </NavLink>
+            <NavLink to='/signup' className="signup-button">Sign Up</NavLink>
+          </>}
+          <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />
         </>}
-        <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />
       </li>
     </ul>
   )

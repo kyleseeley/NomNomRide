@@ -38,25 +38,29 @@ export function Sidebar() {
     setIsSidebarVisible(false)
     history.push('/')
   }
-  
-  // dispatch for session user, if logged in then show following
-  // also show recommended for user, if user isn't logged in show generic recommended
 
   return (
     <>
       <div id='sidebar-background' className={isSidebarVisible ? '' : 'hidden'} onClick={() => setIsSidebarVisible(false)}>&nbsp;</div>
       <div className={`account-sidebar ${isSidebarVisible ? 'open' : ''}`}>
-        <div className="sidebar-main">
+        <div className={`sidebar-main ${user ? '' : 'nouser'}`}>
           {user ? <>
             <div className="sidebar-profile-div">
-              {/* user circle standin for image */}
               <i className="fas fa-user-circle" id='sidebar-profile-img' />
               <div className="sidebar-user-info">
                 <div className="sidebar-user-name">{user.firstname}</div>
-                <NavLink to='/account' className='sidebar-account-link'>Manage account</NavLink>
+                <NavLink
+                  onClick={() => setIsSidebarVisible(false)}
+                  to='/account'
+                  className='sidebar-account-link'>
+                    Manage account
+                </NavLink>
               </div>
             </div>
-            <NavLink to='/'>
+            <NavLink
+              onClick={() => setIsSidebarVisible(false)}
+              to='/'
+              className='sidebar-link'>
               Manage Your Restaurants
             </NavLink>
             <button
@@ -79,13 +83,13 @@ export function Sidebar() {
             </NavLink>
           </>}
         </div>
-        <div className="sidebar-links">
-          <NavLink
+        <div className="sidebar-extra-links">
+          {user && <NavLink
             to='/new'
             onClick={() => setIsSidebarVisible(false)}
-            className='add-restaurant-link'>
+            className='sidebar-extra-link'>
             Add your restaurant
-          </NavLink>
+          </NavLink>}
         </div>
       </div>
     </>

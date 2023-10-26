@@ -51,6 +51,7 @@
   width: fit-content;
   height: 100%;
   margin-right: 1rem;
+  min-width: 6rem;
 }
 
 .login-button,

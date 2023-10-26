@@ -90,12 +90,11 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
               className='cart-sidebar-button checkout'>
               Go to checkout
             </NavLink>
-            <NavLink
-              to='/checkout'
-              onClick={() => setIsCartVisible(false)}
+            <div
+              onClick={handleAddItems}
               className='cart-sidebar-button add-items'>
               Add items
-            </NavLink>
+            </div>
           </div>
         </div> : <div className="cart-main center">
           <img src='https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/a023a017672c2488.svg'/>

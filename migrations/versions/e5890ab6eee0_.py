@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f0d45459bc5a
+Revision ID: e5890ab6eee0
 Revises: 
-Create Date: 2023-10-24 15:50:43.995908
+Create Date: 2023-10-24 19:34:57.175068
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ from app.models import environment, SCHEMA
 
 
 # revision identifiers, used by Alembic.
-revision = 'f0d45459bc5a'
+revision = 'e5890ab6eee0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -68,6 +68,16 @@ def upgrade():
     sa.ForeignKeyConstraint(['restaurantId'], ['restaurants.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('orders',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('userId', sa.Integer(), nullable=False),
+    sa.Column('restaurantId', sa.Integer(), nullable=False),
+    sa.Column('total', sa.DECIMAL(precision=6, scale=2), nullable=False),
+    sa.Column('orderDate', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['restaurantId'], ['restaurants.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('reviews',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=True),
@@ -101,13 +111,14 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
-if environment == "production":
+    if environment == "production":
         op.execute(f"ALTER TABLE menuitems SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE restaurants SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE shoppingcarts SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE shoppingcartitems SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE orders SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
@@ -115,6 +126,7 @@ def downgrade():
     op.drop_table('shoppingcartitems')
     op.drop_table('shoppingcarts')
     op.drop_table('reviews')
+    op.drop_table('orders')
     op.drop_table('menuitems')
     op.drop_table('restaurants')
     op.drop_table('users')

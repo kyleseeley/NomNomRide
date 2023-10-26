@@ -3,6 +3,7 @@ from .seed_users import seed_users, undo_users
 from .seed_restaurants import seed_restaurants, undo_restaurants
 from .seed_reviews import seed_reviews, undo_reviews
 from .seed_menuItems import seed_menuItems, undo_menuItems
+from .seed_orders import seed_orders, undo_orders
 
 from app.models.db import db, environment, SCHEMA
 
@@ -23,6 +24,7 @@ def seed():
         undo_restaurants()
         undo_reviews()
         undo_menuItems()
+        undo_orders()
 
         db.session.execute(
             f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
@@ -32,11 +34,14 @@ def seed():
             f"TRUNCATE table {SCHEMA}.reviews RESTART IDENTITY CASCADE;")
         db.session.execute(
             f"TRUNCATE table {SCHEMA}.menuitems RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.orders RESTART IDENTITY CASCADE;")
         db.session.commit()
     seed_users()
     seed_restaurants()
     seed_reviews()
     seed_menuItems()
+    seed_orders()
     # Add other seed functions here
 
 
@@ -47,4 +52,5 @@ def undo():
     undo_restaurants()
     undo_reviews()
     undo_menuItems()
+    undo_orders()
     # Add other undo functions here

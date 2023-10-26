@@ -1,0 +1,9 @@
+.search-results-page {
+  margin-left: 2rem;
+  margin-top: 2rem;
+}
+
+.no-match {
+  justify-self: center;
+  margin-top: 2rem;
+}

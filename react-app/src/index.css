@@ -34,3 +34,24 @@ div {
 .hidden {
   display: none;
 }
+
+.error-msg {
+  color: #FF5A5F;
+  font-size: 12px;
+  margin: 0 0 5px 0;
+}
+
+.skeleton {
+  background-color: #EEEEEE;
+  border-radius: 1rem;
+  animation: skeleton-loading 2s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+      background-color: hsl(200, 20%, 80%);
+  }
+  100% {
+      background-color: hsl(200, 20%, 95%);
+  }
+}

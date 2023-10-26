@@ -9,6 +9,8 @@
   padding: 0.5rem 1rem;
   width: 100%;
   height: 2rem;
+  overflow: hidden;
+
 }
 
 .search-input::placeholder {
@@ -31,7 +33,11 @@
   background-color: rgb(0,0,0,0);
   flex-grow: 1;
   min-width: 3rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
+}
+
+.search-input::placeholder {
+  font-size: 0.8rem;
 }
 
 .search-input:focus {
@@ -44,9 +50,8 @@
 
 .clear-search {
   all: unset;
-  margin-right: 0.5rem;
-  padding-right: 0.5rem;
-  border-right: 1px solid #CCCCCC;
+  padding-right: 0.2rem;
+  cursor: pointer;
 }
 
 .clear-search.hide {
@@ -55,7 +60,7 @@
 
 .search-button {
   all: unset;
-  /* color: white; */
+  margin-right: 0.5rem;
 }
 
 @media (max-width: 700px) {

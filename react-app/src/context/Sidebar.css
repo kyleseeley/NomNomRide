@@ -35,6 +35,10 @@
   margin-bottom: 1rem;
 }
 
+.sidebar-main.nouser {
+  padding: 0;
+}
+
 .sidebar-profile-div {
   display: flex;
   margin-bottom: 1rem;
@@ -56,8 +60,20 @@
   font-size: 0.9rem;
 }
 
+.sidebar-link {
+  text-decoration: none;
+  padding: 1rem;
+  color: black;
+  border-radius: 5px;
+}
+
+.sidebar-link:hover {
+  background-color: #EEEEEE;
+}
+
 .sidebar-signout {
   all: unset;
+  margin-top: 1rem;
   align-self: flex-start;
   color: #999999;
   cursor: pointer;
@@ -86,7 +102,7 @@
   background-color: black;
 }
 
-.add-restaurant-link {
+.sidebar-extra-link {
   text-decoration: none;
   color: black;
   margin-left: 0.5rem;
