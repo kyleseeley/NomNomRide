@@ -1,0 +1,18 @@
+tabs tab.active button {
+  text-decoration: underline;
+}
+
+tabs tab button.login-button {
+  margin: 0;
+  border-radius: 0;
+}
+
+tabs tab:first-child button {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+tabs tab:last-child button {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}

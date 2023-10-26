@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
-import "./Sidebar.css"
+import "./Sidebar.css";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { logout } from "../store/session";
-
+import RestaurantList from "../components/RestaurantManagement/RestaurantList"
 
 const SidebarContext = createContext();
 
@@ -12,13 +12,11 @@ export function SidebarProvider({ children }) {
 
   const value = {
     isSidebarVisible,
-    setIsSidebarVisible
+    setIsSidebarVisible,
   };
 
   return (
-    <SidebarContext.Provider value={value}>
-      {children}
-    </SidebarContext.Provider>
+    <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
   );
 }
 
@@ -27,71 +25,83 @@ export function useSidebarContext() {
 }
 
 export function Sidebar() {
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const { isSidebarVisible, setIsSidebarVisible } = useSidebarContext()
-  const user = useSelector(state => state.session.user)
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { isSidebarVisible, setIsSidebarVisible } = useSidebarContext();
+  const user = useSelector((state) => state.session.user);
   // const ownedRestaurants = useSelector(state => state.session.restaurants)
 
   const handleLogout = () => {
-    dispatch(logout())
-    setIsSidebarVisible(false)
-    history.push('/')
-  }
+    dispatch(logout());
+    setIsSidebarVisible(false);
+    history.push("/");
+  };
 
   return (
     <>
-      <div id='sidebar-background' className={isSidebarVisible ? '' : 'hidden'} onClick={() => setIsSidebarVisible(false)}>&nbsp;</div>
-      <div className={`account-sidebar ${isSidebarVisible ? 'open' : ''}`}>
-        <div className={`sidebar-main ${user ? '' : 'nouser'}`}>
-          {user ? <>
-            <div className="sidebar-profile-div">
-              <i className="fas fa-user-circle" id='sidebar-profile-img' />
-              <div className="sidebar-user-info">
-                <div className="sidebar-user-name">{user.firstname}</div>
-                <NavLink
-                  onClick={() => setIsSidebarVisible(false)}
-                  to='/account'
-                  className='sidebar-account-link'>
+      <div
+        id="sidebar-background"
+        className={isSidebarVisible ? "" : "hidden"}
+        onClick={() => setIsSidebarVisible(false)}
+      >
+        &nbsp;
+      </div>
+      <div className={`account-sidebar ${isSidebarVisible ? "open" : ""}`}>
+        <div className={`sidebar-main ${user ? "" : "nouser"}`}>
+          {user ? (
+            <>
+              <div className="sidebar-profile-div">
+                <i className="fas fa-user-circle" id="sidebar-profile-img" />
+                <div className="sidebar-user-info">
+                  <div className="sidebar-user-name">{user.firstname}</div>
+                  <NavLink
+                    onClick={() => setIsSidebarVisible(false)}
+                    to="/account"
+                    className="sidebar-account-link"
+                  >
                     Manage account
-                </NavLink>
+                  </NavLink>
+                </div>
               </div>
-            </div>
-            <NavLink
-              onClick={() => setIsSidebarVisible(false)}
-              to='/'
-              className='sidebar-link'>
-              Manage Your Restaurants
-            </NavLink>
-            <button
-              onClick={handleLogout}
-              className="sidebar-signout">
-              Sign out
-            </button>
-          </> : <>
-            <NavLink
-              to="/signup"
-              onClick={() => setIsSidebarVisible(false)}
-              className="sidebar-button-signup">
-              Sign up
-            </NavLink>
-            <NavLink
-              to="/login"
-              onClick={() => setIsSidebarVisible(false)}
-              className="sidebar-button-login">
-              Log in
-            </NavLink>
-          </>}
+
+              <button onClick={handleLogout} className="sidebar-signout">
+                Sign out
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink
+                to="/signup"
+                onClick={() => setIsSidebarVisible(false)}
+                className="sidebar-button-signup"
+              >
+                Sign up
+              </NavLink>
+              <NavLink
+                to="/login"
+                onClick={() => setIsSidebarVisible(false)}
+                className="sidebar-button-login"
+              >
+                Log in
+              </NavLink>
+            </>
+          )}
         </div>
         <div className="sidebar-extra-links">
-          {user && <NavLink
-            to='/new'
-            onClick={() => setIsSidebarVisible(false)}
-            className='sidebar-extra-link'>
-            Add your restaurant
-          </NavLink>}
+          <div>
+            <RestaurantList />
+          </div>
+          {user && (
+            <NavLink
+              to="/new"
+              onClick={() => setIsSidebarVisible(false)}
+              className="sidebar-extra-link"
+            >
+              Add your restaurant
+            </NavLink>
+          )}
         </div>
       </div>
     </>
-  )
+  );
 }

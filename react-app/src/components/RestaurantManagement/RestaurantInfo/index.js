@@ -1,17 +1,19 @@
 import React from "react";
+import OpenModalButton from "../../OpenModalButton";
+import { useModal } from "../../../context/Modal";
 
-const RestaurantInfo = ({ restaurant }) => {
+const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
+  const { closeModal } = useModal();
   return (
     <div className="login-form-container">
       <div className="form-wrapper">
+        <h1>Restaurant</h1>
         <table>
           <tr>
             <td>
               <label>Name:</label>
             </td>
-            <td>
-              <input type="text" value={restaurant.name} />
-            </td>
+            <td>{restaurant.name}</td>
           </tr>
           <tr>
             <td>
@@ -42,7 +44,7 @@ const RestaurantInfo = ({ restaurant }) => {
               <label>Image:</label>
             </td>
             <td>
-              <input type="text" value={restaurant.iamge} />
+              <input type="text" value={restaurant.image} />
             </td>
           </tr>
           <tr>
@@ -70,6 +72,26 @@ const RestaurantInfo = ({ restaurant }) => {
             </td>
           </tr>
         </table>
+        <button className="cart-button" onClick={onEditClick}>
+          <i class="fa-solid fa-pen-to-square"></i> Edit
+        </button>
+        <OpenModalButton
+          className="login-button"
+          buttonText={
+            <div>
+              <i class="fa-solid fa-trash" /> Delete
+            </div>
+          }
+          modalComponent={() => (
+            <div>
+              <h3>Are you sure to delete this restaurant?</h3>
+              <button className="primary" onClick={onDeleteConfirmed}>
+                Yes
+              </button>
+              <button onClick={closeModal}>No</button>
+            </div>
+          )}
+        />
       </div>
     </div>
   );

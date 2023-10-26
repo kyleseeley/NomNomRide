@@ -11,6 +11,7 @@ import MenuItemForm from "./components/RestaurantManagement/MenuItemForm";
 import RestaurantManagement from "./components/RestaurantManagement";
 import RestaurantForm from "./components/RestaurantManagement/RestaurantForm";
 import AccountSettings from "./components/AccountSettingsPage";
+import RestaurantList from "./components/RestaurantManagement/RestaurantList"
 // import Checkout from ./components/Checkout
 
 import SearchResults from './components/SearchResults'
@@ -47,6 +48,9 @@ function App() {
           </Route>
           <Route exact path='/account'>
             <AccountSettings />
+          </Route>
+          <Route exact path="/manageRestaurants">
+            <RestaurantList />
           </Route>
           <Route path="/:restaurantId/manage">
             <RestaurantManagement />

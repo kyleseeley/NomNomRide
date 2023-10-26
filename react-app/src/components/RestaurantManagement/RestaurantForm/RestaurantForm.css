@@ -27,12 +27,17 @@ table label {
 }
 .select {
   width: 100%;
-  text-align: center;
 }
 
 .submit {
+  display: flex;
   padding-top: 10px;
   text-align: center;
+}
+
+.submit button {
+  width: 100%;
+  margin: 0;
 }
 
 .submit-button {
@@ -53,6 +58,11 @@ table label {
   padding: 16px;
 }
 .cancel-button {
+  display: flex;
   margin-top: 8px;
   text-align: center;
+}
+.cancel-button button {
+  width: 100%;
+  margin: 0;
 }

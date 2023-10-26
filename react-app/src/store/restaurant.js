@@ -40,6 +40,22 @@ export const fetchRestaurants = () => async (dispatch) => {
   }
 };
 
+export const fetchRestaurantsByOwner = () => async (dispatch) => {
+  try {
+    const response = await csrfFetch("/api/session/restaurants");
+
+    if (!response.ok) {
+      throw new Error("Error fetching restaurants");
+    }
+
+    const responseData = await response.json();
+    const restaurantsByUser = responseData.restaurants || [];
+    dispatch(loadRestaurants(restaurantsByUser));
+  } catch (error) {
+    console.log("Error fetching restaurants", error);
+  }
+};
+
 export const searchRestaurantsThunk = (query) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/restaurants/search?query=${query}`);
