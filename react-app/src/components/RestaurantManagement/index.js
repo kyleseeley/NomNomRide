@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, Route, Switch } from "react-router-dom";
+import {
+  useParams,
+  Route,
+  useRouteMatch,
+  useHistory,
+  Link,
+} from "react-router-dom";
 import { fetchOneRestaurant } from "../../store/restaurant";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMenuItemsThunk } from "../../store/menuItems";
 import GeneralTab from "./GeneralTab";
 import MenuItemsTab from "./MenuItemsTab";
+import "./Tabs.css";
 
 const RestaurantManagement = () => {
   const dispatch = useDispatch();
   const { restaurantId } = useParams();
+  const history = useHistory();
+  const isMatchedItems =
+    useRouteMatch({ path: "/:restaurantId/manage/items" }) !== null;
+  console.log("isMatchedItems", isMatchedItems);
   const restaurant = useSelector((state) => {
     return state.restaurant[restaurantId];
   });
@@ -29,15 +40,21 @@ const RestaurantManagement = () => {
     <div className="page-container container-padding">
       <h1>Manage your restaurant {restaurant.name}</h1>
       <tabs value={value} onChange={handleChange} centered>
-        <tab>
-          <Link to={`/${restaurantId}/manage`}>
-            <button>General</button>
-          </Link>
+        <tab className={isMatchedItems ? "" : "active"}>
+          <button
+            className="login-button"
+            onClick={() => history.push(`/${restaurantId}/manage`)}
+          >
+            General
+          </button>
         </tab>
-        <tab>
-          <Link to={`/${restaurantId}/manage/items`}>
-            <button>Items</button>
-          </Link>
+        <tab className={isMatchedItems ? "active" : ""}>
+          <button
+            className="login-button"
+            onClick={() => history.push(`/${restaurantId}/manage/items`)}
+          >
+            Items
+          </button>
         </tab>
       </tabs>
       <Route exact path="/:restaurantId/manage">

@@ -110,9 +110,9 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
     //if editing
     if (typeof onFinish === "function") {
       onFinish();
-    }else{
-     //creating
-     history.goBack()
+    } else {
+      //creating
+      history.goBack();
     }
   };
 
@@ -192,11 +192,10 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
           <table>
             <tr>
               <td>
-                {" "}
                 <label>Name</label>
               </td>
               <td>
-              <input
+                <input
                   type="text"
                   value={name}
                   onChange={(e) => {
@@ -270,7 +269,6 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
             </tr>
             <tr>
               <td>
-                {" "}
                 <label>State</label>
               </td>
               <td>
@@ -291,7 +289,6 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
             </tr>
             <tr>
               <td>
-                {" "}
                 <label>Latitude</label>
               </td>
               <td>
@@ -310,11 +307,9 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
             </tr>
             <tr>
               <td>
-                {" "}
                 <label>Longtitude</label>
               </td>
               <td>
-                {" "}
                 <input
                   type="number"
                   value={lng}

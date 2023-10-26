@@ -1,4 +1,8 @@
-.general-info-container {
-    padding: 8px;
+.general-info-container .login-form-container {
+  justify-content: left;
+}
 
+.general-info-container button {
+  margin: 0;
+  text-align: center;
 }

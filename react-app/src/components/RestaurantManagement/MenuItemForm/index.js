@@ -6,6 +6,7 @@ import {
   fetchMenuItemsThunk,
 } from "../../../store/menuItems";
 import { useHistory, useParams } from "react-router-dom";
+import "./MenuItemForm.css";
 
 const MenuItemForm = () => {
   const { restaurantId, itemId } = useParams();
@@ -90,7 +91,7 @@ const MenuItemForm = () => {
   };
 
   const priceInputValidation = () => {
-    if (price === undefined ) {
+    if (price === undefined) {
       setPriceError("Price is required.");
     } else if (price < 0) {
       setPriceError("Price should be more than 0.");
@@ -118,11 +119,9 @@ const MenuItemForm = () => {
             <table>
               <tr>
                 <td>
-                  {" "}
                   <label>Name</label>
                 </td>
                 <td>
-                  {" "}
                   <input
                     type="text"
                     value={name}
@@ -143,7 +142,6 @@ const MenuItemForm = () => {
                   <label>Type</label>
                 </td>
                 <td>
-                  {" "}
                   <select
                     className="select"
                     value={type}
@@ -184,7 +182,6 @@ const MenuItemForm = () => {
                   <label>Description</label>
                 </td>
                 <td>
-                  {" "}
                   <textarea
                     value={description}
                     onChange={(e) => {
@@ -201,7 +198,6 @@ const MenuItemForm = () => {
               </tr>
               <tr>
                 <td>
-                  {" "}
                   <label>Image</label>
                 </td>
                 <td>
@@ -216,8 +212,15 @@ const MenuItemForm = () => {
               </tr>
             </table>
 
-            <button className="cart-button" onClick={submitHandler}>Submit</button>
-            <button className="login-button" onClick={()=>history.goBack()}>Cancel</button>
+            <button className="cart-button auto-width" onClick={submitHandler}>
+              Submit
+            </button>
+            <button
+              className="login-button auto-width"
+              onClick={() => history.goBack()}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </div>
