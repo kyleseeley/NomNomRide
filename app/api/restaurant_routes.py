@@ -205,6 +205,7 @@ def createItem(restaurantId):
     return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
   form = MenuItemsForm()
   form['csrf_token'].data = request.cookies['csrf_token']
+  print("form.errors", form.errors)
   if form.validate_on_submit():
     name = form.data["name"]
     type = form.data["type"]

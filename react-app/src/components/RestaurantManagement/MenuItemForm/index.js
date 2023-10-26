@@ -90,7 +90,7 @@ const MenuItemForm = () => {
   };
 
   const priceInputValidation = () => {
-    if (price === undefined || price.length === 0) {
+    if (price === undefined ) {
       setPriceError("Price is required.");
     } else if (price < 0) {
       setPriceError("Price should be more than 0.");
