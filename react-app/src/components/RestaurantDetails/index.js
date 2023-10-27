@@ -16,6 +16,8 @@ const RestaurantDetails = () => {
   const user = useSelector((state) => state.session.user);
   const restaurantItems = useSelector((state) => state.menuItems);
   const restaurantReviews = useSelector((state) => state.reviews[restaurantId]);
+  const [focusTab, setFocusTab] = useState();
+  const [isLoaded, setIsLoaded] = useState(false);
   const reviewsArray = restaurantReviews
     ? Object.values(restaurantReviews)
     : [];
@@ -46,16 +48,14 @@ const RestaurantDetails = () => {
     user.orders?.some((order) => order.restaurantId === restaurant.id);
   console.log("hasOrdered", hasOrdered);
 
-  const [focusTab, setFocusTab] = useState();
-  const [isLoaded, setIsLoaded] = useState(false);
+
 
   useEffect(() => {
     window.scroll(0, 0);
     dispatch(fetchOneRestaurant(restaurantId))
       .then(dispatch(fetchMenuItemsThunk(restaurantId)))
       .then(dispatch(fetchReviews(restaurantId)))
-      .then()
-      .then(setIsLoaded(true));
+      // .then(setIsLoaded(true));
   }, [dispatch, restaurantId, user]);
 
   const scrollToId = (catName) => {
@@ -87,14 +87,8 @@ const RestaurantDetails = () => {
     }
   };
 
-  // if link name is invalid, catch all
-  // if (restaurant.dne) return (
-  // 	<div className='unavailable'>
-  // 		<h1>Sorry, this page isn't available.</h1>
-  // 		<p>The link you followed may be broken, or the page may have been removed.</p>
-  // 	</div>
-  // )
-  return (
+
+  if (isLoaded) return (
     <div className="restaurant-page page-container">
       <div
         style={{
@@ -168,6 +162,49 @@ const RestaurantDetails = () => {
       </div>
     </div>
   );
+
+  else return (
+    <div className="restaurant-page page-container">
+      <div
+        style={{
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className="restaurant-banner skeleton"
+      />
+      <div className="header">
+        <h1 className="restaurant-name skeleton" />
+        <p className="restaurant-details skeleton" />
+      </div>
+      {restaurant?.ownerId == user?.id && (
+        <NavLink to={`/${restaurant.id}/manage`}>Update Restaurant</NavLink>
+      )}
+      <div className="menu-section">
+        <div className="restaurant-page-cat-div">
+          {Array.from({length: 5}, (_, i) => i + 1).map(i => {
+            return (
+              <span
+                key={i}
+                className={`restaurant-page-cat`}>
+                <div className="cat-name skeleton"></div>
+              </span>
+            );
+          })}
+        </div>
+        <div className="cat-section">
+          {Object.keys(categories).map((category) => {
+            return (
+              <ItemList
+                key={category}
+                category={category}
+                items={categories[category]}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  )
 };
 
 export default RestaurantDetails;
