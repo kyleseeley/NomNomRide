@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCartThunk, postCartThunk } from '../../store/cart';
 import { postCartItemThunk } from '../../store/cartItems';
 
-const ItemDetailsModal = ({ item , workingUrl }) => {
+const ItemDetailsModal = ({ item , workingUrl, src }) => {
 	const dispatch = useDispatch()
 	const [quantity, setQuantity] = useState(1)
 	const { closeModal } = useModal()
@@ -37,7 +37,7 @@ const ItemDetailsModal = ({ item , workingUrl }) => {
 			{workingUrl && <div className='item-img-container'>
 				<img
 					className='item-modal-img'
-					src={item.image}
+					src={src}
 					alt={item.name} />
 			</div>}
 			<div className='item-modal-details'>
