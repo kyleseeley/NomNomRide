@@ -25,4 +25,3 @@ def user(id):
     if not user:
         return { "error": "User does not exist" }
     return user.to_dict()
-
