@@ -73,7 +73,8 @@ def post_shoppingCartItem(itemId):
     menuItem = MenuItem.query.get(itemId)
     if not menuItem:
         return {'error': 'Item not found'}, 404
-    cart = current_user.get_cart()
+    cart = current_user.get_specific_cart(menuItem.restaurantId)
+    print(cart)
     if 'cart' not in cart:
         return { 'error': 'Cart not found' }, 404
     form = ShoppingCartItemForm()

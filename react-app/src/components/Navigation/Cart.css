@@ -31,6 +31,41 @@
   top: 18px;
   left: 20px;
   cursor: pointer;
+  width: fit-content;
+}
+
+.switch-carts-button {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  cursor: pointer;
+  min-height: 20px;
+}
+
+.switch-carts-button:hover {
+  font-weight: bold;
+}
+
+.fa-chevron-down.carts {
+  font-size: 0.8rem;
+  margin-left: 0.2rem;
+}
+
+.carts-dropdown {
+  position: absolute;
+  background-color: white;
+  width: 15rem;
+  right: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1px black;
+}
+
+.carts-dropdown-button {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem;
+  cursor: pointer;
 }
 
 .cart-main {

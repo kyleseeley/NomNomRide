@@ -55,7 +55,7 @@ class User(db.Model, UserMixin):
             'state': self.state
         }
 
-    def get_cart(self):
+    def get_carts(self):
         if self.shoppingCart:
             return [{
                 'cart': shoppingCart.to_dict(),
@@ -63,7 +63,15 @@ class User(db.Model, UserMixin):
                 'items': shoppingCart.get_cart_items()
                 } for shoppingCart in self.shoppingCart]
         else:
-            return { 'message': 'No shopping cart.' }
+            return []
+
+    def get_specific_cart(self, restaurantId):
+        carts = self.get_carts()
+        for cart in carts:
+            if cart['cart']['restaurantId'] == restaurantId:
+                return cart
+        return None
+
 
     def get_restaurants(self):
         return {

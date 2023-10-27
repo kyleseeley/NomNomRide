@@ -5,12 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCartThunk, postCartThunk } from '../../store/cart';
 import { postCartItemThunk } from '../../store/cartItems';
 
-const ItemDetailsModal = ({ item }) => {
+const ItemDetailsModal = ({ item , workingUrl }) => {
 	const dispatch = useDispatch()
 	const [quantity, setQuantity] = useState(1)
 	const { closeModal } = useModal()
 	const user = useSelector(state => state.session.user)
-	const cart = useSelector(state => state.cart.cart)
+	const carts = useSelector(state => state.cart)
+	const cart = carts[item.restaurantId]
+
 
 
 	const addToCart = () => {
@@ -19,28 +21,25 @@ const ItemDetailsModal = ({ item }) => {
 			.then(() => dispatch(postCartItemThunk(item.id, quantity)))
 			.then(() => dispatch(getCartThunk()))
 		}
-		else if (cart.restaurantId === item.restaurantId) {
+		else {
 			dispatch(postCartItemThunk(item.id, quantity))
 			.then(() => dispatch(getCartThunk()))
-		}
-		else {
-			
 		}
 
 		closeModal()
 	}
 
 	return (
-		<div className='item-modal'>
+		<div className={`item-modal ${workingUrl ? '' : 'no-img'}`}>
 			<i
 				onClick={closeModal}
 				className="fa-solid fa-x modal" />
-			<div className='item-img-container'>
+			{workingUrl && <div className='item-img-container'>
 				<img
 					className='item-modal-img'
 					src={item.image}
 					alt={item.name} />
-			</div>
+			</div>}
 			<div className='item-modal-details'>
 				<h1 className='item-modal-name'>
 					{item.name}

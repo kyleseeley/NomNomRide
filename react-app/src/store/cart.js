@@ -1,14 +1,15 @@
 // constants
 const GET_CART = "session/GET_CART";
-const NO_CART = "session/REMOVE_CART";
+const DELETE_CART = "session/REMOVE_CART";
 
 const getCart = (cart) => ({
 	type: GET_CART,
-	payload: cart,
+	cart,
 });
 
-const noCart = () => ({
-	type: NO_CART,
+const deleteCart = (restaurantId) => ({
+	type: DELETE_CART,
+	restaurantId
 });
 
 
@@ -28,32 +29,38 @@ export const getCartThunk = () => async (dispatch) => {
 	const response = await fetch("/api/session/shopping-cart");
 	if (response.ok) {
 		const responseData = await response.json()
-		if (responseData.message) {
-			dispatch(noCart())
+		if (Object.keys(responseData).length) {
+			const formattedCarts = {}
+			for (const data of responseData) {
+				formattedCarts[data['cart']['restaurantId']] = data
+			}
+			dispatch(getCart(formattedCarts));
 		}
-		else {
-			dispatch(getCart(responseData));
-		}
+	}
+	else {
+		throw new Error("getCartThunk failed to fetch")
 	}
 };
 
-export const noCartThunk = () => async dispatch => {
-	const response = await fetch(`/api/shopping-cart/`, {
+export const deleteCartThunk = restaurantId => async dispatch => {
+	const response = await fetch(`/api/shopping-cart/${restaurantId}`, {
 		method: 'DELETE'
 	})
   if (response.ok) {
-		dispatch(noCart())
+		dispatch(deleteCart(restaurantId))
   }
 }
 
-const initialState = { cart: null };
+const initialState = {};
 
 export default function cartReducer(state = initialState, action) {
 	switch (action.type) {
 		case GET_CART:
-			return { [action.payload.cart.id]: action.payload.cart, restaurant: action.payload.restaurant, items: action.payload.items };
-		case NO_CART:
-			return { cart: null };
+			return { ...action.cart };
+		case DELETE_CART:
+			const newState = {...state}
+			delete newState[action.restaurantId]
+			return newState
 			default:
 				return state;
 			}

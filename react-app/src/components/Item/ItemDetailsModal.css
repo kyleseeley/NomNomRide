@@ -8,6 +8,11 @@
   overflow-y: auto;
 }
 
+.item-modal.no-img {
+  width: 20vw;
+  height: 25rem;
+}
+
 .fa-x.modal {
   position: absolute;
   top: 18px;
