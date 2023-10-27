@@ -14,6 +14,7 @@ import OpenModalButton from "../OpenModalButton";
 
 const RestaurantDetails = () => {
   const dispatch = useDispatch();
+  const { closeModal } = useModal();
   const { restaurantId } = useParams();
   const restaurant = useSelector((state) => state.restaurant[restaurantId]);
   const user = useSelector((state) => state.session.user);
@@ -179,15 +180,26 @@ const RestaurantDetails = () => {
                 </button>
               )}
               {user.id === review.userId && (
-                <button
-                  onClick={() => {
-                    console.log("delete button");
-                    deleteReviewById(review.id, restaurantId);
-                  }}
+                <OpenModalButton
                   className="delete-review-button"
-                >
-                  Delete Your Review
-                </button>
+                  buttonText="Delete Your Review"
+                  modalComponent={() => (
+                    <div>
+                      <h3>Are you sure to delete this review?</h3>
+                      <button
+                        className="primary"
+                        onClick={() => {
+                          console.log("delete button");
+                          dispatch(deleteReviewById(review.id, restaurantId));
+                          closeModal();
+                        }}
+                      >
+                        Yes
+                      </button>
+                      <button onClick={closeModal}>No</button>
+                    </div>
+                  )}
+                />
               )}
             </li>
           ))}
