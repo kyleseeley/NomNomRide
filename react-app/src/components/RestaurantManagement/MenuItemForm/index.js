@@ -99,6 +99,7 @@ const MenuItemForm = () => {
       setPriceError(null);
     }
   };
+
   const descriptionInputValidation = () => {
     if (description === undefined || description.length === 0) {
       setDescriptionError("Description is required.");
@@ -167,6 +168,12 @@ const MenuItemForm = () => {
                     value={price}
                     onChange={(e) => {
                       setPrice(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      const invalidChars = ["-", "+", "e"]
+                      if(invalidChars.includes(e.key)){
+                        e.preventDefault()
+                      }
                     }}
                     onBlur={() => {
                       priceInputValidation();
