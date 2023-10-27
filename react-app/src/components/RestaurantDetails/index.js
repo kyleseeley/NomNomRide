@@ -50,7 +50,7 @@ const RestaurantDetails = () => {
     dispatch(fetchOneRestaurant(restaurantId))
       .then(dispatch(fetchMenuItemsThunk(restaurantId)))
       .then(dispatch(fetchReviews(restaurantId)))
-      // .then(setIsLoaded(true));
+      .then(setIsLoaded(true));
   }, [dispatch, restaurantId, user]);
 
   const scrollToId = (catName) => {
@@ -225,12 +225,11 @@ const RestaurantDetails = () => {
           })}
         </div>
         <div className="cat-section">
-          {Object.keys(categories).map((category) => {
+          {Array.from({length: 5}, (_, i) => i + 1).map((i) => {
             return (
               <ItemList
-                key={category}
-                category={category}
-                items={categories[category]}
+                key={i}
+                skeleton={true}
               />
             );
           })}

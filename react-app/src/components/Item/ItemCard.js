@@ -3,15 +3,15 @@ import OpenModalButton from '../OpenModalButton'
 import ItemDetailsModal from './ItemDetailsModal'
 import { useEffect, useState } from 'react'
 
-const ItemCard = ({ item, isLoaded }) => {
+const ItemCard = ({ item, skeleton }) => {
   const [workingUrl, setWorkingUrl] = useState(false)
-  const [src, setSrc] = useState(item.image)
+  const [src, setSrc] = useState(item?.image)
 
   useEffect(() => {
-    if (item.image) setWorkingUrl(true)
+    if (item?.image) setWorkingUrl(true)
   })
 
-    if (isLoaded) return (
+    if (!skeleton) return (
       <OpenModalButton
       modalComponent={() => <ItemDetailsModal item={item} workingUrl={workingUrl} src={src} />}
       className={`item-card ${workingUrl ? '' : 'no-img'}`}
@@ -27,8 +27,11 @@ const ItemCard = ({ item, isLoaded }) => {
       }/>
   )
   else return (
-    <>
-    </>
+    <div className='item-card'>
+      <img className='item-card-img skeleton'/>
+      <p className='item-card-name skeleton' />
+      <p className='item-card-price skeleton' />
+    </div>
   )
 }
 

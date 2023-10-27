@@ -20,7 +20,7 @@ const MenuItemsTab = ({ itemList }) => {
       <div className="manage-item-container">
         <Link to={`/${restaurantId}/menuItems/new`}>
           <button className="cart-button">
-            <i class="fa-solid fa-plus"></i> Create New Item
+            <i className="fa-solid fa-plus" /> Create New Item
           </button>
         </Link>
 
@@ -36,7 +36,7 @@ const MenuItemsTab = ({ itemList }) => {
                 <td>
                   <Link to={`/${restaurantId}/menuItems/${item.id}/edit`}>
                     <button>
-                      <i class="fa-solid fa-pen-to-square"></i> Edit
+                      <i className="fa-solid fa-pen-to-square"></i> Edit
                     </button>
                   </Link>
                   <OpenModalButton
@@ -56,7 +56,7 @@ const MenuItemsTab = ({ itemList }) => {
                     )}
                     buttonText={
                       <div>
-                        <i class="fa-solid fa-trash" /> Delete
+                        <i className="fa-solid fa-trash" /> Delete
                       </div>
                     }
                   />
