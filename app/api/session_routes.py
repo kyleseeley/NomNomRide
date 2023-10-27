@@ -123,3 +123,14 @@ def userCheckout():
   db.session.commit()
 
   # return jsonify({'sessionId': checkout_session.id})
+
+@session_routes.route('/orders')
+@login_required
+def get_user_orders():
+  user = User.query.get(current_user.id)
+  if not user:
+    return { 'error': 'User not found' }, 404
+  
+  orders = [order.to_dict() for order in user.orders]
+
+  return jsonify(orders)

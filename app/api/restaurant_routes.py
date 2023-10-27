@@ -174,7 +174,6 @@ def post_review(restaurantId):
         restaurant.starRating = round(totalRating / restaurant.numReviews, 1)
 
         db.session.commit()
-        db.session.commit()
 
         return jsonify(new_review.to_dict())
     else:

@@ -1,0 +1,108 @@
+.review-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-width: 400px;
+  width: 100%;
+}
+
+.review-modal h2.modal-heading {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.review-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-modal textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  background-color: lightskyblue;
+}
+
+.review-modal label {
+  font-weight: bold;
+}
+
+.review-modal select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.review-modal button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 5px 3px 3px black;
+}
+
+.review-modal button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.review-modal button[type="submit"]:disabled:hover {
+  background-color: #ccc;
+}
+
+.review-modal button:hover {
+  background-color: #0056b3;
+}
+
+.review-modal button[type="button"] {
+  background-color: #ccc;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.review-modal button[type="button"]:hover {
+  background-color: #999;
+}
+
+.star-rating-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star-rating {
+  font-size: 30px;
+  color: #ccc;
+  display: inline-block;
+}
+
+.star {
+  margin-left: 15px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.selected {
+  color: gold;
+}
+
+.star-name {
+  font-size: 24px;
+  margin-left: 20px;
+}

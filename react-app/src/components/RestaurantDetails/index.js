@@ -4,47 +4,42 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOneRestaurant } from "../../store/restaurant";
 import { fetchMenuItemsThunk } from "../../store/menuItems";
-import { fetchReviews } from "../../store/reviews";
+import { fetchReviews, deleteReviewById } from "../../store/reviews";
+import { fetchUserOrders } from "../../store/session";
 import ItemList from "../Item/ItemList";
 import { NavLink } from "react-router-dom";
 import { useModal } from "../../context/Modal";
+import ReviewModal from "../ReviewModal";
+import OpenModalButton from "../OpenModalButton";
 
 const RestaurantDetails = () => {
   const dispatch = useDispatch();
   const { restaurantId } = useParams();
   const restaurant = useSelector((state) => state.restaurant[restaurantId]);
   const user = useSelector((state) => state.session.user);
+  const orders = useSelector((state) => state.session.orders);
   const restaurantItems = useSelector((state) => state.menuItems);
   const restaurantReviews = useSelector((state) => state.reviews[restaurantId]);
   const reviewsArray = restaurantReviews
     ? Object.values(restaurantReviews)
     : [];
   const categories = {};
+  const { setModalContent } = useModal();
   for (const item of Object.values(restaurantItems)) {
     if (!categories[item.type]) categories[item.type] = [item];
     else categories[item.type] = [...categories[item.type], item];
   }
 
-  const userReviews = useSelector((state) => state.reviews);
-
   const hasLeftReview =
     user &&
-    Object.keys(userReviews).length > 0 &&
-    Object.values(userReviews).some((review) => {
-      return (
-        review &&
-        review.userId === user.id &&
-        review.restaurantId === restaurant.id
-      );
+    reviewsArray.some((review) => {
+      return review.userId === user.id && review.restaurantId === restaurant.id;
     });
 
-  console.log("user", user);
-  console.log("user orders", user.orders);
   const hasOrdered =
     user &&
     restaurant &&
-    user.orders?.some((order) => order.restaurantId === restaurant.id);
-  console.log("hasOrdered", hasOrdered);
+    orders?.some((order) => order.restaurantId === restaurant.id);
 
   const [focusTab, setFocusTab] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -54,6 +49,7 @@ const RestaurantDetails = () => {
     dispatch(fetchOneRestaurant(restaurantId))
       .then(dispatch(fetchMenuItemsThunk(restaurantId)))
       .then(dispatch(fetchReviews(restaurantId)))
+      .then(dispatch(fetchUserOrders()))
       .then()
       .then(setIsLoaded(true));
   }, [dispatch, restaurantId, user]);
@@ -85,6 +81,16 @@ const RestaurantDetails = () => {
         return `${daysAgo} day(s) ago`;
       }
     }
+  };
+
+  const handleEditReview = (review) => {
+    setModalContent(
+      <ReviewModal
+        restaurantId={restaurant.id}
+        editReview={review} // Pass the review data to edit
+        onClose={() => setModalContent(null)}
+      />
+    );
   };
 
   // if link name is invalid, catch all
@@ -149,7 +155,16 @@ const RestaurantDetails = () => {
       <div className="reviews-section">
         <h2 className="review-title">Reviews</h2>
         {!hasLeftReview && hasOrdered && (
-          <button className="leave-review-button">Leave a Review</button>
+          <OpenModalButton
+            className="leave-review-button"
+            buttonText="Leave a Review"
+            modalComponent={
+              <ReviewModal
+                restaurantId={restaurant.id}
+                onClose={() => setModalContent(null)}
+              />
+            }
+          />
         )}
         <ul className="reviews-list">
           {reviewsArray.map((review) => (
@@ -162,6 +177,25 @@ const RestaurantDetails = () => {
               </p>
               <p className="review-rating">{review.stars} Stars</p>
               <p className="review-content">{review.review}</p>
+              {user.id === review.userId && (
+                <button
+                  onClick={() => handleEditReview(review)}
+                  className="edit-review-button"
+                >
+                  Edit Your Review
+                </button>
+              )}
+              {user.id === review.userId && (
+                <button
+                  onClick={() => {
+                    console.log("delete button");
+                    deleteReviewById(review.id, restaurantId);
+                  }}
+                  className="delete-review-button"
+                >
+                  Delete Your Review
+                </button>
+              )}
             </li>
           ))}
         </ul>
