@@ -8,10 +8,7 @@ const ItemCard = ({ item, isLoaded }) => {
 
   useEffect(() => {
     try {
-      fetch(item.image)
-      .then(response => {
-        if (response.status === 200) setWorkingUrl(true)
-      })
+      setWorkingUrl(true)
     } catch {}
   })
 
