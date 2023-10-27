@@ -43,7 +43,7 @@ def delete_cartItem(shoppingCartItemId):
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
 	cart = ShoppingCart.query.get(shoppingCartItem.cartId)
-	cart_dict = current_user.get_specific_cart(cart['restaurant']['id'])
+	cart_dict = current_user.get_specific_cart(cart.restaurantId)
 
 	# if last item in cart, delete cart as well
 	if len(cart_dict['items']) == 1:
