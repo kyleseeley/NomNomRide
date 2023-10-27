@@ -228,8 +228,8 @@ def createItem(restaurantId):
 @restaurant_routes.route('/<int:restaurantId>/shopping-cart', methods=['POST'])
 @login_required
 def post_shoppingCart(restaurantId):
-    cart = current_user.get_cart()
-    if 'cart' in cart:
+    cart = current_user.get_specific_cart(restaurantId)
+    if cart:
         return cart['cart']
     user = User.query.filter(User.id == current_user.id).first()
     if not user:

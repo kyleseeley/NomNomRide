@@ -128,7 +128,7 @@ function InfoContainer({label,
             {editForm && type === 'password' && <div className="info-edit-panel">
                 <div>{desc}</div>
                 <form onSubmit={handleSubmit}>
-                    <div className='info-inputs-div'>
+                    <div className='info-inputs-div col'>
                         {entries.map(entry =>
                         <span key={entry[0]} className={entry[0]}>
                             <div className="info-input-label">{entry[0]}</div>

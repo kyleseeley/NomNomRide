@@ -5,14 +5,15 @@ from flask_login import current_user, login_required
 
 shoppingCart_routes = Blueprint('shoppingCart', __name__, url_prefix="")
 
-@shoppingCart_routes.route("/", methods=["DELETE"])
+@shoppingCart_routes.route("/<int:cartId>", methods=["DELETE"])
 @login_required
-def delete_shoppingCart():
-    cart = current_user.get_cart()
-    if 'cart' not in cart:
-        return { 'error': 'User does not have an active cart.' }
-    deleteCart = ShoppingCart.query.get(cart['cart']['id'])
+def delete_shoppingCart(cartId):
+    deleteCart = ShoppingCart.query.get(cartId)
+    if not deleteCart:
+        return { 'error': 'Cart does not exist' }, 404
+    if deleteCart.userId != current_user.id:
+        return { 'error': 'Unauthorized' }, 401
     db.session.delete(deleteCart)
     db.session.commit()
 
-    return jsonify({"message": "Shopping Cart deleted successfully"})
+    return jsonify({"message": "Cart deleted successfully"})

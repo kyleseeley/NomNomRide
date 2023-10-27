@@ -1,10 +1,15 @@
-.item-card.button {
+.item-card {
   all: unset;
 }
 
-.item-card.button:hover {
+.item-card:hover {
 	box-shadow:  0 2px 2px 2px #CCCCCC;
   cursor: pointer;
+}
+
+.item-card.no-img {
+	padding: 1rem;
+	border-radius: 5px;
 }
 
 .item-card-name,
