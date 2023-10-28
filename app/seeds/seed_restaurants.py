@@ -69,12 +69,97 @@ def seed_restaurants():
         starRating=2.9,
         numReviews=3,
     )
-
+    haiDiLao = Restaurant(
+        ownerId=1,
+        address='19409 Stevens Creek Blvd Ste 100',
+        city='Cupertino',
+        state='CA',
+        lat=46,
+        lng=20,
+        name="Haidilao Hot Pot",
+        type="Chinese",
+        image="https://cdn-global-website.superhi-cdn.com/website/image/1bfea7382f71452786000a0e6539055a-483-533.png",
+        starRating=4.8,
+        numReviews=10,
+    )
+    mcDonald= Restaurant(
+        ownerId=1,
+        address='327 S Canal',
+        city='Carlsbad',
+        state='NM',
+        lat=0,
+        lng=23,
+        name="McDonald's",
+        type="American",
+        image="https://m.media-amazon.com/images/I/71kvHIBM2HL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+        starRating=4,
+        numReviews=7,
+    )
+    papaJohnPizza= Restaurant(
+        ownerId=1,
+        address='339724 Cedar Blvd.',
+        city='Fremont',
+        state='CA',
+        lat=-3,
+        lng=25,
+        name="Papa Johns Pizza",
+        type="American",
+        image="https://t3.ftcdn.net/jpg/00/27/57/96/360_F_27579652_tM7V4fZBBw8RLmZo0Bi8WhtO2EosTRFD.jpg",
+        starRating=4,
+        numReviews=7,
+    )
+    anjapparChettinad= Restaurant(
+        ownerId=1,
+        address='777 Lawerence Expy Ste8',
+        city='Santa Clara',
+        state='CA',
+        lat=-20,
+        lng=15,
+        name="Anjappar Chettinad Indian Restaurant",
+        type="Indian",
+        image="https://www.blueosa.com/wp-content/uploads/2020/01/the-best-top-10-indian-dishes.jpg",
+        starRating=3.9,
+        numReviews=20,
+    )
+    kaiSushi= Restaurant(
+        ownerId=1,
+        address='720 St Michaels Dr,Ste 2M',
+        city='Santa Fe',
+        state='NM',
+        lat=30,
+        lng=10,
+        name="Kai Sushi&Dining",
+        type="Sushi",
+        image="https://www.shutterstock.com/image-photo/assorted-sushi-nigiri-maki-big-260nw-1937661397.jpg",
+        starRating=3.1,
+        numReviews=10,
+    )
+    oliveGarde= Restaurant(
+        ownerId=3,
+        address='3940 S Lamar Blvd',
+        city='Austin',
+        state='TX',
+        lat=30,
+        lng=42,
+        name="Olive Garden Italian Restaurant",
+        type="Italian",
+        image="https://t3.ftcdn.net/jpg/02/55/53/44/360_F_255534476_n8JzjZtzOFW5g3TXTLMd6QGVnToi6hqj.jpg",
+        starRating=4.1,
+        numReviews=12,
+    )
     db.session.add(chipotle)
     db.session.add(outback)
     db.session.add(culvers)
     db.session.add(buffaloWildWings)
     db.session.add(pandaExpress)
+    db.session.add(haiDiLao)
+    db.session.add(papaJohnPizza)
+    db.session.add(anjapparChettinad)
+    db.session.add(kaiSushi)
+    db.session.add(oliveGarde)
+
+
+
     db.session.commit()
 
 
