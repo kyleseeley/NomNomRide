@@ -25,7 +25,9 @@ table label {
 .select {
   width: 100%;
 }
-
+.error {
+  color: red;
+}
 .submit {
   display: flex;
   padding-top: 10px;
@@ -35,6 +37,11 @@ table label {
 .submit button {
   width: 100%;
   margin: 0;
+}
+
+.submit button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
 }
 
 .submit-button {
