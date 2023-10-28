@@ -37,6 +37,11 @@ table label {
   margin: 0;
 }
 
+.submit button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
 .submit-button {
   background-color: #007bff;
   color: #fff;
