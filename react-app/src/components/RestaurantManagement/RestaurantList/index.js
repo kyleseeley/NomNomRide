@@ -20,7 +20,7 @@ const RestaurantList = () => {
     <div>
       {ownerId && (
         <div className="restaurant-list-container">
-          <h1>Your Restaurants</h1>
+          <h2>Your Restaurants</h2>
           {restaurantsOwnedByUser.map((restaurant) => (
             <div className="restaurant-name-list">
               <Link
