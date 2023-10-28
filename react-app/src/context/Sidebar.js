@@ -98,7 +98,7 @@ export function Sidebar() {
                 onClick={() => setIsSidebarVisible(false)}
                 className="cart-button "
               >
-                <i class="fa-solid fa-plus"></i> Add New
+                <i className="fa-solid fa-plus"></i> Add New
               </NavLink>
             </div>
           )}

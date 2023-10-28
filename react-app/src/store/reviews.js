@@ -17,9 +17,9 @@ export const createReview = (review) => ({
   review,
 });
 
-export const updateReview = (reviewId) => ({
+export const updateReview = (review) => ({
   type: UPDATE_REVIEW,
-  reviewId,
+  review,
 });
 
 export const deleteReview = (reviewId) => ({
@@ -50,6 +50,7 @@ export const fetchReviews = (restaurantId) => async (dispatch) => {
 };
 
 export const createNewReview = (reviewData) => async (dispatch) => {
+  console.log("reviewData", reviewData);
   try {
     const response = await csrfFetch(
       `/api/restaurants/${reviewData.restaurantId}/reviews`,
@@ -58,15 +59,20 @@ export const createNewReview = (reviewData) => async (dispatch) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(reviewData),
+        body: JSON.stringify({
+          review: reviewData.review,
+          stars: reviewData.stars,
+        }),
       }
     );
+    console.log("response", response);
     if (!response.ok) {
       throw new Error("Error creating a new review");
     }
 
     const responseData = await response.json();
     dispatch(createReview(responseData.review));
+    dispatch(fetchReviews(responseData.restaurantId));
   } catch (error) {
     console.log("Error creating a new review", error);
   }
@@ -88,8 +94,10 @@ export const updateUserReview =
       }
 
       const updatedReview = await response.json();
+      console.log("updatedReview", updateReview);
 
       dispatch(updateReview(updatedReview));
+      dispatch(fetchReviews(updatedReviewData.restaurantId));
 
       return updatedReview;
     } catch (error) {
@@ -99,10 +107,12 @@ export const updateUserReview =
 
 export const deleteReviewById =
   (reviewId, restaurantId) => async (dispatch) => {
+    console.log("seeing if there is a response");
     try {
       const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: "DELETE",
       });
+      console.log("response", response);
 
       if (!response.ok) {
         throw new Error("Error deleting review");
@@ -110,6 +120,8 @@ export const deleteReviewById =
 
       dispatch(deleteReview(reviewId));
       dispatch(fetchReviews(restaurantId));
+
+      console.log("review deleted successfully");
     } catch (error) {
       console.log("Error deleting review", error);
     }
@@ -152,9 +164,10 @@ const reviewReducer = (state = initialState, action) => {
       newState[action.review.id] = action.review;
       return newState;
     case UPDATE_REVIEW:
-      newState[action.reviewId] = action.review;
+      newState[action.review.id] = action.review;
       return newState;
     case DELETE_REVIEW:
+      console.log("something here");
       delete newState[action.reviewId];
       return newState;
     case USER_REVIEWS:

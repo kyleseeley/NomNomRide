@@ -2,30 +2,33 @@ import { useState, useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { NavLink, useHistory } from 'react-router-dom'
 import CartItemList from '../CartItems/CartItemList'
-import { noCartThunk } from "../../store/cart"
+import { deleteCartThunk } from "../../store/cart"
 import './Cart.css'
 
 const Cart = ({ isCartVisible, setIsCartVisible }) => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const cart = useSelector(state => state.cart)
+  const carts = useSelector(state => state.cart)
+  const [cart, setCart] = useState({})
   const user = useSelector(state => state.session.user)
   const [numItems, setNumItems] = useState(0)
+  const [numCarts, setNumCarts] = useState(0)
+  const [showCarts, setShowCarts] = useState(false)
   const [showOptions, setShowOptions] = useState(false)
   const optionsRef = useRef()
+  const cartsRef = useRef()
 
   useEffect(() => {
-    setNumItems(cart.cart ? cart.items.length : 0)
-  })
+    setCart(Object.values(carts)[0])
+    setNumCarts(Object.values(carts).length)
+  }, [carts])
 
-  const openOptions = () => {
-    if (showOptions) return;
-    setShowOptions(true);
-  };
+  useEffect(() => {
+    setNumItems(cart?.items ? cart?.items.length : 0)
+  }, [cart])
 
   useEffect(() => {
     if (!showOptions) return;
-
     const closeOptions = (e) => {
       if (optionsRef.current && !optionsRef.current.contains(e.target)) {
         setShowOptions(false);
@@ -33,9 +36,35 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
     };
 
     document.addEventListener('click', closeOptions);
-
     return () => document.removeEventListener("click", closeOptions);
   }, [showOptions]);
+
+  useEffect(() => {
+    if (!showCarts) return;
+    const closeCarts = (e) => {
+      if (cartsRef.current && !cartsRef.current.contains(e.target)) {
+        setShowCarts(false);
+      }
+    }
+
+    document.addEventListener('click', closeCarts);
+    return () => document.removeEventListener("click", closeCarts);
+  }, [showCarts]);
+
+  const openOptions = () => {
+    if (showOptions) return;
+    setShowOptions(true);
+  };
+
+  const openCarts = () => {
+    if (showCarts) return
+    setShowCarts(true)
+  }
+
+  const switchCarts = (restaurantId) => {
+    setCart(carts[restaurantId])
+    setShowCarts(false)
+  }
 
   const handleAddItems = () => {
     setIsCartVisible(false)
@@ -44,7 +73,7 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
 
   const handleDeleteCart = () => {
     setIsCartVisible(false)
-    dispatch(noCartThunk())
+    dispatch(deleteCartThunk(cart.cart.restaurantId))
   }
 
   return (
@@ -54,6 +83,24 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
         <i
           onClick={() => setIsCartVisible(false)}
           className="fa-solid fa-x modal" />
+        {numCarts > 1 &&
+        <div
+          onClick={openCarts}
+          className="switch-carts-button">
+          {`Carts (${numCarts})`} <i className="fa-solid fa-chevron-down carts" />
+        </div>}
+        <div
+          ref={cartsRef}
+          className={`carts-dropdown ${showCarts ? '' : 'hidden'}`}>
+          {openCarts && Object.values(carts).map((cart, idx) => (
+            <div
+              className="carts-dropdown-button"
+              onClick={() => switchCarts(cart.cart.restaurantId)}
+              key={idx}>
+              {cart?.restaurant?.name}
+            </div>
+            ))}
+        </div>
         {numItems ? <div className="cart-main">
           <div className="cart-restaurant-details">
             <span>
@@ -82,7 +129,7 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
               </div>
             </span>
           </div>
-          <CartItemList cart={cart} numItems={numItems} setNumItems={setNumItems} />
+          {cart && <CartItemList cart={cart} numItems={numItems} setNumItems={setNumItems} />}
           <div className="cart-buttons">
             <NavLink
               to='/checkout'

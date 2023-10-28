@@ -34,10 +34,16 @@
 .restaurant-name {
   font-size: 2.5rem;
   margin: 1rem 0 0 0;
+  min-width: 15rem;
+  width: fit-content;
+  min-height: 2rem;
 }
 
 .restaurant-details {
   margin: 0.5rem 0;
+  min-width: 10rem;
+  width: fit-content;
+  min-height: 1rem;
 }
 
 .fa-star {
@@ -54,6 +60,12 @@
   position: sticky;
   top: 5rem;
   height: fit-content;
+}
+
+.cat-name {
+  min-width: 8rem;
+  min-height: 1rem;
+  width: fit-content;
 }
 
 .restaurant-page-cat {
@@ -114,6 +126,46 @@
 .review-item:not(:last-child) {
   border-bottom: 1px solid grey;
   padding-bottom: 3px;
+}
+
+.leave-review-button {
+  max-width: 200px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  max-width: 200px;
+}
+
+.edit-review-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.leave-review-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-review-button {
+  background-color: red;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  padding: 7px;
 }
 
 @media (max-width: 700px) {

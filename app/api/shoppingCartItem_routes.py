@@ -42,10 +42,8 @@ def delete_cartItem(shoppingCartItemId):
 	shoppingCartItem = ShoppingCartItem.query.filter(ShoppingCartItem.id == shoppingCartItemId).first()
 	if not shoppingCartItem:
 		return { 'error': 'Cart item not found' }
-	cart_dict = current_user.get_cart()
-	if cart_dict['cart']['id'] != shoppingCartItem.cartId:
-		return { 'error': 'Unauthorized' }, 401
-	cart = ShoppingCart.query.get(cart_dict['cart']['id'])
+	cart = ShoppingCart.query.get(shoppingCartItem.cartId)
+	cart_dict = current_user.get_specific_cart(cart.restaurantId)
 
 	# if last item in cart, delete cart as well
 	if len(cart_dict['items']) == 1:

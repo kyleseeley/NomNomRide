@@ -39,10 +39,10 @@ def get_user_restaurants():
 
 @session_routes.route('/shopping-cart')
 @login_required
-def get_user_cart():
+def get_user_carts():
   user = User.query.get(current_user.id)
   if user:
-    return user.get_cart()
+    return user.get_carts()
   else:
     return { 'error': 'User not found' }, 404
 
@@ -85,25 +85,25 @@ def userCheckout():
   user = User.query.get(current_user.id)
   if not user:
     return { 'error': 'User not found' }, 404
-  
+
   restaurantId = request.json.get("restaurantId")
-  cart_info = user.get_cart()
+  cart_info = user.get_specific_cart(restaurantId)
   cart_items = cart_info.get("items", [])
 
   line_items = []
-  total_amount = 0 
+  total_amount = 0
 
   for cart_item in cart_items:
     item_details = cart_item.to_dict()
 
     line_item = {
-        'price': item_details['price'],  
+        'price': item_details['price'],
         'quantity': item_details['quantity'],
     }
     line_items.append(line_item)
 
     total_amount += item_details['price'] * item_details['quantity']
-  
+
   # try:
   #   checkout_session = stripe.checkout.Session.create(
   #     line_items=line_items,
@@ -112,7 +112,7 @@ def userCheckout():
   #   )
   # except Exception as e:
   #   return str(e)
-  
+
   new_order = Order(
     userId=user.id,
     restaurantId=restaurantId,
@@ -123,3 +123,14 @@ def userCheckout():
   db.session.commit()
 
   # return jsonify({'sessionId': checkout_session.id})
+
+@session_routes.route('/orders')
+@login_required
+def get_user_orders():
+  user = User.query.get(current_user.id)
+  if not user:
+    return { 'error': 'User not found' }, 404
+  
+  orders = [order.to_dict() for order in user.orders]
+
+  return jsonify(orders)

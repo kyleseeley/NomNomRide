@@ -1,15 +1,25 @@
-.item-card.button {
+.item-card {
   all: unset;
+	min-width: 15rem;
+	min-height: 5rem;
 }
 
-.item-card.button:hover {
+.item-card:hover {
 	box-shadow:  0 2px 2px 2px #CCCCCC;
   cursor: pointer;
+}
+
+.item-card.no-img {
+	padding: 1rem;
+	border-radius: 5px;
 }
 
 .item-card-name,
 .item-card-price {
 	margin: 0.3rem 0 0.3rem 0.5rem;
+	min-width: 5rem;
+	min-height: 1rem;
+	width: fit-content;
 }
 
 .item-card-img {
@@ -17,6 +27,11 @@
 	max-width: 15rem;
 	object-fit: cover;
 	margin: 0.5rem;
+}
+
+.item-card-img.skeleton {
+	min-width: 15rem;
+	min-height: 8rem;
 }
 
 .item-card-price {

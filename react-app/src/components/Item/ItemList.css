@@ -4,6 +4,12 @@
 	grid-template-columns: repeat(4, 1fr);
 }
 
+.cat-header {
+  min-width: 10rem;
+  min-height: 2rem;
+  width: fit-content;
+}
+
 .item-li {
   width: 100%;
 }

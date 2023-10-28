@@ -73,13 +73,13 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
           </tr>
         </table>
         <button className="cart-button" onClick={onEditClick}>
-          <i class="fa-solid fa-pen-to-square"></i> Edit
+          <i className="fa-solid fa-pen-to-square"></i> Edit
         </button>
         <OpenModalButton
           className="login-button"
           buttonText={
             <div>
-              <i class="fa-solid fa-trash" /> Delete
+              <i className="fa-solid fa-trash" /> Delete
             </div>
           }
           modalComponent={() => (
