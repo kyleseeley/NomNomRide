@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { NavLink, useHistory } from 'react-router-dom'
 import CartItemList from '../CartItems/CartItemList'
-import { deleteCartThunk } from "../../store/cart"
+import { deleteCartThunk, getCartThunk } from "../../store/cart"
 import './Cart.css'
 
 const Cart = ({ isCartVisible, setIsCartVisible }) => {
@@ -12,6 +12,7 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
   const [cart, setCart] = useState({})
   const user = useSelector(state => state.session.user)
   const [numItems, setNumItems] = useState(0)
+  const [refresh, setRefresh] = useState(true)
   const [numCarts, setNumCarts] = useState(0)
   const [showCarts, setShowCarts] = useState(false)
   const [showOptions, setShowOptions] = useState(false)
@@ -19,8 +20,10 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
   const cartsRef = useRef()
 
   useEffect(() => {
-    setCart(Object.values(carts)[0])
-    setNumCarts(Object.values(carts).length)
+    if (refresh) {
+      setCart(Object.values(carts)[0])
+      setNumCarts(Object.values(carts).length)
+    }
   }, [carts])
 
   useEffect(() => {
@@ -61,8 +64,8 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
     setShowCarts(true)
   }
 
-  const switchCarts = (restaurantId) => {
-    setCart(carts[restaurantId])
+  const switchCarts = (id) => {
+    setCart(carts[id])
     setShowCarts(false)
   }
 
@@ -73,7 +76,7 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
 
   const handleDeleteCart = () => {
     setIsCartVisible(false)
-    dispatch(deleteCartThunk(cart.cart.restaurantId))
+    dispatch(deleteCartThunk(cart.cart.id))
   }
 
   return (
@@ -95,7 +98,7 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
           {openCarts && Object.values(carts).map((cart, idx) => (
             <div
               className="carts-dropdown-button"
-              onClick={() => switchCarts(cart.cart.restaurantId)}
+              onClick={() => switchCarts(cart.cart.id)}
               key={idx}>
               {cart?.restaurant?.name}
             </div>
@@ -129,7 +132,7 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
               </div>
             </span>
           </div>
-          {cart && <CartItemList cart={cart} numItems={numItems} setNumItems={setNumItems} />}
+          {cart && <CartItemList cart={cart} numItems={numItems} setNumItems={setNumItems} setRefresh={setRefresh} />}
           <div className="cart-buttons">
             <NavLink
               to='/checkout'

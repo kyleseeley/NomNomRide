@@ -32,7 +32,7 @@ export const getCartThunk = () => async (dispatch) => {
 		if (Object.keys(responseData).length) {
 			const formattedCarts = {}
 			for (const data of responseData) {
-				formattedCarts[data['cart']['restaurantId']] = data
+				formattedCarts[data['cart']['id']] = data // fix? maybe not supposed to be restaurantId
 			}
 			dispatch(getCart(formattedCarts));
 		}
@@ -42,12 +42,12 @@ export const getCartThunk = () => async (dispatch) => {
 	}
 };
 
-export const deleteCartThunk = restaurantId => async dispatch => {
-	const response = await fetch(`/api/shopping-cart/${restaurantId}`, {
+export const deleteCartThunk = cartId => async dispatch => {
+	const response = await fetch(`/api/shopping-cart/${cartId}`, { // maybe supposed to be restaurantID
 		method: 'DELETE'
 	})
   if (response.ok) {
-		dispatch(deleteCart(restaurantId))
+		dispatch(deleteCart(cartId))
   }
 }
 
