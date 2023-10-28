@@ -34,27 +34,32 @@ const Checkout = () => {
       items: cartItems,
     };
 
-    dispatch(placeUserOrder(orderData));
-    history.push("/");
+    dispatch(placeUserOrder(orderData)).then((response) => {
+      if (!response.error) {
+        // Handle successful order placement
+        history.push("/"); // Redirect to the homepage or another page
+      } else {
+        // Handle errors or display error messages
+        // You can update your Redux store with error information if needed
+      }
+    });
   };
-
-  const totalCost = shoppingCart.reduce((total, item) => {
-    return total + item.price * item.quantity;
-  }, 0);
 
   return (
     <div className="checkout-container">
-      <h1 className="checkout-title">Checkout</h1>
+      <h1 className="checkout-title">Order Summary</h1>
       <div className="items-list">
-        {shoppingCart.map((item) => (
-          <div key={item.id} className="checkout-item">
-            <p className="item-name">{item.name}</p>
-            <p className="item-quantity">Quantity: {item.quantity}</p>
-            <p className="item-price">Price: ${item.price.toFixed(2)}</p>
+        {Object.values(shoppingCart).map((item) => (
+          <div key={item.cart.id} className="checkout-item">
+            <p className="item-name">{item.items[0].name}</p>
+            <p className="item-quantity">Quantity: {item.items[0].quantity}</p>
+            <p className="item-price">
+              Price: ${parseFloat(item.items[0].price).toFixed(2)}
+            </p>
+            <p className="total-cost">Total: ${item.cart.total}</p>
           </div>
         ))}
       </div>
-      <p className="total-cost">Total: ${totalCost.toFixed(2)}</p>
       <button className="checkout-button" onClick={handleCheckout}>
         Place Order
       </button>

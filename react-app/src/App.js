@@ -13,7 +13,7 @@ import RestaurantForm from "./components/RestaurantManagement/RestaurantForm";
 import AccountSettings from "./components/AccountSettingsPage";
 import RestaurantList from "./components/RestaurantManagement/RestaurantList";
 import Alert from "./components/Alert";
-// import Checkout from ./components/Checkout
+import Checkout from "./components/Checkout";
 import SearchResults from "./components/SearchResults";
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
           </Route>
 
           <Route exact path="/checkout">
-            {/* <Checkout /> */}
+            <Checkout />
           </Route>
           <Route exact path="/new">
             <RestaurantForm />
