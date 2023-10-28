@@ -68,7 +68,9 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
   ]);
 
   useEffect(() => {
-    setIsSubmitDisabled(true);
+    if (restaurant === undefined) {
+      setIsSubmitDisabled(true);
+    }
   }, []);
 
   const submitHandler = async (e) => {
@@ -223,6 +225,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
               <td>
                 <label>Name</label>
               </td>
+
               <td>
                 <input
                   type="text"

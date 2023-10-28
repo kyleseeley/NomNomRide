@@ -49,9 +49,6 @@ function App() {
           <Route exact path="/account">
             <AccountSettings />
           </Route>
-          <Route exact path="/manageRestaurants">
-            <RestaurantList />
-          </Route>
           <Route path="/:restaurantId/manage">
             <RestaurantManagement />
           </Route>
