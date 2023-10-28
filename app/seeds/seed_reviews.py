@@ -12,25 +12,25 @@ def seed_reviews():
     )
     review2 = Review(
         userId=3,
-        restaurantId=2,
+        restaurantId=1,
         review="The food was decent, but the service was slow. Three stars from me.",
         stars=3
     )
     review3 = Review(
         userId=1,
-        restaurantId=3,
+        restaurantId=2,
         review="I had a terrible experience. The food was cold, and the staff was unhelpful. One star.",
         stars=1
     )
     review4 = Review(
         userId=3,
-        restaurantId=1,
+        restaurantId=2,
         review="The restaurant had a cozy atmosphere, and the food was good. Four stars!",
         stars=4
     )
     review5 = Review(
         userId=1,
-        restaurantId=2,
+        restaurantId=3,
         review="Average experience. Nothing exceptional. Two stars.",
         stars=2
     )

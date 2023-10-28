@@ -26,7 +26,7 @@ def seed_menuItems():
         type="Entrees",
         price=20,
         description="Food",
-        image="ribeye.jpg"
+        image="https://6666steak.com/cdn/shop/products/BL-Ribeye1.jpg"
     )
     menuItem4 = MenuItem(
         restaurantId=2,
@@ -34,7 +34,7 @@ def seed_menuItems():
         type="Appetizer",
         price=15,
         description="Food",
-        image="bloomin.jpg"
+        image="https://olo-images-live.imgix.net/59/59adc004db2f417ba0fa4de6f7d55b0a.jpg"
     )
     menuItem5 = MenuItem(
         restaurantId=3,
@@ -42,7 +42,7 @@ def seed_menuItems():
         type="Entrees",
         price=9,
         description="Food",
-        image="burger.jpg"
+        image="https://cdn.culvers.com/menu/category-thumbnail/menu-landing-butterburgers.jpg"
     )
     menuItem6 = MenuItem(
         restaurantId=3,
@@ -50,7 +50,7 @@ def seed_menuItems():
         type="Dessert",
         price=11,
         description="Food",
-        image="cake.jpg"
+        image="https://joyfoodsunshine.com/wp-content/uploads/2020/08/best-chocolate-cake-recipe-from-scratch-8.jpg"
     )
     menuItem7 = MenuItem(
         restaurantId=4,
@@ -58,7 +58,7 @@ def seed_menuItems():
         type="Entrees",
         price=16,
         description="Food",
-        image="wings.jpg"
+        image="https://www.thecountrycook.net/wp-content/uploads/2023/05/thumbnail-Lemon-Pepper-Chicken-Wings.jpg"
     )
     menuItem8 = MenuItem(
         restaurantId=5,
@@ -66,7 +66,7 @@ def seed_menuItems():
         type="Entrees",
         price=7,
         description="Food",
-        image="orangechicken.jpg"
+        image="https://insanelygoodrecipes.com/wp-content/uploads/2022/12/Panda_Express_Orange_Chicken_Served_on_Plate-500x375.jpg"
     )
     menuItem9 = MenuItem(
         restaurantId=1,
