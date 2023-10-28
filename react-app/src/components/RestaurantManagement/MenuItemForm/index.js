@@ -38,9 +38,9 @@ const MenuItemForm = () => {
       setImage(item.image);
     }
   }, [item]);
-  useEffect(() => {
-    setIsSubmitDisabled(nameError || priceError || descriptionError);
-  }, [name, nameError, price, priceError, description, descriptionError]);
+  // useEffect(() => {
+  //   setIsSubmitDisabled(nameError || priceError || descriptionError);
+  // }, [name, nameError, price, priceError, description, descriptionError]);
 
   useEffect(() => {
     if (item === undefined) {
@@ -93,30 +93,30 @@ const MenuItemForm = () => {
     }
   };
 
-  const nameInputValidation = () => {
-    if (name === undefined || name.length === 0) {
+  const nameInputValidation = (checkName) => {
+    if ( checkName=== undefined || checkName.length === 0) {
       setNameError("Name is required.");
-    } else if (name.length > 255) {
+    } else if (checkName.length > 255) {
       setNameError("Name is too long.");
     } else {
       setNameError(null);
     }
   };
 
-  const priceInputValidation = () => {
-    if (price === "") {
+  const priceInputValidation = (checkPrice) => {
+    if (checkPrice === "") {
       setPriceError("Price is required.");
-    } else if (price <= 0) {
+    } else if (checkPrice <= 0) {
       setPriceError("Price should be more than 0.");
     } else {
       setPriceError(null);
     }
   };
 
-  const descriptionInputValidation = () => {
-    if (description === undefined || description.length === 0) {
+  const descriptionInputValidation = (checkDescription) => {
+    if (checkDescription === undefined || checkDescription.length === 0) {
       setDescriptionError("Description is required.");
-    } else if (description.length > 255) {
+    } else if (checkDescription.length > 255) {
       setDescriptionError("Description is too long.");
     } else {
       setDescriptionError(null);
@@ -140,10 +140,9 @@ const MenuItemForm = () => {
                   value={name}
                   onChange={(e) => {
                     setName(e.target.value);
+                    nameInputValidation(e.target.value);
                   }}
-                  onBlur={() => {
-                    nameInputValidation();
-                  }}
+
                 />
                 {nameError !== null && <div className="error">{nameError}</div>}
               </td>
@@ -178,16 +177,15 @@ const MenuItemForm = () => {
                   value={price}
                   onChange={(e) => {
                     setPrice(e.target.value);
+                    priceInputValidation(e.target.value);
                   }}
                   onKeyDown={(e) => {
-                    const invalidChars = ["-", "+", "e"];
+                    const invalidChars = ["-", "+", "e","E"];
                     if (invalidChars.includes(e.key)) {
                       e.preventDefault();
                     }
                   }}
-                  onBlur={() => {
-                    priceInputValidation();
-                  }}
+
                 />
                 {priceError !== null && (
                   <div className="error">{priceError}</div>
@@ -203,9 +201,7 @@ const MenuItemForm = () => {
                   value={description}
                   onChange={(e) => {
                     setDescription(e.target.value);
-                  }}
-                  onBlur={() => {
-                    descriptionInputValidation();
+                    descriptionInputValidation(e.target.value);
                   }}
                 />
                 {descriptionError !== null && (

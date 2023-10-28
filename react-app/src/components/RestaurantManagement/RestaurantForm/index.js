@@ -58,6 +58,13 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
         imageError
     );
   }, [
+    name,
+    address,
+    city,
+    state,
+    lat,
+    lng,
+    image,
     nameError,
     addressError,
     cityError,
