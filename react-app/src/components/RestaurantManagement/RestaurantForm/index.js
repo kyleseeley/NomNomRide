@@ -43,8 +43,33 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
   const [typeError, setTypeError] = useState(null);
   const [image, setImage] = useState(restaurant?.image || "");
   const [imageError, setImageError] = useState(null);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    setIsSubmitDisabled(
+      nameError ||
+        addressError ||
+        cityError ||
+        stateError ||
+        latError ||
+        lngError ||
+        imageError
+    );
+  }, [
+    nameError,
+    addressError,
+    cityError,
+    stateError,
+    latError,
+    lngError,
+    imageError,
+  ]);
+
+  useEffect(() => {
+    setIsSubmitDisabled(true);
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -71,6 +96,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
     }
 
     let errors;
+
     if (restaurant !== undefined) {
       //editing
       errors = await dispatch(
@@ -301,6 +327,12 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   onChange={(e) => {
                     setLat(e.target.value);
                   }}
+                  onKeyDown={(e) => {
+                    const invalidChars = ["-", "+", "e"];
+                    if (invalidChars.includes(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
                   onBlur={() => {
                     latInputValidation();
                   }}
@@ -318,6 +350,12 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   value={lng}
                   onChange={(e) => {
                     setLng(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    const invalidChars = ["-", "+", "e"];
+                    if (invalidChars.includes(e.key)) {
+                      e.preventDefault();
+                    }
                   }}
                   onBlur={() => {
                     lngInputValidation();
@@ -348,7 +386,11 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
             </tr>
           </table>
           <div className="submit">
-            <button className="cart-button" onClick={submitHandler}>
+            <button
+              className="cart-button"
+              disabled={isSubmitDisabled}
+              onClick={submitHandler}
+            >
               Submit
             </button>
           </div>

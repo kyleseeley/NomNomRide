@@ -21,7 +21,7 @@ const MenuItemForm = () => {
   const [description, setDescription] = useState(item?.description || "");
   const [descriptionError, setDescriptionError] = useState(null);
   const [image, setImage] = useState(item?.image || "");
-
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -38,6 +38,13 @@ const MenuItemForm = () => {
       setImage(item.image);
     }
   }, [item]);
+  useEffect(() => {
+    setIsSubmitDisabled(nameError || priceError || descriptionError);
+  }, [nameError, priceError, descriptionError]);
+
+  useEffect(() => {
+    setIsSubmitDisabled(true);
+  }, []);
 
   const typeList = ["Entrees", "Side Dish", "Appetizer", "Dessert"];
 
@@ -118,114 +125,117 @@ const MenuItemForm = () => {
     <div className="page-container">
       <div className="login-form-container">
         <div className=" form-wrapper">
-          <div className="login-form">
-            {itemId === undefined && <h1>Create New Item</h1>}
-            {itemId !== undefined && <h1>Edit Item</h1>}
-            <table>
-              <tr>
-                <td>
-                  <label>Name</label>
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
-                    onBlur={() => {
-                      nameInputValidation();
-                    }}
-                  />
-                  {nameError !== null && (
-                    <div className="error">{nameError}</div>
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label>Type</label>
-                </td>
-                <td>
-                  <select
-                    className="select"
-                    value={type}
-                    onChange={(e) => {
-                      setType(e.target.value);
-                    }}
-                  >
-                    {typeList.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label>Price</label>
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    value={price}
-                    onChange={(e) => {
-                      setPrice(e.target.value);
-                    }}
-                    onKeyDown={(e) => {
-                      const invalidChars = ["-", "+", "e"];
-                      if (invalidChars.includes(e.key)) {
-                        e.preventDefault();
-                      }
-                    }}
-                    onBlur={() => {
-                      priceInputValidation();
-                    }}
-                  />
-                  {priceError !== null && (
-                    <div className="error">{priceError}</div>
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label>Description</label>
-                </td>
-                <td>
-                  <textarea
-                    value={description}
-                    onChange={(e) => {
-                      setDescription(e.target.value);
-                    }}
-                    onBlur={() => {
-                      descriptionInputValidation();
-                    }}
-                  />
-                  {descriptionError !== null && (
-                    <div className="error">{descriptionError}</div>
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label>Image</label>
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    value={image}
-                    onChange={(e) => {
-                      setImage(e.target.value);
-                    }}
-                  />
-                </td>
-              </tr>
-            </table>
-
-            <button className="cart-button auto-width" onClick={submitHandler}>
+          {itemId === undefined && <h1>Create New Item</h1>}
+          {itemId !== undefined && <h1>Edit Item</h1>}
+          <table>
+            <tr>
+              <td>
+                <label>Name</label>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  onBlur={() => {
+                    nameInputValidation();
+                  }}
+                />
+                {nameError !== null && <div className="error">{nameError}</div>}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Type</label>
+              </td>
+              <td>
+                <select
+                  className="select"
+                  value={type}
+                  onChange={(e) => {
+                    setType(e.target.value);
+                  }}
+                >
+                  {typeList.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Price</label>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  value={price}
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    const invalidChars = ["-", "+", "e"];
+                    if (invalidChars.includes(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
+                  onBlur={() => {
+                    priceInputValidation();
+                  }}
+                />
+                {priceError !== null && (
+                  <div className="error">{priceError}</div>
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Description</label>
+              </td>
+              <td>
+                <textarea
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                  onBlur={() => {
+                    descriptionInputValidation();
+                  }}
+                />
+                {descriptionError !== null && (
+                  <div className="error">{descriptionError}</div>
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Image</label>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value={image}
+                  onChange={(e) => {
+                    setImage(e.target.value);
+                  }}
+                />
+              </td>
+            </tr>
+          </table>
+          <div className="submit">
+            <button
+              className="cart-button auto-width"
+              disabled={isSubmitDisabled}
+              onClick={submitHandler}
+            >
               Submit
             </button>
+          </div>
+          <div className="cancel-button">
             <button
               className="login-button auto-width"
               onClick={() => history.goBack()}
