@@ -27,12 +27,10 @@
   font-weight: bold;
 }
 
-.item-quantity {
-  color: #666;
-}
-
+.item-quantity,
 .item-price {
-  font-weight: bold;
+  display: inline-block;
+  margin: 5px 10px;
 }
 
 total-cost {
@@ -52,4 +50,26 @@ total-cost {
 
 .checkout-button:hover {
   background-color: #0056b3;
+}
+
+.toast {
+  position: fixed;
+  margin-top: 100px;
+  padding: 3px 30px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Customize the appearance for different types of toast messages */
+.toast.toast-success {
+  background-color: #28a745; /* Green background for success messages */
+}
+
+.toast.toast-error {
+  background-color: #dc3545; /* Red background for error messages */
 }

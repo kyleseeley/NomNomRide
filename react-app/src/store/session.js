@@ -20,9 +20,9 @@ const setOrders = (orders) => ({
   payload: orders,
 });
 
-const placeOrder = (order) => ({
+const placeOrder = (cart) => ({
   type: PLACE_ORDER,
-  payload: order,
+  payload: cart,
 });
 
 const initialState = { user: null, orders: {} };
@@ -204,7 +204,7 @@ export default function sessionReducer(state = initialState, action) {
     case SET_ORDERS:
       return { ...state, orders: action.payload };
     case PLACE_ORDER:
-      return { ...state, order: action.payload };
+      return { ...state, cart: action.payload };
     default:
       return state;
   }

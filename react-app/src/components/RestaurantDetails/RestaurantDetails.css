@@ -54,7 +54,7 @@
   color: black;
   font-weight: bold;
   text-decoration: none;
-  background-color: #CCCCCC;
+  background-color: #cccccc;
   width: fit-content;
   padding: 0.7rem;
   border-radius: 10px;
@@ -181,6 +181,12 @@
 
 .button-container {
   padding: 7px;
+}
+
+.leave-review-button,
+.edit-review-button,
+.delete-review-button {
+  padding: 10px 20px;
 }
 
 @media (max-width: 700px) {
