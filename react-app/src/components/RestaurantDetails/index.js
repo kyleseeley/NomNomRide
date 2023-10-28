@@ -104,7 +104,7 @@ const RestaurantDetails = () => {
           className="restaurant-banner"
         />
         <div className="header">
-          <h1 className="restaurant-name">
+          <h1 className="restaurant-name-details">
             {restaurant?.name} ({restaurant?.address})
           </h1>
           <p className="restaurant-details">
@@ -216,7 +216,7 @@ const RestaurantDetails = () => {
           className="restaurant-banner skeleton"
         />
         <div className="header">
-          <h1 className="restaurant-name skeleton" />
+          <h1 className="restaurant-name-details skeleton" />
           <p className="restaurant-details skeleton" />
         </div>
         {restaurant?.ownerId == user?.id && (
