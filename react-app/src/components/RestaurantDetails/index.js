@@ -23,15 +23,12 @@ const RestaurantDetails = () => {
   const restaurantReviews = useSelector((state) => state.reviews[restaurantId]);
   const [focusTab, setFocusTab] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [categories, setCategories] = useState({});
   const reviewsArray = restaurantReviews
     ? Object.values(restaurantReviews)
     : [];
-  const categories = {};
   const { setModalContent } = useModal();
-  for (const item of Object.values(restaurantItems)) {
-    if (!categories[item.type]) categories[item.type] = [item];
-    else categories[item.type] = [...categories[item.type], item];
-  }
+
 
   const hasLeftReview =
     user &&
@@ -47,7 +44,15 @@ const RestaurantDetails = () => {
   useEffect(() => {
     window.scroll(0, 0);
     dispatch(fetchOneRestaurant(restaurantId))
-      .then(dispatch(fetchMenuItemsThunk(restaurantId)))
+      .then(() => dispatch(fetchMenuItemsThunk(restaurantId)))
+      .then(menuItems => {
+        const tempCat = {}
+        for (const item of menuItems) {
+          if (!tempCat[item.type]) tempCat[item.type] = [item];
+          else tempCat[item.type] = [...tempCat[item.type], item];
+        }
+        setCategories(tempCat)
+      })
       .then(dispatch(fetchReviews(restaurantId)))
       .then(dispatch(fetchUserOrders()))
       .then(setIsLoaded(true));
@@ -109,7 +114,7 @@ const RestaurantDetails = () => {
           </h1>
           <p className="restaurant-details">
             <i className="fa-solid fa-star" />
-            &nbsp;{" "}
+            {"  "}
             <b>
               {restaurant?.starRating} ({restaurant?.numReviews} ratings)
             </b>

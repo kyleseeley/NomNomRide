@@ -25,6 +25,7 @@ export const fetchMenuItemsThunk = (restaurantId) => async (dispatch) => {
       return obj;
     }, {});
     dispatch(fetchMenuItems(payload));
+    return data.menuItems
   } else if (response.status < 500) {
     const data = await response.json();
     if (data.errors) {
