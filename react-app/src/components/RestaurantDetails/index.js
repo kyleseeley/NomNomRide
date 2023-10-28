@@ -116,7 +116,7 @@ const RestaurantDetails = () => {
             <i className="fa-solid fa-star" />
             {"  "}
             <b>
-              {restaurant?.starRating} ({restaurant?.numReviews} ratings)
+              {restaurant?.starRating} ({restaurant?.numReviews} reviews)
             </b>
           </p>
           {restaurant?.ownerId == user?.id && (
