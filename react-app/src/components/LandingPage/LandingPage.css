@@ -27,9 +27,9 @@
   overflow-x: scroll;
 }
 
-.landing-main::-webkit-scrollbar {
+/* .landing-main::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .landing-header {
   min-width: 15rem;

@@ -44,13 +44,17 @@ const RestaurantDetails = () => {
     restaurant &&
     orders?.some((order) => order.restaurantId === restaurant.id);
 
-
+  console.log("restaurant", restaurant);
+  console.log("orders", orders);
+  console.log("hasLeftReview", hasLeftReview);
+  console.log("hasOrdered", hasOrdered);
 
   useEffect(() => {
     window.scroll(0, 0);
     dispatch(fetchOneRestaurant(restaurantId))
       .then(dispatch(fetchMenuItemsThunk(restaurantId)))
       .then(dispatch(fetchReviews(restaurantId)))
+      .then(dispatch(fetchUserOrders()))
       .then(setIsLoaded(true));
   }, [dispatch, restaurantId, user]);
 
@@ -93,162 +97,155 @@ const RestaurantDetails = () => {
     );
   };
 
-
-  if (isLoaded) return (
-    <div className="restaurant-page page-container">
-      <div
-        style={{
-          backgroundImage: `url(${restaurant?.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className="restaurant-banner"
-      />
-      <div className="header">
-        <h1 className="restaurant-name">
-          {restaurant?.name} ({restaurant?.address})
-        </h1>
-        <p className="restaurant-details">
-          <i className="fa-solid fa-star" />
-          &nbsp;{" "}
-          <b>
-            {restaurant?.starRating} ({restaurant?.numReviews} ratings)
-          </b>
-        </p>
-      </div>
-      {restaurant?.ownerId == user?.id && (
-        <NavLink to={`/${restaurant.id}/manage`}>Update Restaurant</NavLink>
-      )}
-      <div className="menu-section">
-        <div className="restaurant-page-cat-div">
-          {Object.keys(categories).map((category) => {
-            return (
-              <span
-                key={category}
-                className={`restaurant-page-cat
-									${focusTab === category ? "focus" : ""}`}
-                onClick={() => scrollToId(category)}
-              >
-                {category}
-              </span>
-            );
-          })}
+  if (isLoaded)
+    return (
+      <div className="restaurant-page page-container">
+        <div
+          style={{
+            backgroundImage: `url(${restaurant?.image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          className="restaurant-banner"
+        />
+        <div className="header">
+          <h1 className="restaurant-name">
+            {restaurant?.name} ({restaurant?.address})
+          </h1>
+          <p className="restaurant-details">
+            <i className="fa-solid fa-star" />
+            &nbsp;{" "}
+            <b>
+              {restaurant?.starRating} ({restaurant?.numReviews} ratings)
+            </b>
+          </p>
         </div>
-        <div className="cat-section">
-          {Object.keys(categories).map((category) => {
-            return (
-              <ItemList
-                key={category}
-                category={category}
-                items={categories[category]}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className="reviews-section">
-        <h2 className="review-title">Reviews</h2>
-        {!hasLeftReview && hasOrdered && (
-          <OpenModalButton
-            className="leave-review-button"
-            buttonText="Leave a Review"
-            modalComponent={
-              <ReviewModal
-                restaurantId={restaurant.id}
-                onClose={() => setModalContent(null)}
-              />
-            }
-          />
+        {restaurant?.ownerId == user?.id && (
+          <NavLink to={`/${restaurant.id}/manage`}>Update Restaurant</NavLink>
         )}
-        <ul className="reviews-list">
-          {reviewsArray.map((review) => (
-            <li key={review.id} className="review-item">
-              <p className="review-name">
-                {review.firstname} {review.lastname.charAt(0)}.
-              </p>
-              <p className="review-time">
-                {calculateTimeAgo(review.createdAt)} ago
-              </p>
-              <p className="review-rating">{review.stars} Stars</p>
-              <p className="review-content">{review.review}</p>
-              {user.id === review.userId && (
-                <button
-                  onClick={() => handleEditReview(review)}
-                  className="edit-review-button"
+        <div className="menu-section">
+          <div className="restaurant-page-cat-div">
+            {Object.keys(categories).map((category) => {
+              return (
+                <span
+                  key={category}
+                  className={`restaurant-page-cat
+									${focusTab === category ? "focus" : ""}`}
+                  onClick={() => scrollToId(category)}
                 >
-                  Edit Your Review
-                </button>
-              )}
-              {user.id === review.userId && (
-                <OpenModalButton
-                  className="delete-review-button"
-                  buttonText="Delete Your Review"
-                  modalComponent={() => (
-                    <div>
-                      <h3>Are you sure to delete this review?</h3>
-                      <button
-                        className="primary"
-                        onClick={() => {
-                          console.log("delete button");
-                          dispatch(deleteReviewById(review.id, restaurantId));
-                          closeModal();
-                        }}
-                      >
-                        Yes
-                      </button>
-                      <button onClick={closeModal}>No</button>
-                    </div>
-                  )}
+                  {category}
+                </span>
+              );
+            })}
+          </div>
+          <div className="cat-section">
+            {Object.keys(categories).map((category) => {
+              return (
+                <ItemList
+                  key={category}
+                  category={category}
+                  items={categories[category]}
                 />
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-
-  else return (
-    <div className="restaurant-page page-container">
-      <div
-        style={{
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className="restaurant-banner skeleton"
-      />
-      <div className="header">
-        <h1 className="restaurant-name skeleton" />
-        <p className="restaurant-details skeleton" />
-      </div>
-      {restaurant?.ownerId == user?.id && (
-        <NavLink to={`/${restaurant.id}/manage`}>Update Restaurant</NavLink>
-      )}
-      <div className="menu-section">
-        <div className="restaurant-page-cat-div">
-          {Array.from({length: 5}, (_, i) => i + 1).map(i => {
-            return (
-              <span
-                key={i}
-                className={`restaurant-page-cat`}>
-                <div className="cat-name skeleton"></div>
-              </span>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-        <div className="cat-section">
-          {Array.from({length: 5}, (_, i) => i + 1).map((i) => {
-            return (
-              <ItemList
-                key={i}
-                skeleton={true}
-              />
-            );
-          })}
+        <div className="reviews-section">
+          <h2 className="review-title">Reviews</h2>
+          {!hasLeftReview && hasOrdered && (
+            <OpenModalButton
+              className="leave-review-button"
+              buttonText="Leave a Review"
+              modalComponent={
+                <ReviewModal
+                  restaurantId={restaurant.id}
+                  onClose={() => setModalContent(null)}
+                />
+              }
+            />
+          )}
+          <ul className="reviews-list">
+            {reviewsArray.map((review) => (
+              <li key={review.id} className="review-item">
+                <p className="review-name">
+                  {review.firstname} {review.lastname.charAt(0)}.
+                </p>
+                <p className="review-time">
+                  {calculateTimeAgo(review.createdAt)} ago
+                </p>
+                <p className="review-rating">{review.stars} Stars</p>
+                <p className="review-content">{review.review}</p>
+                {user.id === review.userId && (
+                  <button
+                    onClick={() => handleEditReview(review)}
+                    className="edit-review-button"
+                  >
+                    Edit Your Review
+                  </button>
+                )}
+                {user.id === review.userId && (
+                  <OpenModalButton
+                    className="delete-review-button"
+                    buttonText="Delete Your Review"
+                    modalComponent={() => (
+                      <div>
+                        <h3>Are you sure to delete this review?</h3>
+                        <button
+                          className="primary"
+                          onClick={() => {
+                            console.log("delete button");
+                            dispatch(deleteReviewById(review.id, restaurantId));
+                            closeModal();
+                          }}
+                        >
+                          Yes
+                        </button>
+                        <button onClick={closeModal}>No</button>
+                      </div>
+                    )}
+                  />
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-    </div>
-  )
+    );
+  else
+    return (
+      <div className="restaurant-page page-container">
+        <div
+          style={{
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          className="restaurant-banner skeleton"
+        />
+        <div className="header">
+          <h1 className="restaurant-name skeleton" />
+          <p className="restaurant-details skeleton" />
+        </div>
+        {restaurant?.ownerId == user?.id && (
+          <NavLink to={`/${restaurant.id}/manage`}>Update Restaurant</NavLink>
+        )}
+        <div className="menu-section">
+          <div className="restaurant-page-cat-div">
+            {Array.from({ length: 5 }, (_, i) => i + 1).map((i) => {
+              return (
+                <span key={i} className={`restaurant-page-cat`}>
+                  <div className="cat-name skeleton"></div>
+                </span>
+              );
+            })}
+          </div>
+          <div className="cat-section">
+            {Array.from({ length: 5 }, (_, i) => i + 1).map((i) => {
+              return <ItemList key={i} skeleton={true} />;
+            })}
+          </div>
+        </div>
+      </div>
+    );
 };
 
 export default RestaurantDetails;
