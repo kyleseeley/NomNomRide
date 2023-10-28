@@ -114,10 +114,10 @@ const RestaurantDetails = () => {
               {restaurant?.starRating} ({restaurant?.numReviews} ratings)
             </b>
           </p>
+          {restaurant?.ownerId == user?.id && (
+            <NavLink to={`/${restaurant.id}/manage`} className='details-update-restaurant-link'>Update Restaurant</NavLink>
+          )}
         </div>
-        {restaurant?.ownerId == user?.id && (
-          <NavLink to={`/${restaurant.id}/manage`}>Update Restaurant</NavLink>
-        )}
         <div className="menu-section">
           <div className="restaurant-page-cat-div">
             {Object.keys(categories).map((category) => {
@@ -161,16 +161,16 @@ const RestaurantDetails = () => {
           )}
           <ul className="reviews-list">
             {reviewsArray.map((review) => (
-              <li key={review.id} className="review-item">
+              <li key={review?.id} className="review-item">
                 <p className="review-name">
-                  {review.firstname} {review.lastname.charAt(0)}.
+                  {review?.firstname} {review?.lastname.charAt(0)}.
                 </p>
                 <p className="review-time">
-                  {calculateTimeAgo(review.createdAt)} ago
+                  {calculateTimeAgo(review?.createdAt)} ago
                 </p>
-                <p className="review-rating">{review.stars} Stars</p>
-                <p className="review-content">{review.review}</p>
-                {user.id === review.userId && (
+                <p className="review-rating">{review?.stars} Stars</p>
+                <p className="review-content">{review?.review}</p>
+                {user?.id === review?.userId && (
                   <button
                     onClick={() => handleEditReview(review)}
                     className="edit-review-button"
@@ -178,7 +178,7 @@ const RestaurantDetails = () => {
                     Edit Your Review
                   </button>
                 )}
-                {user.id === review.userId && (
+                {user?.id === review?.userId && (
                   <OpenModalButton
                     className="delete-review-button"
                     buttonText="Delete Your Review"
@@ -188,7 +188,7 @@ const RestaurantDetails = () => {
                         <button
                           className="primary"
                           onClick={() => {
-                            dispatch(deleteReviewById(review.id, restaurantId));
+                            dispatch(deleteReviewById(review?.id, restaurantId));
                             closeModal();
                           }}
                         >

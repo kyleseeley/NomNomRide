@@ -138,7 +138,7 @@ const MenuItemForm = () => {
                     }}
                   />
                   {nameError !== null && (
-                    <div className="error">{nameError}</div>
+                    <div className="error=msg">{nameError}</div>
                   )}
                 </td>
               </tr>
@@ -184,7 +184,7 @@ const MenuItemForm = () => {
                     }}
                   />
                   {priceError !== null && (
-                    <div className="error">{priceError}</div>
+                    <div className="error=msg">{priceError}</div>
                   )}
                 </td>
               </tr>
@@ -203,7 +203,7 @@ const MenuItemForm = () => {
                     }}
                   />
                   {descriptionError !== null && (
-                    <div className="error">{descriptionError}</div>
+                    <div className="error=msg">{descriptionError}</div>
                   )}
                 </td>
               </tr>

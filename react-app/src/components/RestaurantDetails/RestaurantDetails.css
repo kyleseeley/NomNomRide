@@ -50,6 +50,21 @@
   font-size: 0.8rem;
 }
 
+.details-update-restaurant-link {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  background-color: #CCCCCC;
+  width: fit-content;
+  padding: 0.7rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+
+.details-update-restaurant-link:hover {
+  background-color: #999999;
+}
+
 .restaurant-page-cat-div {
   display: flex;
   flex-direction: column;
