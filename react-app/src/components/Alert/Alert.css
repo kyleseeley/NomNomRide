@@ -1,14 +1,6 @@
 /* Css animation */
 /* https://stackoverflow.com/questions/42733986/how-to-wait-and-fade-an-element-out */
 
-.alert-container.show {
-  opacity: 1;
-}
-
-.alert-container.hide {
-  opacity: 0;
-}
-
 .alert-container {
   transition: all 250ms linear; /*  the last value defines transition-delay */
   display: flex;

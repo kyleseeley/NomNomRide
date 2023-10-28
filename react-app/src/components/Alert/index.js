@@ -21,10 +21,10 @@ const Alert = () => {
 
   const shouldDisplay = message !== null;
   return (
-    <div className={`alert-container ${shouldDisplay ? "show" : "hide"}`}>
+    <div className={`alert-container ${shouldDisplay ? "" : "hidden"}`}>
       <div className="alert">
         <div>
-          <i className="fa-solid fa-circle-check check-icon"></i>
+          <i class="fa-solid fa-circle-check check-icon"></i>
         </div>
         <div>{message}</div>
         <div>
@@ -32,7 +32,7 @@ const Alert = () => {
             className="icon-button"
             onClick={() => dispatch(dismissAlert())}
           >
-            <i className="fa-solid fa-xmark"></i>
+            <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
       </div>
