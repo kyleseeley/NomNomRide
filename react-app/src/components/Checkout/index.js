@@ -5,7 +5,7 @@ import { getCartThunk } from "../../store/cart";
 import { deleteCartThunk } from "../../store/cart";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./Checkout.css";
-import Toast from "./Toast";
+import Toast from "./toast";
 
 const Checkout = () => {
   const dispatch = useDispatch();

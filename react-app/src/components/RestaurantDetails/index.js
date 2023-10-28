@@ -198,7 +198,6 @@ const RestaurantDetails = () => {
                         <button
                           className="primary"
                           onClick={() => {
-                            console.log("delete button");
                             dispatch(
                               deleteReviewById(review?.id, restaurantId)
                             );
