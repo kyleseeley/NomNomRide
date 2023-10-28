@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
+from flask_googlemaps import GoogleMaps
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
@@ -14,6 +15,7 @@ from .api.review_routes import review_routes
 from .api.shoppingCart_routes import shoppingCart_routes
 from .api.shoppingCartItem_routes import cartItem_routes
 from .api.session_routes import session_routes
+from .api.map_routes import map_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -41,6 +43,8 @@ app.register_blueprint(items_routes, url_prefix='/api/items')
 app.register_blueprint(shoppingCart_routes, url_prefix='/api/shopping-cart')
 app.register_blueprint(cartItem_routes, url_prefix='/api/shopping-cart-items')
 app.register_blueprint(session_routes, url_prefix='/api/session')
+app.register_blueprint(map_routes, url_prefix='/api/maps')
+
 db.init_app(app)
 Migrate(app, db)
 

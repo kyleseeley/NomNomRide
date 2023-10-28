@@ -26,6 +26,7 @@ python-editor = "==1.0.4"
 Mako = "==1.2.4"
 greenlet = "==2.0.1"
 stripe = "==7.0.0"
+flask-googlemaps = "==0.4.1"
 
 [dev-packages]
 
