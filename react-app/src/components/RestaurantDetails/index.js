@@ -33,13 +33,7 @@ const RestaurantDetails = () => {
   const hasLeftReview =
     user &&
     reviewsArray.some((review) => {
-<<<<<<< HEAD
       return review.userId === user.id && review.restaurantId === restaurant?.id;
-=======
-      return (
-        review.userId === user.id && review.restaurantId === restaurant?.id
-      );
->>>>>>> acecb7420388fb8d35353ea223cb0281f8ccad93
     });
 
   const hasOrdered =
@@ -97,13 +91,8 @@ const RestaurantDetails = () => {
   const handleEditReview = (review) => {
     setModalContent(
       <ReviewModal
-<<<<<<< HEAD
         restaurantId={restaurant?.id}
         editReview={review} // Pass the review data to edit
-=======
-        restaurantId={restaurant.id}
-        editReview={review}
->>>>>>> acecb7420388fb8d35353ea223cb0281f8ccad93
         onClose={() => setModalContent(null)}
       />
     );
