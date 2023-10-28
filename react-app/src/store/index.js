@@ -5,6 +5,7 @@ import menuItemsReducer from "./menuItems";
 import sessionReducer from "./session";
 import cartReducer from "./cart";
 import reviewReducer from "./reviews";
+import alertReducer from "./alert";
 // import shoppingCartItemReducer from './shoppingCartItems';
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   menuItems: menuItemsReducer,
   reviews: reviewReducer,
   cart: cartReducer,
+  alert: alertReducer,
   // shoppingCartItems: shoppingCartItemsReducer
 });
 

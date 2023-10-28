@@ -19,7 +19,6 @@ const RestaurantManagement = () => {
   const history = useHistory();
   const isMatchedItems =
     useRouteMatch({ path: "/:restaurantId/manage/items" }) !== null;
-  console.log("isMatchedItems", isMatchedItems);
   const restaurant = useSelector((state) => {
     return state.restaurant[restaurantId];
   });
@@ -38,7 +37,7 @@ const RestaurantManagement = () => {
     return <div className="page-container container-padding">loading...</div>;
   return (
     <div className="page-container container-padding">
-      <h1>Manage your restaurant {restaurant.name}</h1>
+      <h1>Manage your restaurant "{restaurant.name}"</h1>
       <tabs value={value} onChange={handleChange} centered>
         <tab className={isMatchedItems ? "" : "active"}>
           <button

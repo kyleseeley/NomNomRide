@@ -1,3 +1,11 @@
+.manage-item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.manage-item-container a{
+  text-decoration: unset;
+}
 .manage-item-container th {
   text-align: left;
 }
@@ -11,9 +19,4 @@ th {
 
 .manage-item-container tr:nth-child(even) {
   background-color: #dddddd;
-}
-.manage-item-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
