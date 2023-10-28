@@ -40,10 +40,12 @@ const MenuItemForm = () => {
   }, [item]);
   useEffect(() => {
     setIsSubmitDisabled(nameError || priceError || descriptionError);
-  }, [nameError, priceError, descriptionError]);
+  }, [name, nameError, price, priceError, description, descriptionError]);
 
   useEffect(() => {
-    setIsSubmitDisabled(true);
+    if (item === undefined) {
+      setIsSubmitDisabled(true);
+    }
   }, []);
 
   const typeList = ["Entrees", "Side Dish", "Appetizer", "Dessert"];
@@ -125,7 +127,6 @@ const MenuItemForm = () => {
     <div className="page-container">
       <div className="login-form-container">
         <div className=" form-wrapper">
-
           {itemId === undefined && <h1>Create New Item</h1>}
           {itemId !== undefined && <h1>Edit Item</h1>}
           <table>
@@ -233,7 +234,6 @@ const MenuItemForm = () => {
               disabled={isSubmitDisabled}
               onClick={submitHandler}
             >
-
               Submit
             </button>
           </div>
