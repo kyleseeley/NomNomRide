@@ -15,6 +15,7 @@ const Checkout = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const cartIdsToDelete = Object.keys(shoppingCart);
+  console.log("shoppingCart", shoppingCart);
 
   useEffect(() => {
     dispatch(getCartThunk());
@@ -67,7 +68,17 @@ const Checkout = () => {
           <div key={item.cart.id} className="checkout-item">
             {item.items.map((cartItem) => (
               <div key={cartItem.id}>
+                {/* <p className="restaurant-name">{item.restaurant.name}</p>
                 <p className="item-name">{cartItem.name}</p>
+                <p className="item-quantity">Quantity: {cartItem.quantity}</p>
+                <p className="item-price">
+                  Price: $
+                  {parseFloat(cartItem.quantity * cartItem.price).toFixed(2)}
+                </p> */}
+                <div className="item-details">
+                  <p className="restaurant-name">{item.restaurant.name}</p>
+                  <p className="item-name">{cartItem.name}</p>
+                </div>
                 <p className="item-quantity">Quantity: {cartItem.quantity}</p>
                 <p className="item-price">
                   Price: $

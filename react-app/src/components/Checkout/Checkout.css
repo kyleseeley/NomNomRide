@@ -13,7 +13,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  margin: 1px;
+  padding: 1px;
 }
 
 .checkout-item {
@@ -21,19 +22,36 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  text-align: center;
 }
 
-.item-name {
-  font-weight: bold;
+.item-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .item-quantity,
 .item-price {
   display: inline-block;
-  margin: 5px 10px;
+  margin: 0 10px;
+  padding-bottom: 3px;
 }
 
-total-cost {
+.restaurant-name {
+  font-weight: bold !important;
+  text-align: center;
+  padding: 3px;
+  margin: 0;
+}
+
+.item-name {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.total-cost {
   font-size: 20px;
   margin: 20px;
 }

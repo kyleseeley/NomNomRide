@@ -195,18 +195,22 @@ const RestaurantDetails = () => {
                     modalComponent={() => (
                       <div>
                         <h3>Are you sure to delete this review?</h3>
-                        <button
-                          className="primary"
-                          onClick={() => {
-                            dispatch(
-                              deleteReviewById(review?.id, restaurantId)
-                            );
-                            closeModal();
-                          }}
-                        >
-                          Yes
-                        </button>
-                        <button onClick={closeModal}>No</button>
+                        <div className="button-container">
+                          <button
+                            className="yes-button"
+                            onClick={() => {
+                              dispatch(
+                                deleteReviewById(review?.id, restaurantId)
+                              );
+                              closeModal();
+                            }}
+                          >
+                            Yes
+                          </button>
+                          <button className="no-button" onClick={closeModal}>
+                            No
+                          </button>
+                        </div>
                       </div>
                     )}
                   />
