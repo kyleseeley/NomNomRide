@@ -13,32 +13,32 @@ import "./index.css";
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
-	window.store = store;
-	window.sessionActions = sessionActions;
+  window.store = store;
+  window.sessionActions = sessionActions;
 }
 
 // Wrap the application with the Modal provider and render the Modal component
 // after the App component so that all the Modal content will be layered as
 // HTML elements on top of the all the other HTML elements:
 function Root() {
-	return (
-		<ModalProvider>
-			<SidebarProvider>
-					<Provider store={store}>
-						<BrowserRouter>
-							<App />
-							<Sidebar />
-							<Modal />
-						</BrowserRouter>
-					</Provider>
-			</SidebarProvider>
-		</ModalProvider>
-	);
+  return (
+    <ModalProvider>
+      <SidebarProvider>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+            <Sidebar />
+            <Modal />
+          </BrowserRouter>
+        </Provider>
+      </SidebarProvider>
+    </ModalProvider>
+  );
 }
 
 ReactDOM.render(
-	<React.StrictMode>
-		<Root />
-	</React.StrictMode>,
-	document.getElementById("root")
+  <React.StrictMode>
+    <Root />
+  </React.StrictMode>,
+  document.getElementById("root")
 );

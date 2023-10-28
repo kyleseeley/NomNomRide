@@ -28,11 +28,12 @@ const RestaurantDetails = () => {
     : [];
   const { setModalContent } = useModal();
 
-
   const hasLeftReview =
     user &&
     reviewsArray.some((review) => {
-      return review.userId === user.id && review.restaurantId === restaurant.id;
+      return (
+        review.userId === user.id && review.restaurantId === restaurant?.id
+      );
     });
 
   const hasOrdered =
@@ -44,13 +45,13 @@ const RestaurantDetails = () => {
     window.scroll(0, 0);
     dispatch(fetchOneRestaurant(restaurantId))
       .then(() => dispatch(fetchMenuItemsThunk(restaurantId)))
-      .then(menuItems => {
-        const tempCat = {}
+      .then((menuItems) => {
+        const tempCat = {};
         for (const item of menuItems) {
           if (!tempCat[item.type]) tempCat[item.type] = [item];
           else tempCat[item.type] = [...tempCat[item.type], item];
         }
-        setCategories(tempCat)
+        setCategories(tempCat);
       })
       .then(dispatch(fetchReviews(restaurantId)))
       .then(dispatch(fetchUserOrders()))
@@ -90,7 +91,7 @@ const RestaurantDetails = () => {
     setModalContent(
       <ReviewModal
         restaurantId={restaurant.id}
-        editReview={review} // Pass the review data to edit
+        editReview={review}
         onClose={() => setModalContent(null)}
       />
     );
@@ -119,7 +120,12 @@ const RestaurantDetails = () => {
             </b>
           </p>
           {restaurant?.ownerId == user?.id && (
-            <NavLink to={`/${restaurant.id}/manage`} className='details-update-restaurant-link'>Update Restaurant</NavLink>
+            <NavLink
+              to={`/${restaurant.id}/manage`}
+              className="details-update-restaurant-link"
+            >
+              Update Restaurant
+            </NavLink>
           )}
         </div>
         <div className="menu-section">
@@ -192,7 +198,10 @@ const RestaurantDetails = () => {
                         <button
                           className="primary"
                           onClick={() => {
-                            dispatch(deleteReviewById(review?.id, restaurantId));
+                            console.log("delete button");
+                            dispatch(
+                              deleteReviewById(review?.id, restaurantId)
+                            );
                             closeModal();
                           }}
                         >

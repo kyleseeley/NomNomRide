@@ -2,31 +2,46 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { placeUserOrder } from "../../store/session";
 import { getCartThunk } from "../../store/cart";
-import {
-  Redirect,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { deleteCartThunk } from "../../store/cart";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./Checkout.css";
+import Toast from "./Toast";
 
 const Checkout = () => {
   const dispatch = useDispatch();
   const shoppingCart = useSelector((state) => state.cart);
   const history = useHistory();
-  console.log("shoppingCart", shoppingCart);
+  const user = useSelector((state) => state.session.user);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const cartIdsToDelete = Object.keys(shoppingCart);
 
   useEffect(() => {
     dispatch(getCartThunk());
   }, [dispatch]);
 
-  const handleCheckout = () => {
-    const restaurantId = shoppingCart.restaurantId;
-    const userId = shoppingCart.userId;
-    const cartItems = shoppingCart.items;
+  const displayToast = (message) => {
+    setToastMessage(message);
+    setShowToast(true);
 
-    if (!restaurantId || !userId || !cartItems || cartItems.length === 0) {
-      // Handle invalid data or show an error message to the user
-      return;
+    setTimeout(() => {
+      setShowToast(false);
+      setToastMessage("");
+    }, 3000);
+  };
+
+  const getTotal = () => {
+    let total = 0;
+    for (const cart of Object.values(shoppingCart)) {
+      total += parseFloat(cart.cart.total);
     }
+    return total.toFixed(2);
+  };
+
+  const handleCheckout = () => {
+    const restaurantId = shoppingCart[1].cart.restaurantId;
+    const userId = user.id;
+    const cartItems = shoppingCart[1].items;
 
     const orderData = {
       restaurantId,
@@ -34,15 +49,14 @@ const Checkout = () => {
       items: cartItems,
     };
 
-    dispatch(placeUserOrder(orderData)).then((response) => {
-      if (!response.error) {
-        // Handle successful order placement
-        history.push("/"); // Redirect to the homepage or another page
-      } else {
-        // Handle errors or display error messages
-        // You can update your Redux store with error information if needed
-      }
+    dispatch(placeUserOrder(orderData));
+    displayToast("Order placed successfully!");
+    cartIdsToDelete.forEach((cartId) => {
+      dispatch(deleteCartThunk(cartId));
     });
+    setTimeout(() => {
+      history.push("/");
+    }, 3000);
   };
 
   return (
@@ -51,18 +65,30 @@ const Checkout = () => {
       <div className="items-list">
         {Object.values(shoppingCart).map((item) => (
           <div key={item.cart.id} className="checkout-item">
-            <p className="item-name">{item.items[0].name}</p>
-            <p className="item-quantity">Quantity: {item.items[0].quantity}</p>
-            <p className="item-price">
-              Price: ${parseFloat(item.items[0].price).toFixed(2)}
-            </p>
-            <p className="total-cost">Total: ${item.cart.total}</p>
+            {item.items.map((cartItem) => (
+              <div key={cartItem.id}>
+                <p className="item-name">{cartItem.name}</p>
+                <p className="item-quantity">Quantity: {cartItem.quantity}</p>
+                <p className="item-price">
+                  Price: $
+                  {parseFloat(cartItem.quantity * cartItem.price).toFixed(2)}
+                </p>
+              </div>
+            ))}
           </div>
         ))}
+        {shoppingCart[1] && <p className="total-cost">Total: ${getTotal()}</p>}
       </div>
       <button className="checkout-button" onClick={handleCheckout}>
         Place Order
       </button>
+      {showToast && (
+        <Toast
+          message={toastMessage}
+          type="success"
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </div>
   );
 };

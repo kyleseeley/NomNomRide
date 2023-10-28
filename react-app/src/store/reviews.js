@@ -71,6 +71,7 @@ export const createNewReview = (reviewData) => async (dispatch) => {
     }
 
     const responseData = await response.json();
+    console.log("create review");
     dispatch(createReview(responseData.review));
     dispatch(fetchReviews(responseData.restaurantId));
   } catch (error) {
@@ -117,7 +118,7 @@ export const deleteReviewById =
       if (!response.ok) {
         throw new Error("Error deleting review");
       }
-
+      console.log("delete redux");
       dispatch(deleteReview(reviewId));
       dispatch(fetchReviews(restaurantId));
 
@@ -152,14 +153,6 @@ const reviewReducer = (state = initialState, action) => {
         ...newState,
         [restaurantId]: reviews,
       };
-    // newState[restaurantId] = { ...newState[restaurantId] };
-    // reviews.forEach((review) => {
-    //   newState[restaurantId][review.id] = review;
-    // });
-    // action.reviews.forEach((review) => {
-    //   newState[review.id] = review;
-    // });
-    // return newState;
     case CREATE_REVIEW:
       newState[action.review.id] = action.review;
       return newState;
