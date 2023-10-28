@@ -19,7 +19,6 @@ const RestaurantDetails = () => {
   const restaurant = useSelector((state) => state.restaurant[restaurantId]);
   const user = useSelector((state) => state.session.user);
   const orders = useSelector((state) => state.session.orders);
-  const restaurantItems = useSelector((state) => state.menuItems);
   const restaurantReviews = useSelector((state) => state.reviews[restaurantId]);
   const [focusTab, setFocusTab] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -224,9 +223,6 @@ const RestaurantDetails = () => {
           <h1 className="restaurant-name-details skeleton" />
           <p className="restaurant-details skeleton" />
         </div>
-        {restaurant?.ownerId == user?.id && (
-          <NavLink to={`/${restaurant.id}/manage`}>Update Restaurant</NavLink>
-        )}
         <div className="menu-section">
           <div className="restaurant-page-cat-div">
             {Array.from({ length: 5 }, (_, i) => i + 1).map((i) => {
