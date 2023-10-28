@@ -26,6 +26,8 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
     }
   }, [carts])
 
+  useEffect(() => setRefresh(true), [isCartVisible])
+
   useEffect(() => {
     setNumItems(cart?.items ? cart?.items.length : 0)
   }, [cart])
@@ -67,6 +69,7 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
   const switchCarts = (id) => {
     setCart(carts[id])
     setShowCarts(false)
+    setRefresh(true)
   }
 
   const handleAddItems = () => {
