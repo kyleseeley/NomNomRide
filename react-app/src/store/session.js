@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const SET_ORDERS = "session/SET_ORDERS";
+const PLACE_ORDER = "session/PLACE_ORDER";
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -17,6 +18,11 @@ const removeUser = () => ({
 const setOrders = (orders) => ({
   type: SET_ORDERS,
   payload: orders,
+});
+
+const placeOrder = (order) => ({
+  type: PLACE_ORDER,
+  payload: order,
 });
 
 const initialState = { user: null, orders: {} };
@@ -168,6 +174,27 @@ export const fetchUserOrders = () => async (dispatch) => {
   }
 };
 
+export const placeUserOrder = (orderData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch("/api/session/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      dispatch(placeOrder(responseData));
+    } else {
+      console.error("Error placing the order");
+    }
+  } catch (error) {
+    console.error("Error placing the order", error);
+  }
+};
+
 export default function sessionReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
@@ -176,6 +203,8 @@ export default function sessionReducer(state = initialState, action) {
       return { user: null };
     case SET_ORDERS:
       return { ...state, orders: action.payload };
+    case PLACE_ORDER:
+      return { ...state, order: action.payload };
     default:
       return state;
   }
