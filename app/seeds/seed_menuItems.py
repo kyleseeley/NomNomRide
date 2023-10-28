@@ -76,14 +76,6 @@ def seed_menuItems():
         description="Food",
         image="https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvMzllMTJjODlhNzE2ZWEyYmYwNzE1MTM0MTBjYWE0Y2UvYTE5YmIwOTY5MjMxMGRmZDQxZTQ5YTk2YzQyNGIzYTYuanBlZw=="
     )
-    menuItem9 = MenuItem(
-        restaurantId=1,
-        name="Quesadilla",
-        type="Entrees",
-        price=13.2,
-        description="Food",
-        image="https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvNzdlMmIwNTkyZDY2ZDJkZGU3NTE3ZmU3MGViNDJkY2YvYTE5YmIwOTY5MjMxMGRmZDQxZTQ5YTk2YzQyNGIzYTYuanBlZw=="
-    )
     menuItem10 = MenuItem(
         restaurantId=1,
         name="One Taco",
@@ -100,6 +92,54 @@ def seed_menuItems():
         description="Food",
         image="https://cn-geo1.uber.com/image-proc/resize/eats/format=webp/width=550/height=440/quality=70/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC9pbWFnZS1wcm9jL3Byb2Nlc3NlZF9pbWFnZXMvM2Q5ZTAzNGEzMDZhZTVjOGIzN2E0ZTM3MGMyYzdkYzMvYTE5YmIwOTY5MjMxMGRmZDQxZTQ5YTk2YzQyNGIzYTYuanBlZw=="
     )
+    menuItem12 = MenuItem(
+        restaurantId=1,
+        name="Red Pork Asado Plate",
+        type="Entrees",
+        price=18,
+        description="Food",
+        image="https://muybuenoblog.com/wp-content/uploads/2020/09/Asado-de-Chile-Colorado.jpg"
+    )
+    menuItem13 = MenuItem(
+        restaurantId=1,
+        name="Ground Beef Enchiladas",
+        type="Entrees",
+        price=23.99,
+        description="Food",
+        image="https://www.yellowblissroad.com/wp-content/uploads/2020/02/Ground-Beef-Enchiladas-social.jpg"
+    )
+    menuItem14 = MenuItem(
+        restaurantId=1,
+        name="Tangy Mexican Slaw",
+        type="Side Dish",
+        price=5.99,
+        description="Food",
+        image="https://insanelygoodrecipes.com/wp-content/uploads/2020/07/Mexican-Coleslaw.webp"
+    )
+    menuItem15 = MenuItem(
+        restaurantId=1,
+        name="Cinco De Mayo",
+        type="Appetizer",
+        price=8.99,
+        description="Food",
+        image="https://hips.hearstapps.com/hmg-prod/images/mexican-appetizers-red-salsa-1585333053.jpg"
+    )
+    menuItem16 = MenuItem(
+        restaurantId=1,
+        name="Banana Split",
+        type="Appetizer",
+        price=9,
+        description="Food",
+        image="https://www.twopeasandtheirpod.com/wp-content/uploads/2021/07/banana-split-10-650x975.jpg"
+    )
+    menuItem17 = MenuItem(
+        restaurantId=1,
+        name="Pork Tacos with Mango Salsa",
+        type="Entrees",
+        price=10.89,
+        description="Food",
+        image="https://www.tasteofhome.com/wp-content/uploads/2018/01/Pork-Tacos-with-Mango-Salsa_EXPS_SDDJ17_198169_B08_11_3b-1.jpg"
+    )
 
     db.session.add(menuItem1)
     db.session.add(menuItem2)
@@ -112,6 +152,12 @@ def seed_menuItems():
     db.session.add(menuItem9)
     db.session.add(menuItem10)
     db.session.add(menuItem11)
+    db.session.add(menuItem12)
+    db.session.add(menuItem13)
+    db.session.add(menuItem14)
+    db.session.add(menuItem15)
+    db.session.add(menuItem16)
+    db.session.add(menuItem17)
     db.session.commit()
 
 

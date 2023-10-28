@@ -331,7 +331,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                     setLat(e.target.value);
                   }}
                   onKeyDown={(e) => {
-                    const invalidChars = ["-", "+", "e"];
+                    const invalidChars = ["+", "e"];
                     if (invalidChars.includes(e.key)) {
                       e.preventDefault();
                     }
@@ -355,7 +355,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                     setLng(e.target.value);
                   }}
                   onKeyDown={(e) => {
-                    const invalidChars = ["-", "+", "e"];
+                    const invalidChars = ["+", "e"];
                     if (invalidChars.includes(e.key)) {
                       e.preventDefault();
                     }
