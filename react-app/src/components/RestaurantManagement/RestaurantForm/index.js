@@ -43,7 +43,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
   const [typeError, setTypeError] = useState(null);
   const [image, setImage] = useState(restaurant?.image || "");
   const [imageError, setImageError] = useState(null);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 

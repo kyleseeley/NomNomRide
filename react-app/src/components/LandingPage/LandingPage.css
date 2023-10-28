@@ -24,12 +24,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  overflow-x: scroll;
 }
-
-/* .landing-main::-webkit-scrollbar {
-  display: none;
-} */
 
 .landing-header {
   min-width: 15rem;

@@ -33,15 +33,15 @@ const Checkout = () => {
   const getTotal = () => {
     let total = 0;
     for (const cart of Object.values(shoppingCart)) {
-      total += parseFloat(cart.cart.total);
+      total += parseFloat(cart?.cart?.total);
     }
     return total.toFixed(2);
   };
 
   const handleCheckout = () => {
-    const restaurantId = shoppingCart[1].cart.restaurantId;
-    const userId = user.id;
-    const cartItems = shoppingCart[1].items;
+    const restaurantId = shoppingCart[1]?.cart?.restaurantId;
+    const userId = user?.id;
+    const cartItems = shoppingCart[1]?.items;
 
     const orderData = {
       restaurantId,
