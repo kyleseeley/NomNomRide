@@ -21,7 +21,7 @@ const MenuItemForm = () => {
   const [description, setDescription] = useState(item?.description || "");
   const [descriptionError, setDescriptionError] = useState(null);
   const [image, setImage] = useState(item?.image || "");
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -38,9 +38,10 @@ const MenuItemForm = () => {
       setImage(item.image);
     }
   }, [item]);
-  // useEffect(() => {
-  //   setIsSubmitDisabled(nameError || priceError || descriptionError);
-  // }, [name, nameError, price, priceError, description, descriptionError]);
+  
+  useEffect(() => {
+    setIsSubmitDisabled(nameError || priceError || descriptionError);
+  }, [name, price, description, nameError, priceError, descriptionError]);
 
   useEffect(() => {
     if (item === undefined) {
@@ -53,9 +54,9 @@ const MenuItemForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    nameInputValidation();
-    priceInputValidation();
-    descriptionInputValidation();
+    nameInputValidation(name);
+    priceInputValidation(price);
+    descriptionInputValidation(description);
 
     if (nameError || priceError || descriptionError) {
       return;
@@ -95,6 +96,7 @@ const MenuItemForm = () => {
 
   const nameInputValidation = (checkName) => {
     if ( checkName=== undefined || checkName.length === 0) {
+      console.log("test", nameError)
       setNameError("Name is required.");
     } else if (checkName.length > 255) {
       setNameError("Name is too long.");
@@ -139,6 +141,7 @@ const MenuItemForm = () => {
                   type="text"
                   value={name}
                   onChange={(e) => {
+                    console.log(nameError)
                     setName(e.target.value);
                     nameInputValidation(e.target.value);
                   }}
