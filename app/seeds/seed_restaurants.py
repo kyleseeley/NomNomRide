@@ -14,8 +14,8 @@ def seed_restaurants():
         name="Chipotle",
         type="Mexican",
         image="https://www.godairyfree.org/wp-content/uploads/2007/10/fast-food-chipotle.jpg",
-        starRating=4.3,
-        numReviews=7,
+        starRating=4,
+        numReviews=2,
     )
     outback = Restaurant(
         ownerId=2,
@@ -27,8 +27,8 @@ def seed_restaurants():
         name="Outback",
         type="American",
         image="https://www.sheknows.com/wp-content/uploads/2018/08/lb4x7ie5udr8uaz9kb3r.jpeg",
-        starRating=3.1,
-        numReviews=5,
+        starRating=2.5,
+        numReviews=2,
     )
     culvers = Restaurant(
         ownerId=3,
@@ -40,8 +40,8 @@ def seed_restaurants():
         name="Culvers",
         type="Fast Food",
         image="https://static.olocdn.net/img/culvers/hero/mobile.png?v=1697229916",
-        starRating=4.8,
-        numReviews=3,
+        starRating=2,
+        numReviews=1,
     )
     buffaloWildWings = Restaurant(
         ownerId=1,
@@ -53,8 +53,8 @@ def seed_restaurants():
         name="Buffalo Wild Wings",
         type="American",
         image="https://people.com/thmb/M1feAS2jkiGHy4VB1l0_IqefA0E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(719x571:721x573)/buffalo-wild-wings-246f6cd2919f4d0a905f833ec1fd5326.jpg",
-        starRating=3.2,
-        numReviews=9,
+        starRating=0,
+        numReviews=0,
     )
     pandaExpress = Restaurant(
         ownerId=2,
@@ -66,15 +66,100 @@ def seed_restaurants():
         name="Panda Express",
         type="Chinese",
         image="https://www.mashed.com/img/gallery/panda-express-may-have-a-new-chicken-offering-on-the-menu-soon/l-intro-1660604759.jpg",
-        starRating=2.9,
-        numReviews=3,
+        starRating=0,
+        numReviews=0,
     )
-
+    haiDiLao = Restaurant(
+        ownerId=1,
+        address='19409 Stevens Creek Blvd Ste 100',
+        city='Cupertino',
+        state='CA',
+        lat=46,
+        lng=20,
+        name="Haidilao Hot Pot",
+        type="Chinese",
+        image="https://cdn-global-website.superhi-cdn.com/website/image/1bfea7382f71452786000a0e6539055a-483-533.png",
+        starRating=0,
+        numReviews=0,
+    )
+    mcDonald= Restaurant(
+        ownerId=1,
+        address='327 S Canal',
+        city='Carlsbad',
+        state='NM',
+        lat=0,
+        lng=23,
+        name="McDonald's",
+        type="American",
+        image="https://m.media-amazon.com/images/I/71kvHIBM2HL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+        starRating=0,
+        numReviews=0,
+    )
+    papaJohnPizza= Restaurant(
+        ownerId=1,
+        address='339724 Cedar Blvd.',
+        city='Fremont',
+        state='CA',
+        lat=-3,
+        lng=25,
+        name="Papa Johns Pizza",
+        type="American",
+        image="https://t3.ftcdn.net/jpg/00/27/57/96/360_F_27579652_tM7V4fZBBw8RLmZo0Bi8WhtO2EosTRFD.jpg",
+        starRating=0,
+        numReviews=0,
+    )
+    anjapparChettinad= Restaurant(
+        ownerId=1,
+        address='777 Lawerence Expy Ste8',
+        city='Santa Clara',
+        state='CA',
+        lat=-20,
+        lng=15,
+        name="Anjappar Chettinad Indian Restaurant",
+        type="Indian",
+        image="https://www.blueosa.com/wp-content/uploads/2020/01/the-best-top-10-indian-dishes.jpg",
+        starRating=0,
+        numReviews=0,
+    )
+    kaiSushi= Restaurant(
+        ownerId=1,
+        address='720 St Michaels Dr,Ste 2M',
+        city='Santa Fe',
+        state='NM',
+        lat=30,
+        lng=10,
+        name="Kai Sushi&Dining",
+        type="Sushi",
+        image="https://www.shutterstock.com/image-photo/assorted-sushi-nigiri-maki-big-260nw-1937661397.jpg",
+        starRating=0,
+        numReviews=0,
+    )
+    oliveGarden= Restaurant(
+        ownerId=3,
+        address='3940 S Lamar Blvd',
+        city='Austin',
+        state='TX',
+        lat=30,
+        lng=42,
+        name="Olive Garden Italian Restaurant",
+        type="Italian",
+        image="https://t3.ftcdn.net/jpg/02/55/53/44/360_F_255534476_n8JzjZtzOFW5g3TXTLMd6QGVnToi6hqj.jpg",
+        starRating=0,
+        numReviews=0,
+    )
     db.session.add(chipotle)
     db.session.add(outback)
     db.session.add(culvers)
     db.session.add(buffaloWildWings)
     db.session.add(pandaExpress)
+    db.session.add(haiDiLao)
+    db.session.add(papaJohnPizza)
+    db.session.add(anjapparChettinad)
+    db.session.add(kaiSushi)
+    db.session.add(oliveGarden)
+
+
+
     db.session.commit()
 
 

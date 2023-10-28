@@ -36,7 +36,6 @@ export const getCartThunk = () => async (dispatch) => {
       for (const data of responseData) {
         formattedCarts[data["cart"]["id"]] = data; // fix? maybe not supposed to be restaurantId
       }
-      console.log("getCart", formattedCarts);
       dispatch(getCart(formattedCarts));
     }
   } else {

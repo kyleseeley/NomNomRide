@@ -43,7 +43,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
   const [typeError, setTypeError] = useState(null);
   const [image, setImage] = useState(restaurant?.image || "");
   const [imageError, setImageError] = useState(null);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -68,7 +68,9 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
   ]);
 
   useEffect(() => {
-    setIsSubmitDisabled(true);
+    if (restaurant === undefined) {
+      setIsSubmitDisabled(true);
+    }
   }, []);
 
   const submitHandler = async (e) => {
@@ -223,6 +225,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
               <td>
                 <label>Name</label>
               </td>
+
               <td>
                 <input
                   type="text"
@@ -328,7 +331,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                     setLat(e.target.value);
                   }}
                   onKeyDown={(e) => {
-                    const invalidChars = ["-", "+", "e"];
+                    const invalidChars = ["+", "e"];
                     if (invalidChars.includes(e.key)) {
                       e.preventDefault();
                     }
@@ -352,7 +355,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                     setLng(e.target.value);
                   }}
                   onKeyDown={(e) => {
-                    const invalidChars = ["-", "+", "e"];
+                    const invalidChars = ["+", "e"];
                     if (invalidChars.includes(e.key)) {
                       e.preventDefault();
                     }

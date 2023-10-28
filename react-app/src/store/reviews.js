@@ -50,7 +50,6 @@ export const fetchReviews = (restaurantId) => async (dispatch) => {
 };
 
 export const createNewReview = (reviewData) => async (dispatch) => {
-  console.log("reviewData", reviewData);
   try {
     const response = await csrfFetch(
       `/api/restaurants/${reviewData.restaurantId}/reviews`,
@@ -65,7 +64,6 @@ export const createNewReview = (reviewData) => async (dispatch) => {
         }),
       }
     );
-    console.log("response", response);
     if (!response.ok) {
       throw new Error("Error creating a new review");
     }
@@ -94,7 +92,6 @@ export const updateUserReview =
       }
 
       const updatedReview = await response.json();
-      console.log("updatedReview", updateReview);
 
       dispatch(updateReview(updatedReview));
       dispatch(fetchReviews(updatedReviewData.restaurantId));
@@ -107,21 +104,16 @@ export const updateUserReview =
 
 export const deleteReviewById =
   (reviewId, restaurantId) => async (dispatch) => {
-    console.log("seeing if there is a response");
     try {
       const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: "DELETE",
       });
-      console.log("response", response);
 
       if (!response.ok) {
         throw new Error("Error deleting review");
       }
-
       dispatch(deleteReview(reviewId));
       dispatch(fetchReviews(restaurantId));
-
-      console.log("review deleted successfully");
     } catch (error) {
       console.log("Error deleting review", error);
     }
@@ -152,14 +144,6 @@ const reviewReducer = (state = initialState, action) => {
         ...newState,
         [restaurantId]: reviews,
       };
-    // newState[restaurantId] = { ...newState[restaurantId] };
-    // reviews.forEach((review) => {
-    //   newState[restaurantId][review.id] = review;
-    // });
-    // action.reviews.forEach((review) => {
-    //   newState[review.id] = review;
-    // });
-    // return newState;
     case CREATE_REVIEW:
       newState[action.review.id] = action.review;
       return newState;
@@ -167,7 +151,6 @@ const reviewReducer = (state = initialState, action) => {
       newState[action.review.id] = action.review;
       return newState;
     case DELETE_REVIEW:
-      console.log("something here");
       delete newState[action.reviewId];
       return newState;
     case USER_REVIEWS:

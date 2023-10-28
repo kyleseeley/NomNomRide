@@ -13,7 +13,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  margin: 1px;
+  padding: 1px;
 }
 
 .checkout-item {
@@ -21,21 +22,36 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  text-align: center;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.item-quantity,
+.item-price {
+  display: inline-block;
+  margin: 0 10px;
+  padding-bottom: 3px;
+}
+
+.restaurant-name {
+  font-weight: bold !important;
+  text-align: center;
+  padding: 3px;
+  margin: 0;
 }
 
 .item-name {
   font-weight: bold;
+  margin-top: 20px;
 }
 
-.item-quantity {
-  color: #666;
-}
-
-.item-price {
-  font-weight: bold;
-}
-
-total-cost {
+.total-cost {
   font-size: 20px;
   margin: 20px;
 }
@@ -52,4 +68,26 @@ total-cost {
 
 .checkout-button:hover {
   background-color: #0056b3;
+}
+
+.toast {
+  position: fixed;
+  margin-top: 100px;
+  padding: 3px 30px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Customize the appearance for different types of toast messages */
+.toast.toast-success {
+  background-color: #28a745; /* Green background for success messages */
+}
+
+.toast.toast-error {
+  background-color: #dc3545; /* Red background for error messages */
 }

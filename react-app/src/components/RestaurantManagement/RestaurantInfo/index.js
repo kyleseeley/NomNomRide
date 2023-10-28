@@ -8,7 +8,7 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
     <div className="login-form-container">
       <div className="form-wrapper">
         <h1>Restaurant</h1>
-        <table>
+        <table className="restaurant-info-table">
           <tr>
             <td>
               <label>Name:</label>
@@ -19,57 +19,43 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
             <td>
               <label>Address:</label>
             </td>
-            <td>
-              <input type="text" value={restaurant.address} />
-            </td>
+            <td>{restaurant.address}</td>
           </tr>
           <tr>
             <td>
               <label>City:</label>
             </td>
-            <td>
-              <input type="text" value={restaurant.city} />
-            </td>
+            <td>{restaurant.city}</td>
           </tr>
           <tr>
             <td>
               <label>State:</label>
             </td>
-            <td>
-              <input type="text" value={restaurant.state} />
-            </td>
+            <td>{restaurant.state}</td>
           </tr>
           <tr>
             <td>
               <label>Image:</label>
             </td>
-            <td>
-              <input type="text" value={restaurant.image} />
-            </td>
+            <td>{restaurant.image}</td>
           </tr>
           <tr>
             <td>
               <label>Type:</label>
             </td>
-            <td>
-              <input type="text" value={restaurant.type} />
-            </td>
+            <td>{restaurant.type}</td>
           </tr>
           <tr>
             <td>
               <label>Latitude:</label>
             </td>
-            <td>
-              <input type="text" value={restaurant.lat} />
-            </td>
+            <td>{restaurant.lat}</td>
           </tr>
           <tr>
             <td>
               <label>Longitude:</label>
             </td>
-            <td>
-              <input type="text" value={restaurant.lng} />
-            </td>
+            <td>{restaurant.lng}</td>
           </tr>
         </table>
         <button className="cart-button" onClick={onEditClick}>

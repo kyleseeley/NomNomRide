@@ -6,3 +6,14 @@
   margin: 0;
   text-align: center;
 }
+
+/* .restaurant-info-table {
+  text-overflow: ellipsis;
+} */
+
+.restaurant-info-table > tr > td {
+  text-overflow: ellipsis;
+  max-width: 10rem;
+  overflow: hidden;
+  white-space: nowrap;
+}

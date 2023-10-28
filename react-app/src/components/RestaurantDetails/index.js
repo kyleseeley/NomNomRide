@@ -30,11 +30,16 @@ const RestaurantDetails = () => {
     : [];
   const { setModalContent } = useModal();
 
-
   const hasLeftReview =
     user &&
     reviewsArray.some((review) => {
+<<<<<<< HEAD
       return review.userId === user.id && review.restaurantId === restaurant?.id;
+=======
+      return (
+        review.userId === user.id && review.restaurantId === restaurant?.id
+      );
+>>>>>>> acecb7420388fb8d35353ea223cb0281f8ccad93
     });
 
   const hasOrdered =
@@ -46,13 +51,13 @@ const RestaurantDetails = () => {
     window.scroll(0, 0);
     dispatch(fetchOneRestaurant(restaurantId))
       .then(() => dispatch(fetchMenuItemsThunk(restaurantId)))
-      .then(menuItems => {
-        const tempCat = {}
+      .then((menuItems) => {
+        const tempCat = {};
         for (const item of menuItems) {
           if (!tempCat[item.type]) tempCat[item.type] = [item];
           else tempCat[item.type] = [...tempCat[item.type], item];
         }
-        setCategories(tempCat)
+        setCategories(tempCat);
       })
       .then(dispatch(fetchReviews(restaurantId)))
       .then(dispatch(fetchUserOrders()))
@@ -92,8 +97,13 @@ const RestaurantDetails = () => {
   const handleEditReview = (review) => {
     setModalContent(
       <ReviewModal
+<<<<<<< HEAD
         restaurantId={restaurant?.id}
         editReview={review} // Pass the review data to edit
+=======
+        restaurantId={restaurant.id}
+        editReview={review}
+>>>>>>> acecb7420388fb8d35353ea223cb0281f8ccad93
         onClose={() => setModalContent(null)}
       />
     );
@@ -200,16 +210,22 @@ const RestaurantDetails = () => {
                     modalComponent={() => (
                       <div>
                         <h3>Are you sure to delete this review?</h3>
-                        <button
-                          className="primary"
-                          onClick={() => {
-                            dispatch(deleteReviewById(review?.id, restaurantId));
-                            closeModal();
-                          }}
-                        >
-                          Yes
-                        </button>
-                        <button onClick={closeModal}>No</button>
+                        <div className="button-container">
+                          <button
+                            className="yes-button"
+                            onClick={() => {
+                              dispatch(
+                                deleteReviewById(review?.id, restaurantId)
+                              );
+                              closeModal();
+                            }}
+                          >
+                            Yes
+                          </button>
+                          <button className="no-button" onClick={closeModal}>
+                            No
+                          </button>
+                        </div>
                       </div>
                     )}
                   />

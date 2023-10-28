@@ -87,14 +87,18 @@ def userCheckout():
     return { 'error': 'User not found' }, 404
 
   restaurantId = request.json.get("restaurantId")
+
+  if not restaurantId:
+        return { 'error': 'Restaurant ID is required' }, 400
+  
   cart_info = user.get_specific_cart(restaurantId)
   cart_items = cart_info.get("items", [])
 
-  line_items = []
   total_amount = 0
+  line_items = []
 
   for cart_item in cart_items:
-    item_details = cart_item.to_dict()
+    item_details = cart_item  # Use the dictionary directly
 
     line_item = {
         'price': item_details['price'],
@@ -104,25 +108,21 @@ def userCheckout():
 
     total_amount += item_details['price'] * item_details['quantity']
 
-  # try:
-  #   checkout_session = stripe.checkout.Session.create(
-  #     line_items=line_items,
-  #     mode='payment',
-  #     ui_mode='embedded',
-  #   )
-  # except Exception as e:
-  #   return str(e)
-
   new_order = Order(
     userId=user.id,
     restaurantId=restaurantId,
     total=total_amount,
     orderDate=datetime.now()
   )
-  db.session.add(new_order)
-  db.session.commit()
 
-  # return jsonify({'sessionId': checkout_session.id})
+  try:
+    db.session.add(new_order)
+    db.session.commit()
+
+    return { 'message': 'Order placed successfully' }, 200
+
+  except Exception as e:      
+    return { 'error': str(e) }, 500
 
 @session_routes.route('/orders')
 @login_required
