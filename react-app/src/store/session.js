@@ -161,7 +161,6 @@ export const fetchUserOrders = () => async (dispatch) => {
     const response = await csrfFetch("/api/session/orders");
     if (response.ok) {
       const responseData = await response.json();
-      console.log("responseData", responseData);
       dispatch(setOrders(responseData));
     }
   } catch (error) {

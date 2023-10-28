@@ -44,11 +44,6 @@ const RestaurantDetails = () => {
     restaurant &&
     orders?.some((order) => order.restaurantId === restaurant.id);
 
-  console.log("restaurant", restaurant);
-  console.log("orders", orders);
-  console.log("hasLeftReview", hasLeftReview);
-  console.log("hasOrdered", hasOrdered);
-
   useEffect(() => {
     window.scroll(0, 0);
     dispatch(fetchOneRestaurant(restaurantId))
@@ -193,7 +188,6 @@ const RestaurantDetails = () => {
                         <button
                           className="primary"
                           onClick={() => {
-                            console.log("delete button");
                             dispatch(deleteReviewById(review.id, restaurantId));
                             closeModal();
                           }}
