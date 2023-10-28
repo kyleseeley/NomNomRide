@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { NavLink, useHistory } from 'react-router-dom'
-import CartItemList from '../CartItems/CartItemList'
+import CartItemCard from '../CartItems/CartItemCard'
 import { deleteCartThunk, getCartThunk } from "../../store/cart"
 import './Cart.css'
 
@@ -135,7 +135,29 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
               </div>
             </span>
           </div>
-          {cart && <CartItemList cart={cart} numItems={numItems} setNumItems={setNumItems} setRefresh={setRefresh} />}
+          {cart && <div className='cart-item-list'>
+            <div className='top-subtotal'>
+              <span className='cart-num-items'>
+                {`${numItems} item${numItems > 1 ? 's' : ''}`}
+              </span>
+              <span>Subtotal: ${cart?.cart?.total}</span>
+            </div>
+            {cart.items && cart.items.map(item => (
+                <CartItemCard
+                  numItems={numItems}
+                  setNumItems={setNumItems}
+                  key={item.id}
+                  setRefresh={setRefresh}
+                  carts={carts}
+                  setCart={setCart}
+                  setNumCarts={setNumCarts}
+                  item={item} />
+            ))}
+            <div className='bottom-subtotal'>
+              <span>Subtotal</span>
+              <span>${cart?.cart?.total}</span>
+            </div>
+        </div>}
           <div className="cart-buttons">
             <NavLink
               to='/checkout'
