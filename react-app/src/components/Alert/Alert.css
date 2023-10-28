@@ -1,0 +1,41 @@
+/* Css animation */
+/* https://stackoverflow.com/questions/42733986/how-to-wait-and-fade-an-element-out */
+
+.alert-container.show {
+  opacity: 1;
+}
+
+.alert-container.hide {
+  opacity: 0;
+}
+
+.alert-container {
+  transition: all 250ms linear; /*  the last value defines transition-delay */
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  justify-content: center;
+  padding: 16px;
+}
+
+.alert-container .alert {
+  padding: 6px 16px;
+  background: rgb(56, 142, 60);
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alert-container .icon-button {
+  background: none;
+  border: none;
+  font-size: 22px;
+}
+
+.alert-container .check-icon {
+  font-size: 22px;
+}

@@ -11,10 +11,10 @@ import MenuItemForm from "./components/RestaurantManagement/MenuItemForm";
 import RestaurantManagement from "./components/RestaurantManagement";
 import RestaurantForm from "./components/RestaurantManagement/RestaurantForm";
 import AccountSettings from "./components/AccountSettingsPage";
-import RestaurantList from "./components/RestaurantManagement/RestaurantList"
+import RestaurantList from "./components/RestaurantManagement/RestaurantList";
+import Alert from "./components/Alert";
 // import Checkout from ./components/Checkout
-
-import SearchResults from './components/SearchResults'
+import SearchResults from "./components/SearchResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ function App() {
           <Route path="/search">
             <SearchResults />
           </Route>
-          <Route exact path='/account'>
+          <Route exact path="/account">
             <AccountSettings />
           </Route>
           <Route exact path="/manageRestaurants">
@@ -67,6 +67,7 @@ function App() {
         </Switch>
       )}
       <Navigation isLoaded={isLoaded} />
+      <Alert />
     </>
   );
 }

@@ -7,6 +7,7 @@ import {
 } from "../../../store/restaurant";
 import { useHistory, useParams } from "react-router-dom";
 import "./RestaurantForm.css";
+import { displayAlert } from "../../../store/alert";
 
 const typeList = [
   "Chinese",
@@ -87,6 +88,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
       );
 
       if (!errors && typeof onFinish === "function") {
+        dispatch(displayAlert("Restaurant Updated"));
         onFinish();
       }
     } else {
@@ -95,6 +97,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
         createNewRestaurant(address, city, state, lat, lng, name, type, image)
       );
       if (id) {
+        dispatch(displayAlert("Restaurant Created"));
         history.push(`/${id}/manage`);
       }
     }

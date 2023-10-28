@@ -18,12 +18,13 @@ const MenuItemsTab = ({ itemList }) => {
     <div>
       <h3>Manage your items</h3>
       <div className="manage-item-container">
-        <Link to={`/${restaurantId}/menuItems/new`}>
-          <button className="cart-button">
-            <i className="fa-solid fa-plus" /> Create New Item
-          </button>
-        </Link>
-
+        <div>
+          <Link to={`/${restaurantId}/menuItems/new`}>
+            <button className="cart-button">
+              <i className="fa-solid fa-plus"></i> Create New Item
+            </button>
+          </Link>
+        </div>
         <div>
           <table>
             <tr>

@@ -7,6 +7,7 @@ import {
 } from "../../../store/menuItems";
 import { useHistory, useParams } from "react-router-dom";
 import "./MenuItemForm.css";
+import { displayAlert } from "../../../store/alert";
 
 const MenuItemForm = () => {
   const { restaurantId, itemId } = useParams();
@@ -72,6 +73,9 @@ const MenuItemForm = () => {
     }
 
     if (!errors) {
+      dispatch(
+        displayAlert(itemId !== undefined ? "Item Edited" : "Item Created")
+      );
       history.push(`/${restaurantId}/manage/items`);
     } else {
       // Handle errors - API call encountered validation errors or other issues
@@ -170,9 +174,9 @@ const MenuItemForm = () => {
                       setPrice(e.target.value);
                     }}
                     onKeyDown={(e) => {
-                      const invalidChars = ["-", "+", "e"]
-                      if(invalidChars.includes(e.key)){
-                        e.preventDefault()
+                      const invalidChars = ["-", "+", "e"];
+                      if (invalidChars.includes(e.key)) {
+                        e.preventDefault();
                       }
                     }}
                     onBlur={() => {
