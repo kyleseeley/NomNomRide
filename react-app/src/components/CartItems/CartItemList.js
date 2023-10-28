@@ -2,7 +2,7 @@ import './CartItemList.css'
 import { useState, useEffect } from 'react'
 import CartItemCard from './CartItemCard'
 
-const CartItemList = ({ cart, numItems, setNumItems }) => {
+const CartItemList = ({ cart, numItems, setNumItems, setRefresh }) => {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const CartItemList = ({ cart, numItems, setNumItems }) => {
             <CartItemCard
               setNumItems={setNumItems}
               key={item.id}
+              setRefresh={setRefresh}
               item={item}
               isLoaded={isLoaded} />
         ))}

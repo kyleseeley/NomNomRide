@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux'
 import { deleteCartItemThunk, updateCartItemThunk } from '../../store/cartItems'
 import { getCartThunk } from '../../store/cart'
 
-const CartItemCard = ({ item, setNumItems }) => {
+const CartItemCard = ({ item, setNumItems, setRefresh }) => {
   const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(item.quantity)
   const [remove, setRemove] = useState(false)
 
   const updateCartItem = quantity => {
+    setRefresh(false)
     if (quantity == 'remove') {
       dispatch(deleteCartItemThunk(item.id))
       .then(() => dispatch(getCartThunk()))

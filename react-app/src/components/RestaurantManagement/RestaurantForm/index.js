@@ -234,7 +234,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                     nameInputValidation();
                   }}
                 />
-                {nameError !== null && <div className="error">{nameError}</div>}
+                {nameError !== null && <div className="error=msg">{nameError}</div>}
               </td>
             </tr>
             <tr>
@@ -255,7 +255,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                     </option>
                   ))}
                 </select>
-                {typeError !== null && <div className="error">{typeError}</div>}
+                {typeError !== null && <div className="error=msg">{typeError}</div>}
               </td>
             </tr>
             <tr>
@@ -274,7 +274,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   }}
                 />
                 {addressError !== null && (
-                  <div className="error">{addressError}</div>
+                  <div className="error=msg">{addressError}</div>
                 )}
               </td>
             </tr>
@@ -293,7 +293,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                     cityInputValidation();
                   }}
                 />
-                {cityError !== null && <div className="error">{cityError}</div>}
+                {cityError !== null && <div className="error=msg">{cityError}</div>}
               </td>
             </tr>
             <tr>
@@ -312,7 +312,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   }}
                 />
                 {stateError !== null && (
-                  <div className="error">{stateError}</div>
+                  <div className="error=msg">{stateError}</div>
                 )}
               </td>
             </tr>
@@ -337,7 +337,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                     latInputValidation();
                   }}
                 />
-                {latError !== null && <div className="error">{latError}</div>}
+                {latError !== null && <div className="error=msg">{latError}</div>}
               </td>
             </tr>
             <tr>
@@ -361,7 +361,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                     lngInputValidation();
                   }}
                 />
-                {lngError !== null && <div className="error">{lngError}</div>}
+                {lngError !== null && <div className="error=msg">{lngError}</div>}
               </td>
             </tr>
             <tr>
@@ -380,7 +380,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   }}
                 />
                 {imageError !== null && (
-                  <div className="error">{imageError}</div>
+                  <div className="error=msg">{imageError}</div>
                 )}
               </td>
             </tr>

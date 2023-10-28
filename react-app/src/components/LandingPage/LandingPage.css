@@ -87,7 +87,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 85%;
-  min-width: 5rem;
+  min-width: 3rem;
 }
 
 .restaurant-rating-container {
@@ -98,6 +98,7 @@
 .restaurant-rating {
   font-size: 13px;
   margin-left: 5px;
+  padding: 0.2rem;
   color: black;
   position: relative;
   width: 25px;
@@ -166,7 +167,6 @@
   text-align: center;
   color: #555;
   text-align: center;
-  flex-shrink: 0;
 }
 
 .type-item.active {
