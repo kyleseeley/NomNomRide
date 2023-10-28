@@ -20,7 +20,7 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
               <label>Address:</label>
             </td>
             <td>
-              <input type="text" value={restaurant.address} />
+              {restaurant.address}
             </td>
           </tr>
           <tr>
@@ -28,7 +28,7 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
               <label>City:</label>
             </td>
             <td>
-              <input type="text" value={restaurant.city} />
+             {restaurant.city}
             </td>
           </tr>
           <tr>
@@ -36,7 +36,7 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
               <label>State:</label>
             </td>
             <td>
-              <input type="text" value={restaurant.state} />
+              {restaurant.state}
             </td>
           </tr>
           <tr>
@@ -44,7 +44,7 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
               <label>Image:</label>
             </td>
             <td>
-              <input type="text" value={restaurant.image} />
+              {restaurant.image}
             </td>
           </tr>
           <tr>
@@ -52,7 +52,7 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
               <label>Type:</label>
             </td>
             <td>
-              <input type="text" value={restaurant.type} />
+              {restaurant.type}
             </td>
           </tr>
           <tr>
@@ -60,7 +60,7 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
               <label>Latitude:</label>
             </td>
             <td>
-              <input type="text" value={restaurant.lat} />
+              {restaurant.lat}
             </td>
           </tr>
           <tr>
@@ -68,7 +68,7 @@ const RestaurantInfo = ({ restaurant, onEditClick, onDeleteConfirmed }) => {
               <label>Longitude:</label>
             </td>
             <td>
-              <input type="text" value={restaurant.lng} />
+              {restaurant.lng}
             </td>
           </tr>
         </table>
