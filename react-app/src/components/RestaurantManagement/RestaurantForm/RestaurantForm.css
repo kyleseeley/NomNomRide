@@ -25,7 +25,9 @@ table label {
 .select {
   width: 100%;
 }
-
+.error {
+  color: red;
+}
 .submit {
   display: flex;
   padding-top: 10px;
