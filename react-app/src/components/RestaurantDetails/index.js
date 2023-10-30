@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import ReviewModal from "../ReviewModal";
 import OpenModalButton from "../OpenModalButton";
+import { reviewsChanged } from "../../store/reviews";
 
 const RestaurantDetails = () => {
   const dispatch = useDispatch();
@@ -97,7 +98,21 @@ const RestaurantDetails = () => {
     );
   };
 
-  if (isLoaded)
+  const calculateStarRating = () => {
+    if (restaurantReviews) {
+      const totalStars = reviewsArray.reduce(
+        (acc, review) => acc + review.stars,
+        0
+      );
+      return totalStars / reviewsArray.length;
+    } else {
+      return 0;
+    }
+  };
+
+  if (isLoaded) {
+    const updatedStarRating = calculateStarRating();
+    const numReviews = reviewsArray.length;
     return (
       <div className="restaurant-page page-container">
         <div
@@ -116,7 +131,7 @@ const RestaurantDetails = () => {
             <i className="fa-solid fa-star" />
             {"  "}
             <b>
-              {restaurant?.starRating} ({restaurant?.numReviews} reviews)
+              {updatedStarRating} ({numReviews} reviews)
             </b>
           </p>
           {restaurant?.ownerId == user?.id && (
@@ -221,7 +236,7 @@ const RestaurantDetails = () => {
         </div>
       </div>
     );
-  else
+  } else {
     return (
       <div className="restaurant-page page-container">
         <div
@@ -253,6 +268,7 @@ const RestaurantDetails = () => {
         </div>
       </div>
     );
+  }
 };
 
 export default RestaurantDetails;
