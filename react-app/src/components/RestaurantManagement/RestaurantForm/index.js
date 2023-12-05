@@ -58,6 +58,13 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
         imageError
     );
   }, [
+    name,
+    address,
+    city,
+    state,
+    lat,
+    lng,
+    image,
     nameError,
     addressError,
     cityError,
@@ -76,14 +83,14 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    nameInputValidation();
-    addressInputValidation();
-    cityInputValidation();
-    stateInputValidation();
-    latInputValidation();
-    lngInputValidation();
-    typeInputValidation();
-    imageInputValidation();
+    nameInputValidation(name);
+    addressInputValidation(address);
+    cityInputValidation(city);
+    stateInputValidation(state);
+    latInputValidation(lat);
+    lngInputValidation(lng);
+    typeInputValidation(type);
+    imageInputValidation(image);
 
     if (
       nameError ||
@@ -147,8 +154,8 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
     }
   };
 
-  const nameInputValidation = () => {
-    if (name === undefined || name.length === 0) {
+  const nameInputValidation = (checkName) => {
+    if (checkName === undefined || checkName.length === 0) {
       setNameError("Name is required.");
     } else if (name.length > 40) {
       setNameError("Name is too long.");
@@ -156,8 +163,8 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
       setNameError(null);
     }
   };
-  const addressInputValidation = () => {
-    if (address === undefined || address.length === 0) {
+  const addressInputValidation = (checkAddress) => {
+    if (checkAddress === undefined || checkAddress.length === 0) {
       setAddressError("Address is required.");
     } else if (address.length > 50) {
       setAddressError("Address is too long.");
@@ -165,8 +172,8 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
       setAddressError(null);
     }
   };
-  const cityInputValidation = () => {
-    if (city === undefined || city.length === 0) {
+  const cityInputValidation = (checkCity) => {
+    if (checkCity === undefined || checkCity.length === 0) {
       setCityError("City is required.");
     } else if (city.length > 50) {
       setCityError("City Name is too long.");
@@ -174,15 +181,15 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
       setCityError(null);
     }
   };
-  const stateInputValidation = () => {
-    if (state === undefined || state.length === 0) {
+  const stateInputValidation = (checkState) => {
+    if (checkState === undefined || checkState.length === 0) {
       setStateError("State is required.");
     } else {
       setStateError(null);
     }
   };
-  const latInputValidation = () => {
-    if (lat === undefined || lat.length === 0) {
+  const latInputValidation = (checkLat) => {
+    if (checkLat === undefined || checkLat.length === 0) {
       setLatError("Latitude is required.");
     } else if (lat > 90 || lat < -90) {
       setLatError("Latitude must be between -90 to 90.");
@@ -190,8 +197,8 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
       setLatError(null);
     }
   };
-  const lngInputValidation = () => {
-    if (lng === undefined || lng.length === 0) {
+  const lngInputValidation = (checkLng) => {
+    if (checkLng === undefined || checkLng.length === 0) {
       setLngError("Longitude is required.");
     } else if (lng > 180 || lng < -180) {
       setLngError("Longitude must be between -180 to 180.");
@@ -206,8 +213,8 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
       setTypeError(null);
     }
   };
-  const imageInputValidation = () => {
-    if (image === undefined || image.length === 0) {
+  const imageInputValidation = (checkImage) => {
+    if (checkImage === undefined || checkImage.length === 0) {
       setImageError("Image is required.");
     } else {
       setImageError(null);
@@ -232,9 +239,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   value={name}
                   onChange={(e) => {
                     setName(e.target.value);
-                  }}
-                  onBlur={() => {
-                    nameInputValidation();
+                    nameInputValidation(e.target.value);
                   }}
                 />
                 {nameError !== null && <div className="error">{nameError}</div>}
@@ -271,10 +276,9 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   value={address}
                   onChange={(e) => {
                     setAddress(e.target.value);
+                    addressInputValidation(e.target.value);
                   }}
-                  onBlur={() => {
-                    addressInputValidation();
-                  }}
+
                 />
                 {addressError !== null && (
                   <div className="error">{addressError}</div>
@@ -291,10 +295,9 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   value={city}
                   onChange={(e) => {
                     setCity(e.target.value);
+                    cityInputValidation(e.target.value);
                   }}
-                  onBlur={() => {
-                    cityInputValidation();
-                  }}
+
                 />
                 {cityError !== null && <div className="error">{cityError}</div>}
               </td>
@@ -309,10 +312,9 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   value={state}
                   onChange={(e) => {
                     setState(e.target.value);
+                    stateInputValidation(e.target.value);
                   }}
-                  onBlur={() => {
-                    stateInputValidation();
-                  }}
+
                 />
                 {stateError !== null && (
                   <div className="error">{stateError}</div>
@@ -329,6 +331,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   value={lat}
                   onChange={(e) => {
                     setLat(e.target.value);
+                    latInputValidation(e.target.value);
                   }}
                   onKeyDown={(e) => {
                     const invalidChars = ["+", "e"];
@@ -336,9 +339,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                       e.preventDefault();
                     }
                   }}
-                  onBlur={() => {
-                    latInputValidation();
-                  }}
+
                 />
                 {latError !== null && <div className="error">{latError}</div>}
               </td>
@@ -353,6 +354,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   value={lng}
                   onChange={(e) => {
                     setLng(e.target.value);
+                    lngInputValidation(e.target.value);
                   }}
                   onKeyDown={(e) => {
                     const invalidChars = ["+", "e"];
@@ -360,9 +362,7 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                       e.preventDefault();
                     }
                   }}
-                  onBlur={() => {
-                    lngInputValidation();
-                  }}
+
                 />
                 {lngError !== null && <div className="error">{lngError}</div>}
               </td>
@@ -377,10 +377,9 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
                   value={image}
                   onChange={(e) => {
                     setImage(e.target.value);
+                    imageInputValidation(e.target.value);
                   }}
-                  onBlur={() => {
-                    imageInputValidation();
-                  }}
+
                 />
                 {imageError !== null && (
                   <div className="error">{imageError}</div>

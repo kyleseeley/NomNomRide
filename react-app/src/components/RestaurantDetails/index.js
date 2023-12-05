@@ -13,6 +13,7 @@ import { useModal } from "../../context/Modal";
 import ReviewModal from "../ReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import MapContainerModal from "../maps";
+import { reviewsChanged } from "../../store/reviews";
 
 const RestaurantDetails = () => {
   const dispatch = useDispatch();
@@ -98,7 +99,21 @@ const RestaurantDetails = () => {
     );
   };
 
-  if (isLoaded)
+  const calculateStarRating = () => {
+    if (restaurantReviews) {
+      const totalStars = reviewsArray.reduce(
+        (acc, review) => acc + review.stars,
+        0
+      );
+      return totalStars / reviewsArray.length;
+    } else {
+      return 0;
+    }
+  };
+
+  if (isLoaded) {
+    const updatedStarRating = calculateStarRating();
+    const numReviews = reviewsArray.length;
     return (
       <div className="restaurant-page page-container">
         <div
@@ -118,6 +133,7 @@ const RestaurantDetails = () => {
             {"  "}
             <b>
               {`${restaurant?.starRating} (${restaurant?.numReviews} ratings) · ${restaurant?.type} · `}
+              {updatedStarRating} ({numReviews} reviews)
             </b>
             <OpenModalButton
               className="restaurant-more-info"
@@ -225,7 +241,7 @@ const RestaurantDetails = () => {
         </div>
       </div>
     );
-  else
+  } else {
     return (
       <div className="restaurant-page page-container">
         <div
@@ -257,6 +273,7 @@ const RestaurantDetails = () => {
         </div>
       </div>
     );
+  }
 };
 
 export default RestaurantDetails;

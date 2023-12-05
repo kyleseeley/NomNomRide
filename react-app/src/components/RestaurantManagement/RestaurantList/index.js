@@ -22,7 +22,7 @@ const RestaurantList = () => {
         <div className="restaurant-list-container">
           <h2>Your Restaurants</h2>
           {restaurantsOwnedByUser.map((restaurant) => (
-            <div className="restaurant-name-list">
+            <div key={restaurant.name} className="restaurant-name-list">
               <Link
                 className="sidebar-extra-link"
                 to={`/${restaurant.id}/manage`}

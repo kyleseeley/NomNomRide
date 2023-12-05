@@ -12,7 +12,7 @@ export const restaurantReviews = (restaurantId, reviews) => ({
   reviews,
 });
 
-export const createReview = (review) => ({
+export const createReview = (review, reviewCount) => ({
   type: CREATE_REVIEW,
   review,
 });
@@ -133,7 +133,7 @@ export const fetchUserReviews = () => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = { reviewsChanged: false };
 
 const reviewReducer = (state = initialState, action) => {
   let newState = { ...state };

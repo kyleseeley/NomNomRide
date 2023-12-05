@@ -67,6 +67,21 @@ export function Sidebar() {
               <button onClick={handleLogout} className="sidebar-signout">
                 Sign out
               </button>
+              <div className="sidebar-extra-links">
+                <div>
+                  <RestaurantList />
+                </div>
+
+                <div className="sidebar-button-add">
+                  <NavLink
+                    to="/new"
+                    onClick={() => setIsSidebarVisible(false)}
+                    className="cart-button "
+                  >
+                    <i className="fa-solid fa-plus"></i> Add New
+                  </NavLink>
+                </div>
+              </div>
             </>
           ) : (
             <>
@@ -85,22 +100,6 @@ export function Sidebar() {
                 Log in
               </NavLink>
             </>
-          )}
-        </div>
-        <div className="sidebar-extra-links">
-          <div>
-            <RestaurantList />
-          </div>
-          {user && (
-            <div className="sidebar-button-add">
-              <NavLink
-                to="/new"
-                onClick={() => setIsSidebarVisible(false)}
-                className="cart-button "
-              >
-                <i className="fa-solid fa-plus"></i> Add New
-              </NavLink>
-            </div>
           )}
         </div>
       </div>
