@@ -34,12 +34,26 @@ def seed_reviews():
         review="Average experience. Nothing exceptional. Two stars.",
         stars=2
     )
+    review6 = Review(
+        userId=1,
+        restaurantId=4,
+        review="Average experience. Nothing exceptional. Two stars.",
+        stars=3
+    )
+    review7 = Review(
+        userId=2,
+        restaurantId=5,
+        review="The restaurant had a cozy atmosphere, and the food was good. Four stars!",
+        stars=4
+    )
 
     db.session.add(review1)
     db.session.add(review2)
     db.session.add(review3)
     db.session.add(review4)
     db.session.add(review5)
+    db.session.add(review6)
+    db.session.add(review7)
     db.session.commit()
 
 
