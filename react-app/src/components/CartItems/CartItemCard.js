@@ -9,9 +9,8 @@ const CartItemCard = ({ item, numItems, setNumItems, setRefresh, carts, setCart,
   const [quantity, setQuantity] = useState(item.quantity)
   const [remove, setRemove] = useState(false)
 
-  const updateCartItem = quantity => {
-    setRefresh(false)
-    if (quantity == 'remove') {
+  const updateCartItem = newQuantity => {
+    if (newQuantity == 'remove') {
       dispatch(deleteCartItemThunk(item.id))
       .then(() => dispatch(getCartThunk()))
       setRemove(true)
@@ -22,9 +21,12 @@ const CartItemCard = ({ item, numItems, setNumItems, setRefresh, carts, setCart,
       }
     }
     else {
-      setQuantity(quantity)
-      dispatch(updateCartItemThunk(item.id, quantity))
-      .then(() => dispatch(getCartThunk()))
+      setQuantity(newQuantity)
+      dispatch(updateCartItemThunk(item.id, newQuantity))
+      .then(() => dispatch(getCartThunk()).then(() => {
+        setRefresh(prev => !prev)
+        setRefresh(true)
+      }))
     }
   }
 
@@ -51,7 +53,7 @@ const CartItemCard = ({ item, numItems, setNumItems, setRefresh, carts, setCart,
         </div>
       </div>
       <div className='cart-item-price'>
-        {`$${parseFloat(item.price * item.quantity).toFixed(2)}`}
+        {`$${parseFloat(item.price * quantity).toFixed(2)}`}
       </div>
 
     </div>

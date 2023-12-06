@@ -6,11 +6,13 @@ import { fetchOneRestaurant } from "../../store/restaurant";
 import { fetchMenuItemsThunk } from "../../store/menuItems";
 import { fetchReviews, deleteReviewById } from "../../store/reviews";
 import { fetchUserOrders } from "../../store/session";
+import { getKey } from "../../store/maps";
 import ItemList from "../Item/ItemList";
 import { NavLink } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import ReviewModal from "../ReviewModal";
 import OpenModalButton from "../OpenModalButton";
+import MapContainerModal from "../maps";
 import { reviewsChanged } from "../../store/reviews";
 
 const RestaurantDetails = () => {
@@ -32,15 +34,13 @@ const RestaurantDetails = () => {
   const hasLeftReview =
     user &&
     reviewsArray.some((review) => {
-      return (
-        review.userId === user.id && review.restaurantId === restaurant?.id
-      );
+      return review.userId === user.id && review.restaurantId === restaurant?.id;
     });
 
   const hasOrdered =
     user &&
     restaurant &&
-    orders?.some((order) => order.restaurantId === restaurant.id);
+    orders?.some((order) => order.restaurantId === restaurant?.id);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -56,6 +56,7 @@ const RestaurantDetails = () => {
       })
       .then(dispatch(fetchReviews(restaurantId)))
       .then(dispatch(fetchUserOrders()))
+      .then(dispatch(getKey()))
       .then(setIsLoaded(true));
   }, [dispatch, restaurantId, user]);
 
@@ -91,8 +92,8 @@ const RestaurantDetails = () => {
   const handleEditReview = (review) => {
     setModalContent(
       <ReviewModal
-        restaurantId={restaurant.id}
-        editReview={review}
+        restaurantId={restaurant?.id}
+        editReview={review} // Pass the review data to edit
         onClose={() => setModalContent(null)}
       />
     );
@@ -131,16 +132,21 @@ const RestaurantDetails = () => {
             <i className="fa-solid fa-star" />
             {"  "}
             <b>
+              {`${restaurant?.starRating} (${restaurant?.numReviews} ratings) · ${restaurant?.type} · `}
               {updatedStarRating} ({numReviews} reviews)
             </b>
+            <OpenModalButton
+              className="restaurant-more-info"
+              buttonText="More Info"
+              modalComponent={
+                <MapContainerModal
+                  restaurant={restaurant}
+                />
+              }
+            />
           </p>
           {restaurant?.ownerId == user?.id && (
-            <NavLink
-              to={`/${restaurant.id}/manage`}
-              className="details-update-restaurant-link"
-            >
-              Update Restaurant
-            </NavLink>
+            <NavLink to={`/${restaurant?.id}/manage`} className='details-update-restaurant-link'>Manage Restaurant</NavLink>
           )}
         </div>
         <div className="menu-section">
@@ -151,8 +157,7 @@ const RestaurantDetails = () => {
                   key={category}
                   className={`restaurant-page-cat
 									${focusTab === category ? "focus" : ""}`}
-                  onClick={() => scrollToId(category)}
-                >
+                  onClick={() => scrollToId(category)}>
                   {category}
                 </span>
               );
@@ -178,7 +183,7 @@ const RestaurantDetails = () => {
               buttonText="Leave a Review"
               modalComponent={
                 <ReviewModal
-                  restaurantId={restaurant.id}
+                  restaurantId={restaurant?.id}
                   onClose={() => setModalContent(null)}
                 />
               }
