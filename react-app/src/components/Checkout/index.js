@@ -15,7 +15,6 @@ const Checkout = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const cartIdsToDelete = Object.keys(shoppingCart);
-  console.log("shoppingCart", shoppingCart);
 
   useEffect(() => {
     dispatch(getCartThunk());

@@ -96,7 +96,6 @@ const MenuItemForm = () => {
 
   const nameInputValidation = (checkName) => {
     if ( checkName=== undefined || checkName.length === 0) {
-      console.log("test", nameError)
       setNameError("Name is required.");
     } else if (checkName.length > 255) {
       setNameError("Name is too long.");
@@ -141,7 +140,6 @@ const MenuItemForm = () => {
                   type="text"
                   value={name}
                   onChange={(e) => {
-                    console.log(nameError)
                     setName(e.target.value);
                     nameInputValidation(e.target.value);
                   }}

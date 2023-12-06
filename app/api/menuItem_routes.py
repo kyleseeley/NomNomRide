@@ -8,8 +8,8 @@ from .auth_routes import validation_errors_to_error_messages
 items_routes = Blueprint('menuItems', __name__)
 
 
-#get one item
-@items_routes.route('/<int:itemId>',methods=['GET'])
+# get one item
+@items_routes.route('/<int:itemId>', methods=['GET'])
 def menuItem(itemId):
 
     item = MenuItem.query.get(itemId)
@@ -18,16 +18,16 @@ def menuItem(itemId):
     return jsonify(item.to_dict())
 
 
-#edit an item by specified restaurant
-@items_routes.route('/<int:itemId>',methods=['PUT'])
+# edit an item by specified restaurant
+@items_routes.route('/<int:itemId>', methods=['PUT'])
 @login_required
 def updateItem(itemId):
 
     item = MenuItem.query.get(itemId)
     if not item:
-        return { "error": "Item not found" }, 404
+        return {"error": "Item not found"}, 404
     restaurant = Restaurant.query.get_or_404(item.restaurantId)
-    if  not restaurant or restaurant.ownerId != current_user.id:
+    if not restaurant or restaurant.ownerId != current_user.id:
         return jsonify({"error": "Not permitted or restaurant does not exist!"}), 401
 
     form = MenuItemsForm()
@@ -48,8 +48,8 @@ def updateItem(itemId):
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-#delete one item
-@items_routes.route('/<int:itemId>',methods=['DELETE'])
+# delete one item
+@items_routes.route('/<int:itemId>', methods=['DELETE'])
 @login_required
 def deleteItem(itemId):
     item = MenuItem.query.get(itemId)
@@ -64,6 +64,7 @@ def deleteItem(itemId):
 
     return jsonify({"message": "The item was deleted successfully"})
 
+
 @items_routes.route('/<int:itemId>/shopping-cart-items', methods=["POST"])
 @login_required
 def post_shoppingCartItem(itemId):
@@ -74,9 +75,9 @@ def post_shoppingCartItem(itemId):
     if not menuItem:
         return {'error': 'Item not found'}, 404
     cart = current_user.get_specific_cart(menuItem.restaurantId)
-    print(cart)
+
     if 'cart' not in cart:
-        return { 'error': 'Cart not found' }, 404
+        return {'error': 'Cart not found'}, 404
     form = ShoppingCartItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -101,7 +102,6 @@ def post_shoppingCartItem(itemId):
             menuItemId=itemId,
             quantity=form.data["quantity"]
         )
-
 
         db.session.add(new_shoppingCartItem)
         db.session.commit()
