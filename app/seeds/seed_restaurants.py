@@ -53,8 +53,8 @@ def seed_restaurants():
         name="Buffalo Wild Wings",
         type="American",
         image="https://people.com/thmb/M1feAS2jkiGHy4VB1l0_IqefA0E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(719x571:721x573)/buffalo-wild-wings-246f6cd2919f4d0a905f833ec1fd5326.jpg",
-        starRating=0,
-        numReviews=0,
+        starRating=3,
+        numReviews=1,
     )
     pandaExpress = Restaurant(
         ownerId=2,
@@ -66,8 +66,8 @@ def seed_restaurants():
         name="Panda Express",
         type="Chinese",
         image="https://www.mashed.com/img/gallery/panda-express-may-have-a-new-chicken-offering-on-the-menu-soon/l-intro-1660604759.jpg",
-        starRating=0,
-        numReviews=0,
+        starRating=4,
+        numReviews=1,
     )
     haiDiLao = Restaurant(
         ownerId=1,
@@ -82,7 +82,7 @@ def seed_restaurants():
         starRating=0,
         numReviews=0,
     )
-    mcDonald= Restaurant(
+    mcDonald = Restaurant(
         ownerId=1,
         address='327 S Canal',
         city='Carlsbad',
@@ -95,7 +95,7 @@ def seed_restaurants():
         starRating=0,
         numReviews=0,
     )
-    papaJohnPizza= Restaurant(
+    papaJohnPizza = Restaurant(
         ownerId=1,
         address='339724 Cedar Blvd.',
         city='Fremont',
@@ -108,7 +108,7 @@ def seed_restaurants():
         starRating=0,
         numReviews=0,
     )
-    anjapparChettinad= Restaurant(
+    anjapparChettinad = Restaurant(
         ownerId=1,
         address='777 Lawerence Expy Ste8',
         city='Santa Clara',
@@ -121,7 +121,7 @@ def seed_restaurants():
         starRating=0,
         numReviews=0,
     )
-    kaiSushi= Restaurant(
+    kaiSushi = Restaurant(
         ownerId=1,
         address='720 St Michaels Dr,Ste 2M',
         city='Santa Fe',
@@ -134,7 +134,7 @@ def seed_restaurants():
         starRating=0,
         numReviews=0,
     )
-    oliveGarden= Restaurant(
+    oliveGarden = Restaurant(
         ownerId=3,
         address='3940 S Lamar Blvd',
         city='Austin',
@@ -157,8 +157,6 @@ def seed_restaurants():
     db.session.add(anjapparChettinad)
     db.session.add(kaiSushi)
     db.session.add(oliveGarden)
-
-
 
     db.session.commit()
 
