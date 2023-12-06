@@ -41,7 +41,6 @@ const ReviewModal = ({ restaurantId, onClose, editReview }) => {
     if (editReview) {
       dispatch(reviewActions.updateUserReview(editReview.id, newReview))
         .then((updatedReview) => {
-          console.log("Review updated:", updatedReview);
           resetModalState();
           closeModal();
         })
@@ -54,7 +53,6 @@ const ReviewModal = ({ restaurantId, onClose, editReview }) => {
     } else {
       try {
         dispatch(reviewActions.createNewReview(newReview));
-        console.log("Actions", reviewActions.createReview(newReview));
         resetModalState();
         closeModal();
       } catch (error) {
