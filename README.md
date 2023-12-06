@@ -1,6 +1,6 @@
-# Sweetwafer
+# NomNomRide
 
-Sweetwafer is a partial clone of the website 'Sweetwater', an e-commerce site that I like to describe as 'Amazon for musicians'. I've always loved the layout and functionality of this site. It has the right amount of redundancy to make navigation easy and intuitive. The site is visually busy without feeling crowded or messy. The site also sports some impressive css features such as auto-zoom on hover for product page images and more. Hopefully I can get to some of these extras, but 2 weeks can be a tight deadline... Moving past the deadline of the capstone project, I hope to make this clone REALLY shine and occupy it's rightful place as the jewel of my resume! 
+NomNomRide is a partial clone of the website 'UberEat', which is an e-commerce site I've always loved the layout and functionality of this site. It has the right amount of redundancy to make navigation easy and intuitive. The site is visually busy without feeling crowded or messy. We tried our best cloning as many features as the original to make our website functional and look professional. Hope it can give us some spice to our future job hunting and interview!
 
 # Live Link
 https://sweetwafer.onrender.com
@@ -17,7 +17,7 @@ https://sweetwafer.onrender.com
 
 # Index
 
-[Feature List](https://github.com/AppBK/Sweetwafer/wiki/Features) | [Database Schema](https://github.com/AppBK/Sweetwafer/wiki/DB-Schema) | [User Stories](https://github.com/AppBK/Sweetwafer/wiki/User-Stories) | [Wireframes](https://github.com/AppBK/Sweetwafer/wiki/Wireframes)
+[Feature List](https://github.com/kyleseeley/NomNomRide/wiki/Feature-List) | [Database Schema](https://github.com/kyleseeley/NomNomRide/wiki/DB-Schema) | [User Stories](https://github.com/kyleseeley/NomNomRide/wiki/User-Stories) | [BackendRoutes](https://github.com/kyleseeley/NomNomRide/wiki/Backend-Routes) | [FrontendRoutes](https://github.com/kyleseeley/NomNomRide/wiki/Frontend-Routes)
 
 # Landing Page
 
