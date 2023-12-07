@@ -56,7 +56,8 @@
 
 .login-button,
 .signup-button,
-.cart-button {
+.cart-button,
+.logout-button {
   all: unset;
   font-family: "Fira Sans", sans-serif;
   cursor: pointer;
@@ -116,4 +117,10 @@
 
 .page-info > ul > li {
   margin-bottom: 1rem;
+}
+
+.logout-button {
+  color: white;
+  background-color: black;
+  margin-right: 0.5rem;
 }
