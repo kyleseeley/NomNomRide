@@ -58,10 +58,111 @@ NomNomRide is a partial clone of the website 'UberEat', which is an e-commerce s
     "password": STRING,
     "id": INTEGER
 }
+
 Status: 200
    ```
   </td>
  </tr>
+<tr>
+ <td>POST /api/auth/login</td>
+ <td>"This api attempts to login a user with the provided credentials.
+It returns an object representing the current user, if validation succeeds."</td>
+ <td>
+
+  ```json
+{
+    "password": STRING,
+    "email": STRING,
+    "id": INTEGER
+}
+
+Status: 200
+```
+ </td>
+</tr>
+
+<tr>
+ <td>POST /api/auth/logout</td>
+ <td>"This api will logout the current user.
+It returns an object with the message 'User logged Out' if it succeeds."</td>
+ <td>
+
+  ```json
+{
+    "message": STRING
+}
+
+Status: 200
+```
+ </td>
+</tr>
+
+<tr>
+ <td></td>
+ <td></td>
+ <td>
+
+  ```json
+
+```
+ </td>
+</tr>
+<tr>
+ <td></td>
+ <td></td>
+ <td>
+
+  ```json
+
+```
+ </td>
+</tr>
+<tr>
+ <td></td>
+ <td></td>
+ <td>
+
+  ```json
+
+```
+ </td>
+</tr>
+</table>
+
+## Restaurants
+<table>
+  <tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+ </tr>
+<tr>
+ <td>GET/api/restaurants/</td>
+ <td>This api is sent to retrieve all restaurants brief info. Upon success, we return an array of objects representing that data.</td>
+ <td>
+
+  ```json
+{
+    "restaurants": [
+        {
+            "address":STRING,
+            "city": STRING,
+            "id": INTEGER,
+            "image": STRING,
+            "lat": NUMBER,
+            "lng": NUMBER
+            "name": STRING,
+            "numReviews": INTEGER,
+            "ownerId": INTEGER,
+            "starRating":NUMBER,
+            "state": STRING,
+            "type": STRING
+        },
+        {…},
+        …
+    ]
+}
+```
+ </td>
+</tr>
 </table>
 
 ## Cart
