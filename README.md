@@ -3,7 +3,7 @@
 NomNomRide is a partial clone of the website 'UberEat', which is an e-commerce site I've always loved the layout and functionality of this site. It has the right amount of redundancy to make navigation easy and intuitive. The site is visually busy without feeling crowded or messy. We tried our best cloning as many features as the original to make our website functional and look professional. Hope it can give us some spice to our future job hunting and interview!
 
 # Live Link
-https://sweetwafer.onrender.com
+[(https://nomnomride.onrender.com)]
 
 ## Tech Stack
 ### Frameworks and Libraries
@@ -67,22 +67,12 @@ https://sweetwafer.onrender.com
 | PUT /api/shipping/update/<int:billing_id>        | This fetch is sent to update the billing info record specified by the billing id. Upon success, we return an array of objects representing all entries for current user.           | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 200<br>|
 | DELETE /api/billing/delete     | This fetch sends a billing info id in the body of the request. Upon successful deletion we return the updated array of user entries. | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 200<br>|
 
-# Feature List
-1. Cart
-2. Shipping Entries
-3. Billing Accounts
 
 # Future Implementation Goals
 
-1. Reviews (w/AWS image uploads)
-2. ChatHelpBot (websockets)
-3. Search Bar
-4. Sales Professionals
-5. Payment Accounts (Credit Cards / PayPal)
-6. Make pixel perfect to target site.
+1. Implement Googlemap API
+2. Stripe payment APi
 
-# Connect
-[LinkedIn](https://www.linkedin.com/in/brian-kiesel-94475696/)
 
 
 # Flask React Project
