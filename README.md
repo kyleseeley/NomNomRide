@@ -21,7 +21,8 @@ NomNomRide is a partial clone of the website 'UberEat', which is an e-commerce s
 
 # Landing Page
 
-<img src="https://github.com/AppBK/Sweetwafer/assets/107947798/a0f0053b-f42f-4dab-8fbd-2d7ad58938ba" data-canonical-src="https://sweetwafers3bucket.s3.us-west-1.amazonaws.com/landing4gif.gif" width="600px"/>
+![e6f3875d-c94a-4dff-bccc-c821883f64c5](https://github.com/kyleseeley/NomNomRide/assets/109104101/73bb5318-394d-468b-bf3e-1407e46744c1)
+
 
  
  # Product Page
@@ -93,37 +94,6 @@ It returns an object with the message 'User logged Out' if it succeeds."</td>
 }
 
 Status: 200
-```
- </td>
-</tr>
-
-<tr>
- <td></td>
- <td></td>
- <td>
-
-  ```json
-
-```
- </td>
-</tr>
-<tr>
- <td></td>
- <td></td>
- <td>
-
-  ```json
-
-```
- </td>
-</tr>
-<tr>
- <td></td>
- <td></td>
- <td>
-
-  ```json
-
 ```
  </td>
 </tr>
