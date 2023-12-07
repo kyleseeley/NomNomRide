@@ -1,5 +1,5 @@
 import { useEffect, useState, React } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../SearchBar';
 import { useSidebarContext } from '../../context/Sidebar';
@@ -7,12 +7,14 @@ import { getCartItemsThunk } from '../../store/cartItems';
 import { getCartThunk } from '../../store/cart';
 import Cart from './Cart'
 import logo from '../../images/nomnomridelogo.png'
+import { logout } from '../../store/session';
 import './Navigation.css';
 
 function Navigation(){
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
   const location = useLocation()
+  const history = useHistory()
   const { setIsSidebarVisible } = useSidebarContext()
   const [isCartVisible, setIsCartVisible] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -25,6 +27,11 @@ function Navigation(){
     }
     else setIsLoaded(true)
   }, [sessionUser, dispatch])
+
+  const handleLogout = () => {
+    dispatch(logout());
+    history.push("/");
+  };
 
   return (
     <ul className='nav'>
@@ -53,6 +60,9 @@ function Navigation(){
 
       <li className='nav-right'>
         {isLoaded && <>
+          {sessionUser && <button onClick={handleLogout} className="logout-button">
+                Log Out
+              </button>}
           {sessionUser && <button
             onClick={() => setIsCartVisible(true)}
             className='cart-button'>
