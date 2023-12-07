@@ -223,29 +223,265 @@ Status: 200
 </tr>
 </table>
 
-## Cart
-| Request                        | Purpose                | Return Value  | 
-| :----------------------------- | :--------------------: | :------------------------------ |
-| POST /api/cart/add        | This fetch is sent to add a new item to the cart table. Upon success, it returns an object representing that item.                 | {<br>&nbsp;&nbsp;&nbsp;'id': INT,<br>&nbsp;&nbsp;&nbsp;'category': STRING,<br>&nbsp;&nbsp;&nbsp;'vendor_name': STRING,<br>&nbsp;&nbsp;&nbsp;'manufacturer_id': STRING,<br>&nbsp;&nbsp;&nbsp;'name': STRING,<br>&nbsp;&nbsp;&nbsp;'model': STRING,<br>&nbsp;&nbsp;&nbsp;'serial': STRING,<br>&nbsp;&nbsp;&nbsp;'description': STRING,<br>&nbsp;&nbsp;&nbsp;'tech_specs': STRING,<br>&nbsp;&nbsp;&nbsp;'price': FLOAT<br>}<br><br>Status: 201<br>|
-| PUT /api/cart/quantity        | This fetch is sent to update the quantity value of a cart item. Upon success, it returns an object representing that item in the cart, with a new quantity.                 | {<br>&nbsp;&nbsp;&nbsp;'id': INT,<br>&nbsp;&nbsp;&nbsp;'user_id': INT,<br>&nbsp;&nbsp;&nbsp;'item_id': INT,<br>&nbsp;&nbsp;&nbsp;'quantity': INT,<br>}<br><br>Status: 200<br>|
-| DELETE /api/cart/delete/<int:id>        | This fetch is sent to delete an item from the cart. Upon success, it returns the string "Success", otherwise, we throw an error.                | "Success"<br><br>Status: 200<br>|
-| DELETE /api/cart/clear        | This fetch is sent to delete all items from the cart. Upon success, it returns the string "Cart Emptied", otherwise, we throw an error.                | "Cart Emptied"<br><br>Status: 200<br>|
+## MenuItems
+<table>
+  <tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+ </tr>
+<tr>
+ <td>GET/api/restaurants/:int/items</td>
+ <td>This api is sent to retrieve all items info for the user specified by the id. Upon success, we return an array of objects representing that data.</td>
+ <td>
 
-## Shipping Info
-| Request                        | Purpose                | Return Value  | 
-| :----------------------------- | :--------------------: | :------------------------------ |
-| GET /api/shipping/<int:user_id>        | This fetch is sent to retrieve all shipping info records for the user specified by the id. Upon success, we return an array of objects representing that data.           | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 200<br>|
-| POST /api/shipping/add        | This fetch is sent to add a new entry to the shipping info table. Due to the existence of the Primary property, we update the frontend store by sending back an array of all entries and replacing the value of the current state upon success.        | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 201<br>|
-| PUT /api/shipping/update/<int:shipping_id>        | This fetch is sent to update the shipping info record specified by the shipping id. Upon success, we return an array of objects representing all entries for current user.           | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 200<br>|
-| DELETE /api/shipping/delete     | This fetch sends a shipping info id in the body of the request. Upon successful deletion we return the updated array of user entries. | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 200<br>|
+  ```json
+{
+    "menuItems": [
+        {
+            "description": STRING,
+            "id": 5,
+            "image": STRING,
+            "name": STRING,
+            "price": "NUMBER,
+            "restaurantId": INTEGER,
+            "type": STRING
+        },{}…]
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>POST/api/restaurants/:int/items</td>
+ <td>This api is sent to add a new menu item to the current restaurant that belongs to the current logged user, we return an object representing the data.</td>
+ <td>
 
-## Billing Info
-| Request                        | Purpose                | Return Value  | 
-| :----------------------------- | :--------------------: | :------------------------------ |
-| GET /api/billing/<int:user_id>        | This fetch is sent to retrieve all billing info records for the user specified by the id. Upon success, we return an array of objects representing that data.           | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 200<br>|
-| POST /api/billing/add        | This fetch is sent to add a new entry to the billing info table. Due to the existence of the Primary property, we update the frontend store by sending back an array of all entries and replacing the value of the current state upon success.        | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 201<br>|
-| PUT /api/shipping/update/<int:billing_id>        | This fetch is sent to update the billing info record specified by the billing id. Upon success, we return an array of objects representing all entries for current user.           | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 200<br>|
-| DELETE /api/billing/delete     | This fetch sends a billing info id in the body of the request. Upon successful deletion we return the updated array of user entries. | ARRAY[<br>&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;apt_number: INT,<br>&nbsp;&nbsp;&nbsp;city: STRING,<br>&nbsp;&nbsp;&nbsp;company: STRING,<br>&nbsp;&nbsp;&nbsp;country: STRING,<br>&nbsp;&nbsp;&nbsp;primary: BOOLEAN,<br>&nbsp;&nbsp;&nbsp;shipping_name: STRING,<br>&nbsp;&nbsp;&nbsp;state: STRING,<br>&nbsp;&nbsp;&nbsp;street: STRING,<br>&nbsp;&nbsp;&nbsp;user_id: INT,<br>&nbsp;&nbsp;&nbsp;zip: STRING,<br>&nbsp;&nbsp;&nbsp;},<br>]<br><br>Status: 200<br>|
+  ```json
+{
+    "name":STRING,
+    “type":"STRING
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>PUT/api/items/:int</td>
+ <td>This api is sent to update the menu item which belonged to the current restaurant from param and specified by the user id. Upon success, we return an object representing the updated restaurant.</td>
+ <td>
+
+  ```json
+{
+    "name":STRING,
+    “type":"STRING
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/items/:int</td>
+ <td>This api is sent to delete the current menu item. Upon success, we return a message saying it’s deleted successfully and delete the menu item from database.</td>
+ <td>
+
+  ```json
+{
+    "message": STRING
+}
+```
+ </td>
+</tr>
+</table>
+
+## Reviews
+<table>
+<tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+</tr>
+ <tr>
+ <td>GET/api/restaurants/:int/reviews</td>
+ <td>This api is sent to retrieve all reviews for the restaurant specified by the id. Upon success, we return an array of objects representing that data.</td>
+ <td>
+
+  ```json
+{“reviews": [
+        {
+            "createdAt":TIMESTAMP,
+            "firstname": STRING,
+            "id": INTEGER,
+            "lastname": STRING,
+            "restaurantId": INTEGER,
+            "review": STRING,
+            "stars": NUMBER,
+            "userId": INTEGER
+        },{}…}
+```
+ </td>
+</tr>
+<tr>
+ <td>POST/api/restaurants/:int/reviews</td>
+ <td>This api is sent to post a new review to the current restaurant specified by the id. Upon success, we return an array of objects representing that data.</td>
+ <td>
+
+  ```json
+{
+    "createdAt":TIMESTAMP,
+    "id":INTEGER,
+    "restaurantId": INTEGER,
+    "restaurantName":STRING,
+    "review":STRING,
+    "stars": NUMBER,
+    "userId": INTEGER
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>PUT/api/reviews/:int</td>
+ <td>This api is sent to update an existing review to the current restaurant. Upon success, we return an array of objects representing that data.</td>
+ <td>
+
+  ```json
+{
+    "createdAt":TIMESTAMP,
+    "id":INTEGER,
+    "restaurantId": INTEGER,
+    "restaurantName":STRING,
+    "review":STRING,
+    "stars": NUMBER,
+    "userId": INTEGER
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/reviews/:int</td>
+ <td>This api is sent to delete the current review. Upon success, we return a message saying it’s deleted successfully and delete the review from database.</td>
+ <td>
+
+  ```json
+{“message”:“STRING}
+```
+ </td>
+</tr>
+</table>
+
+## ShoppingCart
+<table>
+<tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+</tr>
+ <tr>
+ <td>GET/api/session/shopping-cart</td>
+ <td>This api is sent to retrieve all shopping carts, along with all items and restaurant info for the user specified by the id. Upon success, we return an array of objects including cart info, items in the cart as an array, and restaurant data.</td>
+ <td>
+
+  ```json
+[
+    {
+        "cart": {
+            "id": INTEGER,
+            "restaurantId": INTEGER,
+            "total": NUMBER
+        },
+        "items": [
+            {
+                "cartId": INTEGER,
+                "description":STRING,
+                "id": INTEGER,
+                "image":STRING,
+                "menuItemId": INTEGER,
+                "name": STRING,
+                "price": NUMBER,
+                "quantity": INTEGER
+            }
+        ],
+        "restaurant": {
+            "address": STRING,
+            "city": STRING,
+            "name": STRING
+        }
+    }
+]
+```
+ </td>
+</tr>
+<tr>
+ <td>POST/api/restaurants/:int/shopping-cart</td>
+ <td>This api is sent to create a new cart related to the current restaurant, we return an object representing the data.</td>
+ <td>
+
+  ```json
+{
+    "id":INTEGER,
+    "restaurantId":INTEGER,
+    "total":"NUMBER"
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/shopping-cart/:int</td>
+ <td>This api is sent to delete the current shopping cart. Upon success, we return a message saying it’s deleted successfully.</td>
+ <td>
+
+  ```json
+{“message”:STRING}
+```
+ </td>
+</tr>
+</table>
+
+## ShoppingcartItem
+<table>
+<tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+</tr>
+ <tr>
+ <td>POST/api/items/:int/shopping-cart-items</td>
+ <td>This api is sent to create a new cart item in current cart based on the current menu item, we return an object representing the data.</td>
+ <td>
+
+  ```json
+{
+    "cartId": INTEGER,
+    "description": STRING,
+    "id": INTEGER,
+    "image": "STRING,
+    "menuItemId": INTEGER,
+    "name": STRING,
+    "price": NUMBER,
+    "quantity": INTEGER
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>PUT/api/shopping-cart-items/:int</td>
+ <td>This api is sent to update the quantity of the current item in current cart, we return an object representing the data.</td>
+ <td>
+
+  ```json
+{
+    "cartId": INTEGER,
+    "description": STRING,
+    "id": INTEGER,
+    "image": "STRING,
+    "menuItemId": INTEGER,
+    "name": STRING,
+    "price": NUMBER,
+    "quantity": INTEGER
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/shopping-cart-items/:int</td>
+ <td>This api is sent to delete the item from the current cart, we return a message saying it’s deleted successfully.</td>
+ <td>
+
+  ```json
+{"message":STRING}
+```
+ </td>
+</tr>
+</table>
 
 
 # Future Implementation Goals
