@@ -163,6 +163,64 @@ Status: 200
 ```
  </td>
 </tr>
+<tr>
+ <td>POST/api/restaurants/</td>
+ <td>This api is sent to add a new restaurant to the restaurants table that belongs to the current logged user, we return an object representing the data.</td>
+ <td>
+
+  ```json
+{
+    "address":STRING,
+    "city": STRING,
+    "id": INTEGER,
+    "image": STRING,
+    "lat":NUMBER,
+    "lng": NUMBER,
+    "name": "STRING,
+    "numReviews": INTEGER,
+    "ownerId":INTEGER,
+    "starRating": NUMBER,
+    "state": STRING,
+    "type": STRING
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>PUT/api/restaurants/:int</td>
+ <td>This api is sent to update the restaurant info specified by the user id and the current restaurant. Upon success, we return an object representing the updated restaurant.</td>
+ <td>
+
+  ```json
+{
+    "address":STRING,
+    "city": STRING,
+    "id": INTEGER,
+    "image": STRING,
+    "lat":NUMBER,
+    "lng": NUMBER,
+    "name": "STRING,
+    "numReviews": INTEGER,
+    "ownerId":INTEGER,
+    "starRating": NUMBER,
+    "state": STRING,
+    "type": STRING
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/restaurants/:int</td>
+ <td>This api is sent to delete the current restaurant. Upon success, we return a message saying it’s deleted successfully and delete the restaurant from database.</td>
+ <td>
+
+  ```json
+{
+    "message":STRING
+}
+```
+ </td>
+</tr>
 </table>
 
 ## Cart
