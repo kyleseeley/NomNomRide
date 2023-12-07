@@ -22,17 +22,11 @@ NomNomRide is a partial clone of the website 'UberEat', which is an e-commerce s
 # Landing Page
 
 ![e6f3875d-c94a-4dff-bccc-c821883f64c5](https://github.com/kyleseeley/NomNomRide/assets/109104101/73bb5318-394d-468b-bf3e-1407e46744c1)
-
-
  
- # Product Page
-<img width="600px" src="https://github.com/AppBK/Sweetwafer/assets/107947798/975d61c5-5b23-4686-9731-4525f3a9cd16" data-canonical-src="https://sweetwafers3bucket.s3.us-west-1.amazonaws.com/ProductPageSweetwaferCroppedTop.gif">
+ # Place Order
 
-
-# Cart
-<img src="https://github.com/AppBK/Sweetwafer/assets/107947798/e41c4b1e-73b4-44c6-99b8-f4d01bf38970" data-canonical-src="https://sweetwafers3bucket.s3.us-west-1.amazonaws.com/CartSweetwaferCroppedTop.gif" width="600px" />
+ ![f1562440-ad94-424e-86ca-593795922ab7](https://github.com/kyleseeley/NomNomRide/assets/109104101/a38741c5-962c-426b-b2fb-69734c9742d6)
  
-
 
 # Endpoints
 ## Auth
