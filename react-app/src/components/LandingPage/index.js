@@ -131,6 +131,9 @@ const LandingPage = () => {
               <a href="https://github.com/kyleseeley">
                 <i className="fa-brands fa-github" />
               </a>
+              <a href="https://www.linkedin.com/in/kyle-seeley-6a856539/">
+                <i className="fa-brands fa-linkedin" />
+              </a>
           </div>
           <div>
             <div>Selina Shi</div>

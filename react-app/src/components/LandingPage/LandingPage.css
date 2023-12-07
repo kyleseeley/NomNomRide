@@ -177,3 +177,8 @@
 .type-name {
   font-size: 14px;
 }
+
+.fa-github,
+.fa-linkedin {
+  padding: 1px
+}
