@@ -117,32 +117,45 @@ const LandingPage = () => {
           </div>
         )}
       </div>
-      <div style={{display: "flex", width: "100%", alignItems: "center", flexDirection: "column", padding: "0.5rem 0", borderTop: "1px solid #CCCCCC", marginTop: "1rem"}}>
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          alignItems: "center",
+          flexDirection: "column",
+          padding: "0.5rem 0",
+          borderTop: "1px solid #CCCCCC",
+          marginTop: "1rem",
+        }}
+      >
         <h2>About</h2>
-        <div style={{display: "flex", gap: "2rem"}}>
+        <div style={{ display: "flex", gap: "2rem" }}>
           <div>
             <div>Joshua Ho</div>
-              <a href="https://github.com/joshh5790">
-                <i className="fa-brands fa-github" />
-              </a>
-              <a href="https://www.linkedin.com/in/joshua-ho-5790/">
-                <i className="fa-brands fa-linkedin" />
-              </a>
+            <a href="https://github.com/joshh5790">
+              <i className="fa-brands fa-github" />
+            </a>
+            <a href="https://www.linkedin.com/in/joshua-ho-5790/">
+              <i className="fa-brands fa-linkedin" />
+            </a>
           </div>
           <div>
             <div>Kyle Seeley</div>
-              <a href="https://github.com/kyleseeley">
-                <i className="fa-brands fa-github" />
-              </a>
-              <a href="https://www.linkedin.com/in/kyle-seeley-6a856539/">
-                <i className="fa-brands fa-linkedin" />
-              </a>
+            <a href="https://github.com/kyleseeley">
+              <i className="fa-brands fa-github" />
+            </a>
+            <a href="https://www.linkedin.com/in/kyle-seeley-6a856539/">
+              <i className="fa-brands fa-linkedin" />
+            </a>
           </div>
           <div>
-            <div>Selina Shi</div>
-              <a href="https://github.com/selina350">
-                <i className="fa-brands fa-github" />
-              </a>
+            <div>Linnan Shi</div>
+            <a href="https://github.com/selina350">
+              <i className="fa-brands fa-github" />
+            </a>
+            <a href="www.linkedin.com/in/linnan-shi-907109aa/">
+              <i className="fa-brands fa-linkedin" />
+            </a>
           </div>
         </div>
       </div>
