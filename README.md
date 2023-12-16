@@ -1,3 +1,460 @@
+# NomNomRide
+
+NomNomRide is a partial clone of the website 'UberEat', which is an e-commerce site I've always loved the layout and functionality of this site. It has the right amount of redundancy to make navigation easy and intuitive. The site is visually busy without feeling crowded or messy. We tried our best cloning as many features as the original to make our website functional and look professional. Hope it can give us some spice to our future job hunting and interview!
+
+# Live Link
+[(https://nomnomride.onrender.com)]
+
+## Tech Stack
+### Frameworks and Libraries
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+
+ ### Database:
+ ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+  
+ ### Hosting:
+ ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
+
+# Index
+
+[Feature List](https://github.com/kyleseeley/NomNomRide/wiki/Feature-List) | [Database Schema](https://github.com/kyleseeley/NomNomRide/wiki/DB-Schema) | [User Stories](https://github.com/kyleseeley/NomNomRide/wiki/User-Stories) | [BackendRoutes](https://github.com/kyleseeley/NomNomRide/wiki/Backend-Routes) | [FrontendRoutes](https://github.com/kyleseeley/NomNomRide/wiki/Frontend-Routes)
+
+# Landing Page
+
+![e6f3875d-c94a-4dff-bccc-c821883f64c5](https://github.com/kyleseeley/NomNomRide/assets/109104101/73bb5318-394d-468b-bf3e-1407e46744c1)
+ 
+ # Place Order
+
+ ![f1562440-ad94-424e-86ca-593795922ab7](https://github.com/kyleseeley/NomNomRide/assets/109104101/a38741c5-962c-426b-b2fb-69734c9742d6)
+ 
+
+# Endpoints
+## Auth
+<table>
+ <tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+ </tr>
+  <tr>
+  <td>POST /api/auth/signup</td> 
+  <td>This api sends the form data signup from data to the backend to process the creation of a new user. It returns an object representing the current user, after logging them in, if account creation succeeds.</td> 
+  <td>
+   
+   ```json
+{
+    "firstname": STRING,
+    "lastname": STRING,
+    "email": STRING,
+    "username": STRING,
+    "address": STRING,
+    "city": STRING,
+    "state": STRING,
+    "lat": NUMBER,
+    "lng": NUMBER,
+    "password": STRING,
+    "id": INTEGER
+}
+
+Status: 200
+   ```
+  </td>
+ </tr>
+<tr>
+ <td>POST /api/auth/login</td>
+ <td>"This api attempts to login a user with the provided credentials.
+It returns an object representing the current user, if validation succeeds."</td>
+ <td>
+
+  ```json
+{
+    "password": STRING,
+    "email": STRING,
+    "id": INTEGER
+}
+
+Status: 200
+```
+ </td>
+</tr>
+
+<tr>
+ <td>POST /api/auth/logout</td>
+ <td>"This api will logout the current user.
+It returns an object with the message 'User logged Out' if it succeeds."</td>
+ <td>
+
+  ```json
+{
+    "message": STRING
+}
+
+Status: 200
+```
+ </td>
+</tr>
+</table>
+
+## Restaurants
+<table>
+  <tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+ </tr>
+<tr>
+ <td>GET/api/restaurants/</td>
+ <td>This api is sent to retrieve all restaurants brief info. Upon success, we return an array of objects representing that data.</td>
+ <td>
+
+  ```json
+{
+    "restaurants": [
+        {
+            "address":STRING,
+            "city": STRING,
+            "id": INTEGER,
+            "image": STRING,
+            "lat": NUMBER,
+            "lng": NUMBER
+            "name": STRING,
+            "numReviews": INTEGER,
+            "ownerId": INTEGER,
+            "starRating":NUMBER,
+            "state": STRING,
+            "type": STRING
+        },
+        {…},
+        …
+    ]
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>POST/api/restaurants/</td>
+ <td>This api is sent to add a new restaurant to the restaurants table that belongs to the current logged user, we return an object representing the data.</td>
+ <td>
+
+  ```json
+{
+    "address":STRING,
+    "city": STRING,
+    "id": INTEGER,
+    "image": STRING,
+    "lat":NUMBER,
+    "lng": NUMBER,
+    "name": "STRING,
+    "numReviews": INTEGER,
+    "ownerId":INTEGER,
+    "starRating": NUMBER,
+    "state": STRING,
+    "type": STRING
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>PUT/api/restaurants/:int</td>
+ <td>This api is sent to update the restaurant info specified by the user id and the current restaurant. Upon success, we return an object representing the updated restaurant.</td>
+ <td>
+
+  ```json
+{
+    "address":STRING,
+    "city": STRING,
+    "id": INTEGER,
+    "image": STRING,
+    "lat":NUMBER,
+    "lng": NUMBER,
+    "name": "STRING,
+    "numReviews": INTEGER,
+    "ownerId":INTEGER,
+    "starRating": NUMBER,
+    "state": STRING,
+    "type": STRING
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/restaurants/:int</td>
+ <td>This api is sent to delete the current restaurant. Upon success, we return a message saying it’s deleted successfully and delete the restaurant from database.</td>
+ <td>
+
+  ```json
+{
+    "message":STRING
+}
+```
+ </td>
+</tr>
+</table>
+
+## MenuItems
+<table>
+  <tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+ </tr>
+<tr>
+ <td>GET/api/restaurants/:int/items</td>
+ <td>This api is sent to retrieve all items info for the user specified by the id. Upon success, we return an array of objects representing that data.</td>
+ <td>
+
+  ```json
+{
+    "menuItems": [
+        {
+            "description": STRING,
+            "id": 5,
+            "image": STRING,
+            "name": STRING,
+            "price": "NUMBER,
+            "restaurantId": INTEGER,
+            "type": STRING
+        },{}…]
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>POST/api/restaurants/:int/items</td>
+ <td>This api is sent to add a new menu item to the current restaurant that belongs to the current logged user, we return an object representing the data.</td>
+ <td>
+
+  ```json
+{
+    "name":STRING,
+    “type":"STRING
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>PUT/api/items/:int</td>
+ <td>This api is sent to update the menu item which belonged to the current restaurant from param and specified by the user id. Upon success, we return an object representing the updated restaurant.</td>
+ <td>
+
+  ```json
+{
+    "name":STRING,
+    “type":"STRING
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/items/:int</td>
+ <td>This api is sent to delete the current menu item. Upon success, we return a message saying it’s deleted successfully and delete the menu item from database.</td>
+ <td>
+
+  ```json
+{
+    "message": STRING
+}
+```
+ </td>
+</tr>
+</table>
+
+## Reviews
+<table>
+<tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+</tr>
+ <tr>
+ <td>GET/api/restaurants/:int/reviews</td>
+ <td>This api is sent to retrieve all reviews for the restaurant specified by the id. Upon success, we return an array of objects representing that data.</td>
+ <td>
+
+  ```json
+{“reviews": [
+        {
+            "createdAt":TIMESTAMP,
+            "firstname": STRING,
+            "id": INTEGER,
+            "lastname": STRING,
+            "restaurantId": INTEGER,
+            "review": STRING,
+            "stars": NUMBER,
+            "userId": INTEGER
+        },{}…}
+```
+ </td>
+</tr>
+<tr>
+ <td>POST/api/restaurants/:int/reviews</td>
+ <td>This api is sent to post a new review to the current restaurant specified by the id. Upon success, we return an array of objects representing that data.</td>
+ <td>
+
+  ```json
+{
+    "createdAt":TIMESTAMP,
+    "id":INTEGER,
+    "restaurantId": INTEGER,
+    "restaurantName":STRING,
+    "review":STRING,
+    "stars": NUMBER,
+    "userId": INTEGER
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>PUT/api/reviews/:int</td>
+ <td>This api is sent to update an existing review to the current restaurant. Upon success, we return an array of objects representing that data.</td>
+ <td>
+
+  ```json
+{
+    "createdAt":TIMESTAMP,
+    "id":INTEGER,
+    "restaurantId": INTEGER,
+    "restaurantName":STRING,
+    "review":STRING,
+    "stars": NUMBER,
+    "userId": INTEGER
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/reviews/:int</td>
+ <td>This api is sent to delete the current review. Upon success, we return a message saying it’s deleted successfully and delete the review from database.</td>
+ <td>
+
+  ```json
+{“message”:“STRING}
+```
+ </td>
+</tr>
+</table>
+
+## ShoppingCart
+<table>
+<tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+</tr>
+ <tr>
+ <td>GET/api/session/shopping-cart</td>
+ <td>This api is sent to retrieve all shopping carts, along with all items and restaurant info for the user specified by the id. Upon success, we return an array of objects including cart info, items in the cart as an array, and restaurant data.</td>
+ <td>
+
+  ```json
+[
+    {
+        "cart": {
+            "id": INTEGER,
+            "restaurantId": INTEGER,
+            "total": NUMBER
+        },
+        "items": [
+            {
+                "cartId": INTEGER,
+                "description":STRING,
+                "id": INTEGER,
+                "image":STRING,
+                "menuItemId": INTEGER,
+                "name": STRING,
+                "price": NUMBER,
+                "quantity": INTEGER
+            }
+        ],
+        "restaurant": {
+            "address": STRING,
+            "city": STRING,
+            "name": STRING
+        }
+    }
+]
+```
+ </td>
+</tr>
+<tr>
+ <td>POST/api/restaurants/:int/shopping-cart</td>
+ <td>This api is sent to create a new cart related to the current restaurant, we return an object representing the data.</td>
+ <td>
+
+  ```json
+{
+    "id":INTEGER,
+    "restaurantId":INTEGER,
+    "total":"NUMBER"
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/shopping-cart/:int</td>
+ <td>This api is sent to delete the current shopping cart. Upon success, we return a message saying it’s deleted successfully.</td>
+ <td>
+
+  ```json
+{“message”:STRING}
+```
+ </td>
+</tr>
+</table>
+
+## ShoppingcartItem
+<table>
+<tr>
+  <td>Request</td> <td>Purpose</td> <td>Return Value</td>
+</tr>
+ <tr>
+ <td>POST/api/items/:int/shopping-cart-items</td>
+ <td>This api is sent to create a new cart item in current cart based on the current menu item, we return an object representing the data.</td>
+ <td>
+
+  ```json
+{
+    "cartId": INTEGER,
+    "description": STRING,
+    "id": INTEGER,
+    "image": "STRING,
+    "menuItemId": INTEGER,
+    "name": STRING,
+    "price": NUMBER,
+    "quantity": INTEGER
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>PUT/api/shopping-cart-items/:int</td>
+ <td>This api is sent to update the quantity of the current item in current cart, we return an object representing the data.</td>
+ <td>
+
+  ```json
+{
+    "cartId": INTEGER,
+    "description": STRING,
+    "id": INTEGER,
+    "image": "STRING,
+    "menuItemId": INTEGER,
+    "name": STRING,
+    "price": NUMBER,
+    "quantity": INTEGER
+}
+```
+ </td>
+</tr>
+<tr>
+ <td>DELETE/api/shopping-cart-items/:int</td>
+ <td>This api is sent to delete the item from the current cart, we return a message saying it’s deleted successfully.</td>
+ <td>
+
+  ```json
+{"message":STRING}
+```
+ </td>
+</tr>
+</table>
+
+
+# Future Implementation Goals
+
+1. Implement Googlemap API
+2. Stripe payment APi
+
+
+
 # Flask React Project
 
 This is the starter for the Flask React project.
