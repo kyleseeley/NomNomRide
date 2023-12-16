@@ -11,7 +11,7 @@ stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
 session_routes = Blueprint('current', __name__)
 
 
-@session_routes.route('')
+@session_routes.route('/')
 @login_required
 def get_current_user():
     user = User.query.get(current_user.id)

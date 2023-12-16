@@ -137,7 +137,7 @@ export const restoreUserThunk = () => async (dispatch) => {
   const response = await csrfFetch("/api/session/");
   const data = await response.json();
   dispatch(setUser(data));
-  return response;
+  return;
 };
 
 export const editUserThunk = (user) => async (dispatch) => {
