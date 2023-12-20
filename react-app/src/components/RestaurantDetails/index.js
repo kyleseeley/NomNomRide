@@ -135,7 +135,7 @@ const RestaurantDetails = () => {
               {`${restaurant?.starRating} (${restaurant?.numReviews} ratings) · ${restaurant?.type} · `}
               {updatedStarRating} ({numReviews} reviews)
             </b>
-            <OpenModalButton
+            {/* <OpenModalButton
               className="restaurant-more-info"
               buttonText="More Info"
               modalComponent={
@@ -143,7 +143,7 @@ const RestaurantDetails = () => {
                   restaurant={restaurant}
                 />
               }
-            />
+            /> */}
           </p>
           {restaurant?.ownerId == user?.id && (
             <NavLink to={`/${restaurant?.id}/manage`} className='details-update-restaurant-link'>Manage Restaurant</NavLink>
