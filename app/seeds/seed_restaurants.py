@@ -103,7 +103,7 @@ def seed_restaurants():
         lat=-3,
         lng=25,
         name="Papa Johns Pizza",
-        type="American",
+        type="Pizza",
         image="https://t3.ftcdn.net/jpg/00/27/57/96/360_F_27579652_tM7V4fZBBw8RLmZo0Bi8WhtO2EosTRFD.jpg",
         starRating=0,
         numReviews=0,
