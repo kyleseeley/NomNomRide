@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchOneRestaurant,
   createNewRestaurant,
   updateRestaurant,
 } from "../../../store/restaurant";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./RestaurantForm.css";
 import { displayAlert } from "../../../store/alert";
+import RequestPendingAndFinish from "../../Animations/RequestPendingAndFinish";
 
 const typeList = [
   "Chinese",
@@ -44,6 +44,11 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
   const [image, setImage] = useState(restaurant?.image || "");
   const [imageError, setImageError] = useState(null);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(false);
+  const [createdId, setCreatedId] = useState(null);
+  const isCreatePending = useSelector(
+    (state) => state.restaurant.create?.pending
+  );
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -128,12 +133,13 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
       }
     } else {
       //creation
+      setShowAnimation(true);
       const id = await dispatch(
         createNewRestaurant(address, city, state, lat, lng, name, type, image)
       );
       if (id) {
         dispatch(displayAlert("Restaurant Created"));
-        history.push(`/${id}/manage`);
+        setCreatedId(id);
       }
     }
 
@@ -224,184 +230,197 @@ const RestaurantForm = ({ restaurant, onFinish }) => {
   return (
     <div className={restaurant === undefined ? "page-container" : ""}>
       <div className="login-form-container">
-        <div className="form-wrapper">
-          {restaurant === undefined && <h1>Create New Restaurant</h1>}
-          {restaurant !== undefined && <h1>Edit Restaurant</h1>}
-          <table>
-            <tr>
-              <td>
-                <label>Name</label>
-              </td>
-
-              <td>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    nameInputValidation(e.target.value);
-                  }}
-                />
-                {nameError !== null && <div className="error">{nameError}</div>}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Type</label>
-              </td>
-              <td>
-                <select
-                  value={type}
-                  onChange={(e) => {
-                    setType(e.target.value);
-                  }}
-                  className="select"
-                >
-                  {typeList.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
-                {typeError !== null && <div className="error">{typeError}</div>}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Address</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={address}
-                  onChange={(e) => {
-                    setAddress(e.target.value);
-                    addressInputValidation(e.target.value);
-                  }}
-
-                />
-                {addressError !== null && (
-                  <div className="error">{addressError}</div>
-                )}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>City</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => {
-                    setCity(e.target.value);
-                    cityInputValidation(e.target.value);
-                  }}
-
-                />
-                {cityError !== null && <div className="error">{cityError}</div>}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>State</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={state}
-                  onChange={(e) => {
-                    setState(e.target.value);
-                    stateInputValidation(e.target.value);
-                  }}
-
-                />
-                {stateError !== null && (
-                  <div className="error">{stateError}</div>
-                )}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Latitude</label>
-              </td>
-              <td>
-                <input
-                  type="number"
-                  value={lat}
-                  onChange={(e) => {
-                    setLat(e.target.value);
-                    latInputValidation(e.target.value);
-                  }}
-                  onKeyDown={(e) => {
-                    const invalidChars = ["+", "e"];
-                    if (invalidChars.includes(e.key)) {
-                      e.preventDefault();
-                    }
-                  }}
-
-                />
-                {latError !== null && <div className="error">{latError}</div>}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Longtitude</label>
-              </td>
-              <td>
-                <input
-                  type="number"
-                  value={lng}
-                  onChange={(e) => {
-                    setLng(e.target.value);
-                    lngInputValidation(e.target.value);
-                  }}
-                  onKeyDown={(e) => {
-                    const invalidChars = ["+", "e"];
-                    if (invalidChars.includes(e.key)) {
-                      e.preventDefault();
-                    }
-                  }}
-
-                />
-                {lngError !== null && <div className="error">{lngError}</div>}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Image</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={image}
-                  onChange={(e) => {
-                    setImage(e.target.value);
-                    imageInputValidation(e.target.value);
-                  }}
-
-                />
-                {imageError !== null && (
-                  <div className="error">{imageError}</div>
-                )}
-              </td>
-            </tr>
-          </table>
-          <div className="submit">
-            <button
-              className="cart-button"
-              disabled={isSubmitDisabled}
-              onClick={submitHandler}
-            >
-              Submit
-            </button>
+        {showAnimation && (
+          <div className="form-wrapper">
+            <RequestPendingAndFinish
+              pending={isCreatePending}
+              onAnimationComplete={() => {
+                history.push(`/${createdId}/manage`);
+              }}
+            />
           </div>
-          <div className="cancel-button">
-            <button className="login-button" onClick={cancelHandler}>
-              Cancel
-            </button>
+        )}
+
+        {!showAnimation && (
+          <div className="form-wrapper">
+            {restaurant === undefined && <h1>Create New Restaurant</h1>}
+            {restaurant !== undefined && <h1>Edit Restaurant</h1>}
+            <table>
+              <tr>
+                <td>
+                  <label>Name</label>
+                </td>
+
+                <td>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      nameInputValidation(e.target.value);
+                    }}
+                  />
+                  {nameError !== null && (
+                    <div className="error">{nameError}</div>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Type</label>
+                </td>
+                <td>
+                  <select
+                    value={type}
+                    onChange={(e) => {
+                      setType(e.target.value);
+                    }}
+                    className="select"
+                  >
+                    {typeList.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                  {typeError !== null && (
+                    <div className="error">{typeError}</div>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Address</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={address}
+                    onChange={(e) => {
+                      setAddress(e.target.value);
+                      addressInputValidation(e.target.value);
+                    }}
+                  />
+                  {addressError !== null && (
+                    <div className="error">{addressError}</div>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>City</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={city}
+                    onChange={(e) => {
+                      setCity(e.target.value);
+                      cityInputValidation(e.target.value);
+                    }}
+                  />
+                  {cityError !== null && (
+                    <div className="error">{cityError}</div>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>State</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={state}
+                    onChange={(e) => {
+                      setState(e.target.value);
+                      stateInputValidation(e.target.value);
+                    }}
+                  />
+                  {stateError !== null && (
+                    <div className="error">{stateError}</div>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Latitude</label>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    value={lat}
+                    onChange={(e) => {
+                      setLat(e.target.value);
+                      latInputValidation(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      const invalidChars = ["+", "e"];
+                      if (invalidChars.includes(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
+                  />
+                  {latError !== null && <div className="error">{latError}</div>}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Longtitude</label>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    value={lng}
+                    onChange={(e) => {
+                      setLng(e.target.value);
+                      lngInputValidation(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      const invalidChars = ["+", "e"];
+                      if (invalidChars.includes(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
+                  />
+                  {lngError !== null && <div className="error">{lngError}</div>}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Image</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={image}
+                    onChange={(e) => {
+                      setImage(e.target.value);
+                      imageInputValidation(e.target.value);
+                    }}
+                  />
+                  {imageError !== null && (
+                    <div className="error">{imageError}</div>
+                  )}
+                </td>
+              </tr>
+            </table>
+            <div className="submit">
+              <button
+                className="cart-button"
+                disabled={isSubmitDisabled}
+                onClick={submitHandler}
+              >
+                Submit
+              </button>
+            </div>
+            <div className="cancel-button">
+              <button className="login-button" onClick={cancelHandler}>
+                Cancel
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
