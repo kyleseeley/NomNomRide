@@ -91,7 +91,7 @@ const LandingPage = () => {
                         {restaurant.name} ({restaurant.address})
                       </p>
                       <p className="restaurant-rating">
-                        {restaurant.starRating}
+                        {restaurant.starRating ? restaurant.starRating : 'New'}
                         <i className="fa-solid fa-star" />
                       </p>
                     </div>

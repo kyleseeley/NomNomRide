@@ -122,7 +122,7 @@ const Cart = ({ isCartVisible, setIsCartVisible }) => {
                 className={`options-dropdown ${showOptions ? '' : 'hidden'}`}>
                   <div
                     onClick={handleAddItems}
-                    className="cart-options-button">
+                    className="cart-options-button add">
                     <i className="fa-solid fa-plus cart-options-button-icon" />
                     <span className="cart-options-button-text">Add Items</span>
                   </div>

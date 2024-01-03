@@ -131,8 +131,13 @@
   padding-right: 1rem;
 }
 
+.cart-options-button.add {
+  border-radius: 1rem 1rem 0 0;
+}
+
 .cart-options-button.delete {
   border-top: 1px solid #DDDDDD;
+  border-radius: 0 0 1rem 1rem;
   color: red;
 }
 

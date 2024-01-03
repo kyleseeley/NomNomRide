@@ -129,11 +129,11 @@ const RestaurantDetails = () => {
             {restaurant?.name} ({restaurant?.address})
           </h1>
           <p className="restaurant-details">
-            <i className="fa-solid fa-star" />
-            {"  "}
             <b>
-              {`${restaurant?.starRating} (${restaurant?.numReviews} ratings) · ${restaurant?.type} · `}
-              {updatedStarRating} ({numReviews} reviews)
+              {`${restaurant?.type} · `}
+            {updatedStarRating ? <i className="fa-solid fa-star" /> : ''}
+            {"  "}
+              {updatedStarRating ? `${updatedStarRating} (${numReviews} reviews)` : 'New'}
             </b>
             {/* <OpenModalButton
               className="restaurant-more-info"
@@ -176,7 +176,7 @@ const RestaurantDetails = () => {
           </div>
         </div>
         <div className="reviews-section">
-          <h2 className="review-title">Reviews</h2>
+          {reviewsArray.length ? <h2 className="review-title">Reviews</h2>: 'This restaurant has no reviews so far.'}
           {!hasLeftReview && hasOrdered && (
             <OpenModalButton
               className="leave-review-button"

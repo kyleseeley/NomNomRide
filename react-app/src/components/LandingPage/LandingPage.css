@@ -78,6 +78,7 @@
   font-size: 1.3rem !important;
   font-weight: normal !important;
   color: black;
+  line-height: 3rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -98,11 +99,12 @@
   /* width: 35px;
   height: 35px; */
   padding: 5px;
-  border-radius: 50%;
+  border-radius: 10px;
   background-color: #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.3rem;
 }
 
 .restaurant-rating span {
