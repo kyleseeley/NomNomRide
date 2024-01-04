@@ -10,6 +10,7 @@ import Toast from "./toast";
 const Checkout = () => {
   const dispatch = useDispatch();
   const shoppingCart = useSelector((state) => state.cart);
+  console.log("shoppingCart", shoppingCart);
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const [showToast, setShowToast] = useState(false);
@@ -39,24 +40,30 @@ const Checkout = () => {
   };
 
   const handleCheckout = () => {
-    const restaurantId = shoppingCart[1]?.cart?.restaurantId;
-    const userId = user?.id;
-    const cartItems = shoppingCart[1]?.items;
+    const cartKeys = Object.keys(shoppingCart);
 
-    const orderData = {
-      restaurantId,
-      userId,
-      items: cartItems,
-    };
+    if (cartKeys.length > 0) {
+      cartKeys.forEach((cartKey) => {
+        const restaurantId = shoppingCart[cartKey]?.cart?.restaurantId;
+        const userId = user?.id;
+        const cartItems = shoppingCart[cartKey]?.items;
 
-    dispatch(placeUserOrder(orderData));
-    displayToast("Order placed successfully!");
-    cartIdsToDelete.forEach((cartId) => {
-      dispatch(deleteCartThunk(cartId));
-    });
-    setTimeout(() => {
-      history.push("/");
-    }, 3000);
+        const orderData = {
+          restaurantId,
+          userId,
+          items: cartItems,
+        };
+        console.log("orderData", orderData);
+        dispatch(placeUserOrder(orderData));
+        displayToast("Order placed successfully!");
+        cartIdsToDelete.forEach((cartId) => {
+          dispatch(deleteCartThunk(cartId));
+        });
+      });
+      setTimeout(() => {
+        history.push("/");
+      }, 3000);
+    }
   };
 
   return (

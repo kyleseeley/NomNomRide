@@ -652,6 +652,54 @@ def seed_menuItems():
             "description": "Food",
             "image": "https://media.olivegarden.com/en_us/images/product/d-parties-to-go-half-dozen-breadsticks-dpv.jpg"
         },
+        {
+            "restaurantId": 11,
+            "name": "Brisket Tray",
+            "type": "Entrees",
+            "price": 25.99,
+            "description": "Food",
+            "image": "https://images.squarespace-cdn.com/content/v1/63e3d3c41a782b5807a593fc/83e25fdc-5338-4236-a2f2-ebece4f49a32/martinsbbq_121222_final_0039.jpg?format=2500w"
+        },
+        {
+            "restaurantId": 11,
+            "name": "Smoked Wings",
+            "type": "Appetizer",
+            "price": 11.99,
+            "description": "Food",
+            "image": "https://nashvillelifestyles.com/downloads/11867/download/MartinsBBQ56.jpe?cb=b7ff6bd3539896a9b7909c17e4f2a784"
+        },
+        {
+            "restaurantId": 12,
+            "name": "Nourish Bowl",
+            "type": "Entrees",
+            "price": 15.99,
+            "description": "Food",
+            "image": "https://131449416.cdn6.editmysite.com/uploads/1/3/1/4/131449416/s484207765175492458_p66_i1_w2448.jpeg?width=2400&optimize=medium"
+        },
+        {
+            "restaurantId": 12,
+            "name": "Nourish Burger",
+            "type": "Entrees",
+            "price": 17.99,
+            "description": "Food",
+            "image": "https://s3-media0.fl.yelpcdn.com/bphoto/KodzgbQk5GKTd410Dcoh3Q/348s.jpg"
+        },
+        {
+            "restaurantId": 13,
+            "name": "Spicy Italian",
+            "type": "Entrees",
+            "price": 12.99,
+            "description": "Food",
+            "image": "https://www.blimpie.com/assets/images/product/spicyitalian.png"
+        },
+        {
+            "restaurantId": 13,
+            "name": "Turkey Reuben",
+            "type": "Entrees",
+            "price": 11.99,
+            "description": "Food",
+            "image": "https://www.blimpie.com/assets/images/product/turkeyreuben.png"
+        },
     ]
 
     for item_data in menu_items_data:

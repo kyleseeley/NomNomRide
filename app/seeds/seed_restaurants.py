@@ -38,7 +38,7 @@ def seed_restaurants():
         lat=31,
         lng=31,
         name="Culvers",
-        type="Fast Food",
+        type="Burgers",
         image="https://static.olocdn.net/img/culvers/hero/mobile.png?v=1697229916",
         starRating=2,
         numReviews=1,
@@ -51,7 +51,7 @@ def seed_restaurants():
         lat=18,
         lng=18,
         name="Buffalo Wild Wings",
-        type="American",
+        type="Wings",
         image="https://people.com/thmb/M1feAS2jkiGHy4VB1l0_IqefA0E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(719x571:721x573)/buffalo-wild-wings-246f6cd2919f4d0a905f833ec1fd5326.jpg",
         starRating=3,
         numReviews=1,
@@ -77,8 +77,8 @@ def seed_restaurants():
         lat=46,
         lng=20,
         name="Haidilao Hot Pot",
-        type="Chinese",
-        image="https://cdn-global-website.superhi-cdn.com/website/image/1bfea7382f71452786000a0e6539055a-483-533.png",
+        type="Thai",
+        image="https://pyxis.nymag.com/v1/imgs/ca4/961/9609a7d81c3f7e40924324d29ea21ebd59-Haidilao-8330.jpg",
         starRating=0,
         numReviews=0,
     )
@@ -90,7 +90,7 @@ def seed_restaurants():
         lat=0,
         lng=23,
         name="McDonald's",
-        type="American",
+        type="Fast Food",
         image="https://m.media-amazon.com/images/I/71kvHIBM2HL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
         starRating=0,
         numReviews=0,
@@ -147,6 +147,45 @@ def seed_restaurants():
         starRating=0,
         numReviews=0,
     )
+    martinsBBQ = Restaurant(
+        ownerId=2,
+        address='410 4th Ave S',
+        city='Nashville',
+        state='TN',
+        lat=30,
+        lng=42,
+        name="Martin's Bar-B-Que Joint",
+        type="BBQ",
+        image="https://nashvilleguru.com/officialwebsite/wp-content/uploads/2014/03/Martins-BBQ-Belmont-Blvd-Nashville-2.jpg",
+        starRating=0,
+        numReviews=0,
+    )
+    nourishCafe = Restaurant(
+        ownerId=3,
+        address='1030 Hyde St',
+        city='San Francisco',
+        state='CA',
+        lat=10,
+        lng=32,
+        name="Nourish Cafe",
+        type="Vegan",
+        image="https://www.nourishcafesf.com/wp-content/uploads/2016/05/Nourish_Hero_Website.jpg",
+        starRating=0,
+        numReviews=0,
+    )
+    blimpie = Restaurant(
+        ownerId=3,
+        address='108 W Hancock St',
+        city='Detroit',
+        state='MI',
+        lat=23,
+        lng=37,
+        name="Blimpie",
+        type="Sandwich",
+        image="https://marketing.kahalamgmt.com/assets/uploads/brands/11/defaults/1950938.jpg",
+        starRating=0,
+        numReviews=0,
+    )
     db.session.add(chipotle)
     db.session.add(outback)
     db.session.add(culvers)
@@ -157,6 +196,9 @@ def seed_restaurants():
     db.session.add(anjapparChettinad)
     db.session.add(kaiSushi)
     db.session.add(oliveGarden)
+    db.session.add(martinsBBQ)
+    db.session.add(nourishCafe)
+    db.session.add(blimpie)
 
     db.session.commit()
 
