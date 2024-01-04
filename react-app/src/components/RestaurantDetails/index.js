@@ -34,13 +34,20 @@ const RestaurantDetails = () => {
   const hasLeftReview =
     user &&
     reviewsArray.some((review) => {
-      return review.userId === user.id && review.restaurantId === restaurant?.id;
+      return (
+        review.userId === user.id && review.restaurantId === restaurant?.id
+      );
     });
+
+  console.log("hasLeftReview", hasLeftReview);
 
   const hasOrdered =
     user &&
     restaurant &&
     orders?.some((order) => order.restaurantId === restaurant?.id);
+
+  console.log("hasOrdered", hasOrdered);
+  console.log("orders", orders);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -146,7 +153,12 @@ const RestaurantDetails = () => {
             /> */}
           </p>
           {restaurant?.ownerId == user?.id && (
-            <NavLink to={`/${restaurant?.id}/manage`} className='details-update-restaurant-link'>Manage Restaurant</NavLink>
+            <NavLink
+              to={`/${restaurant?.id}/manage`}
+              className="details-update-restaurant-link"
+            >
+              Manage Restaurant
+            </NavLink>
           )}
         </div>
         <div className="menu-section">
@@ -157,7 +169,8 @@ const RestaurantDetails = () => {
                   key={category}
                   className={`restaurant-page-cat
 									${focusTab === category ? "focus" : ""}`}
-                  onClick={() => scrollToId(category)}>
+                  onClick={() => scrollToId(category)}
+                >
                   {category}
                 </span>
               );
