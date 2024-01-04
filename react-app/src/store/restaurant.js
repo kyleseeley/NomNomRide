@@ -88,6 +88,7 @@ export const fetchOneRestaurant = (restaurantId) => async (dispatch) => {
 
 export const createNewRestaurant =
   (address, city, state, lat, lng, name, type, image) => async (dispatch) => {
+    dispatch(createRestaurant());
     try {
       const response = await csrfFetch("/api/restaurants/", {
         method: "POST",
@@ -182,6 +183,7 @@ const restaurantReducer = (state = initialState, action) => {
       return newState;
     case LOAD_ONE_RESTAURANT:
       newState = { ...state };
+      delete newState["create"];
       newState[action.restaurant.id] = action.restaurant;
       return newState;
     case DELETE_ONE_RESTAURANT:
@@ -190,7 +192,7 @@ const restaurantReducer = (state = initialState, action) => {
       return newState;
     case CREATE_RESTAURANT:
       newState = { ...state };
-      newState[action.restaurant.id] = action.restaurant;
+      newState["create"] = { pending: true };
       return newState;
     default:
       return state;

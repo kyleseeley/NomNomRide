@@ -47,6 +47,25 @@ function SignupFormPage() {
     }
   };
 
+
+  const handleDemoUserSignIUp = (e) => {
+    e.preventDefault();
+  //  [ firstname,
+  //   lastname,
+  //   email,
+  //   username,
+  //   address,
+  //   city,
+  //   state,
+  //   lat,
+  //   lng,
+  //   password]
+    dispatch(signUp("John", "Doe", "john@aa.io", "johnDoe", "1234 Kay Street","San Jose", "CA", "88.95","-12.33", "password1")).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
+  };
+
   return (
     <>
       <div className="page-container">
