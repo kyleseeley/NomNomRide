@@ -39,15 +39,10 @@ const RestaurantDetails = () => {
       );
     });
 
-  console.log("hasLeftReview", hasLeftReview);
-
   const hasOrdered =
     user &&
     restaurant &&
     orders?.some((order) => order.restaurantId === restaurant?.id);
-
-  console.log("hasOrdered", hasOrdered);
-  console.log("orders", orders);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -138,9 +133,11 @@ const RestaurantDetails = () => {
           <p className="restaurant-details">
             <b>
               {`${restaurant?.type} · `}
-            {updatedStarRating ? <i className="fa-solid fa-star" /> : ''}
-            {"  "}
-              {updatedStarRating ? `${updatedStarRating} (${numReviews} reviews)` : 'New'}
+              {updatedStarRating ? <i className="fa-solid fa-star" /> : ""}
+              {"  "}
+              {updatedStarRating
+                ? `${updatedStarRating} (${numReviews} reviews)`
+                : "New"}
             </b>
             {/* <OpenModalButton
               className="restaurant-more-info"
@@ -189,7 +186,11 @@ const RestaurantDetails = () => {
           </div>
         </div>
         <div className="reviews-section">
-          {reviewsArray.length ? <h2 className="review-title">Reviews</h2>: 'This restaurant has no reviews so far.'}
+          {reviewsArray.length ? (
+            <h2 className="review-title">Reviews</h2>
+          ) : (
+            "This restaurant has no reviews so far."
+          )}
           {!hasLeftReview && hasOrdered && (
             <OpenModalButton
               className="leave-review-button"

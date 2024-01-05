@@ -184,11 +184,8 @@ export const placeUserOrder = (orderData) => async (dispatch) => {
       body: JSON.stringify(orderData),
     });
 
-    console.log("thunk response", response);
-
     if (response.ok) {
       const responseData = await response.json();
-      console.log("thunk responseData", responseData);
       dispatch(placeOrder(responseData));
     } else {
       console.error("Error placing the order");

@@ -10,7 +10,6 @@ import Toast from "./toast";
 const Checkout = () => {
   const dispatch = useDispatch();
   const shoppingCart = useSelector((state) => state.cart);
-  console.log("shoppingCart", shoppingCart);
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const [showToast, setShowToast] = useState(false);
@@ -53,7 +52,6 @@ const Checkout = () => {
           userId,
           items: cartItems,
         };
-        console.log("orderData", orderData);
         dispatch(placeUserOrder(orderData));
         displayToast("Order placed successfully!");
         cartIdsToDelete.forEach((cartId) => {
