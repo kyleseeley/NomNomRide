@@ -28,7 +28,11 @@ const SearchResults = () => {
               <p className="restaurant-name">
                 {restaurant.name} ({restaurant.address})
               </p>
-              <p className="restaurant-rating">{restaurant.starRating}</p>
+
+              <p className="restaurant-rating">
+                {restaurant.starRating}
+                <i className="fa-solid fa-star" />
+              </p>
             </div>
           </NavLink>
         ))} </div> : <div className='no-match'>

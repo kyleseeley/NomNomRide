@@ -21,6 +21,7 @@ function SearchBar() {
 
   const clearSearch = () => {
     setTerm('')
+    history.push('/')
   }
 
   const handleChange = e => {
