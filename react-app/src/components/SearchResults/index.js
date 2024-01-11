@@ -16,8 +16,8 @@ const SearchResults = () => {
   }, [dispatch, location])
   return (
     <div className='search-results-page page-container'>
-      {isLoaded ? <div className="restaurant-list">
-        {restaurants ? restaurants.map((restaurant) => (
+      {isLoaded ? <div>
+        {restaurants.length ? <div className='restaurant-list'> {restaurants.map((restaurant) => (
           <NavLink
             to={`/${restaurant.id}`}
             key={restaurant.id} className="restaurant-card">
@@ -31,9 +31,16 @@ const SearchResults = () => {
               <p className="restaurant-rating">{restaurant.starRating}</p>
             </div>
           </NavLink>
-        )) : <h2 className='no-match'>
-          No restaurants matched your search.
-        </h2>}
+        ))} </div> : <div className='no-match'>
+          <img src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/f601b8be1064c30a.svg"/>
+          <h1>We didn't find a restaurant with that name.</h1>
+          <div>Try searching for something else instead.</div>
+          <NavLink
+            to='/'
+            className='return-home-from-search'>
+            View all
+          </NavLink>
+        </div>}
       </div> : <div>
       <div className="restaurant-list">
         {Array.from({length: 16}, (_, i) => i + 1).map(i => (
