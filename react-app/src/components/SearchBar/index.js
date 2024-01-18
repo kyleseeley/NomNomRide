@@ -12,10 +12,16 @@ function SearchBar() {
     if (location.pathname === '/search') {
       setTerm(location.search.slice(7))
     }
-  }, [location])
+    else {
+      setTerm("")
+    }
+  }, [location.pathname])
+
+
 
   const clearSearch = () => {
     setTerm('')
+    history.push('/')
   }
 
   const handleChange = e => {
@@ -30,7 +36,7 @@ function SearchBar() {
 
   return (
     <div className='search-bar'>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{width: '100%', display: 'flex'}}>
           <button
               type="submit"
               className="search-button">
@@ -40,7 +46,7 @@ function SearchBar() {
               type="text"
               minLength={2}
               debounceTimeout={500}
-              placeholder="Food, groceries, drinks, etc"
+              placeholder="Chipotle, Outback, Culvers, etc"
               value={term}
               onChange={handleChange}
               className="search-input"

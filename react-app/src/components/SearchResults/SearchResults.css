@@ -6,4 +6,26 @@
 .no-match {
   justify-self: center;
   margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.return-home-from-search {
+  color: white;
+  background-color: black;
+  margin-top: 2rem;
+  padding: 1rem 6rem;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid black;
+  text-decoration: none;
+}
+
+.return-home-from-search:hover {
+  color: black;
+  background-color: white;
+  transition: background-color 100ms ease-in-out, color 100ms ease-in-out;
 }

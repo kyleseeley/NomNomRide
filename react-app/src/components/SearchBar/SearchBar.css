@@ -1,7 +1,6 @@
 .search-bar {
   display: flex;
   flex-direction: row;
-  width: fit-content;
   justify-content: space-between;
   background-color: #EEEEEE;
   color: black;
@@ -28,11 +27,9 @@
 }
 
 .search-input {
-  max-width: 30rem;
   border: none;
   background-color: rgb(0,0,0,0);
   flex-grow: 1;
-  min-width: 3rem;
   font-size: 0.8rem;
 }
 
